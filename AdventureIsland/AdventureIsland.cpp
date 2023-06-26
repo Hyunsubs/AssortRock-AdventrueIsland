@@ -179,8 +179,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             for (int i = 0; i < 10; i++)
             {
                 Rectangle(hdc, 100 + i * 10, 100 + i * 10, 200, 200 );
-                Ellipse(hdc, 300, 300, 500 + i * 15, 500 + i * 15);
+                Ellipse(hdc, 300, 300, 500 + i * 25, 500 + i * 15);
             }
+
+            for (int i = 0; i < 10; i++)
+            {
+                Ellipse(hdc, 300, 300, 500 - i * 25, 500 - i * 15);
+            }
+           
             
             EndPaint(hWnd, &ps);
         }

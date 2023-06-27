@@ -3,6 +3,9 @@
 
 #include "framework.h"
 #include "AdventureIsland.h"
+#include "Application.h"
+
+key_logic::Application application;
 
 #define MAX_LOADSTRING 100
 
@@ -73,11 +76,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             //게임 로직 실행
-            for (int i = 0; i < 10; i++)
-            {
-                
-
-            }
+            application.Run();
         }
     }
 
@@ -129,6 +128,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       0, 0, 1280, 720, nullptr, nullptr, hInstance, nullptr);
 
+   application.Initialize(hWnd);
+
    if (!hWnd)
    {
       return FALSE;
@@ -176,16 +177,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            for (int i = 0; i < 10; i++)
-            {
-                Rectangle(hdc, 100 + i * 10, 100 + i * 10, 200, 200 );
-                Ellipse(hdc, 300, 300, 500 + i * 25, 500 + i * 15);
-            }
 
-            for (int i = 0; i < 10; i++)
-            {
-                Ellipse(hdc, 300, 300, 500 - i * 25, 500 - i * 15);
-            }
+         
            
             
             EndPaint(hWnd, &ps);

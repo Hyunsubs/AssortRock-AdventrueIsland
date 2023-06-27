@@ -45,10 +45,11 @@ void key_logic::Application::Update()
 	{
 		mPlayerPos.y += 0.01f;
 	}
+
+	
 }
 
 void key_logic::Application::Render()
 {
 	Ellipse(mHdc, 100 + mPlayerPos.x, 100 + mPlayerPos.y, 200 +mPlayerPos.x, 200 + mPlayerPos.y);
-
 }

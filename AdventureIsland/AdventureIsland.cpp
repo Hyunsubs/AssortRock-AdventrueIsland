@@ -77,6 +77,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             //게임 로직 실행
             application.Run();
+            
         }
     }
 
@@ -182,11 +183,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
            
             
             EndPaint(hWnd, &ps);
-        }
-        break;
-    case WM_KEYDOWN:
-        {
-            InvalidateRect(hWnd, NULL, TRUE);
         }
         break;
     case WM_DESTROY:

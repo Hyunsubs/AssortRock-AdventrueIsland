@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "AdventureIsland.h"
 #include "Application.h"
+#include "Input.h"
 
 key_logic::Application application;
 

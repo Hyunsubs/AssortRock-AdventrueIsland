@@ -1,55 +1,65 @@
 #include "Application.h"
+#include "Input.h"
 
-key_logic::Application::Application()
+using namespace key_logic;
+
+Application::Application()
 	: mHwnd(NULL)
 	, mHdc(NULL)
 {
 	
 }
 
-key_logic::Application::~Application()
+Application::~Application()
 {
 }
 
-void key_logic::Application::Initialize(HWND hwnd)
+void Application::Initialize(HWND hwnd)
 {
 	mHwnd = hwnd;
-
 	mHdc = GetDC(mHwnd);
+
+	input::Input::Initialize();
 }
 
-void key_logic::Application::Run()
+void Application::Run()
 {
 	Update();
 	Render();
 }
 
-void key_logic::Application::Update()
+void Application::Update()
 {
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-	{
-		mPlayerPos.x -= 0.01f;
-	}
+	using namespace input;
+	Input::Update();
 
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-	{
-		mPlayerPos.x += 0.01f;
-	}
-
-	if (GetAsyncKeyState(VK_UP) & 0x8000)
+	if (Input::GetKey(eKeyCode::W))
 	{
 		mPlayerPos.y -= 0.01f;
 	}
 
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	if (Input::GetKey(eKeyCode::A))
+	{
+		mPlayerPos.x -= 0.01f;
+	}
+
+
+	if (Input::GetKey(eKeyCode::S))
 	{
 		mPlayerPos.y += 0.01f;
 	}
 
+
+	if (Input::GetKey(eKeyCode::D))
+	{
+		mPlayerPos.x += 0.01f;
+	}
+
+	
 	
 }
 
-void key_logic::Application::Render()
+void Application::Render()
 {
 	Ellipse(mHdc, 100 + mPlayerPos.x, 100 + mPlayerPos.y, 200 +mPlayerPos.x, 200 + mPlayerPos.y);
 }

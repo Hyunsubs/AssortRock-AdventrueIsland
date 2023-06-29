@@ -22,6 +22,9 @@
     <Filter Include="Engine\Common">
       <UniqueIdentifier>{9ce298b1-7102-43de-a08d-872a86886eb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{def929c1-5c21-4559-8b33-bab792014625}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdventureIsland.h">
@@ -45,6 +48,9 @@
     <ClInclude Include="math_thing.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="AdventureIsland.ico">
@@ -66,6 +72,9 @@
     </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Engine\High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

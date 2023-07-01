@@ -7,17 +7,6 @@ using namespace key_logic;
 class Ball
 {
 public:
-	static enum
-	{
-		UPPER,
-		UPPER_RIGHT,
-		RIGHT,
-		DOWN_RIGHT,
-		DOWN,
-		DOWN_LEFT,
-		LEFT,
-		UPPER_LEFT
-	};
 
 	math::Vector2 GetCoor();
 	void Move(HDC hdc,int direction);
@@ -35,14 +24,14 @@ public:
 private:
 	math::Vector2 mDirections[8] =
 	{
+		math::Vector2(-1.0f,-1.0f), //謝難嬪
 		math::Vector2(0.0f,-1.0f), //嬪
-		math::Vector2(1.0f,-1.0f), //辦難嬪
+		math::Vector2(1.0f, -1.0f), //辦難嬪
 		math::Vector2(1.0f, 0.0f), //辦
 		math::Vector2(1.0f, 1.0f), //辦難嬴楚
 		math::Vector2(0.0f, 1.0f), //嬴楚
-		math::Vector2(-1.0f, 1.0f), //謝難嬴楚
-		math::Vector2(-1.0f, 0.0f), //謝
-		math::Vector2(-1.0f,-1.0f) //謝難 嬪
+		math::Vector2(-1.0f, 1.0f), //謝難 嬴楚
+		math::Vector2(-1.0f, 0.0f) //謝
 		
 	};
 

@@ -59,6 +59,9 @@ void Application::Render()
 		global_time++;
 	}
 
+	if (ball_vect.size() >= 10)
+		ball_vect.pop_back();
+
 	for (int i = 0; i < ball_vect.size(); i++)
 	{
 		ball_vect[i].Move(mHdc, ball_vect[i].rand_num);

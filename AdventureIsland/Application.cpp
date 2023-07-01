@@ -25,7 +25,7 @@ void Application::Initialize(HWND hwnd)
 
 	input::Input::Initialize();
 	key_logic::Time::Initialize();
-
+	ball_vect.push_back(Ball()); //첫번째 공
 
 }
 
@@ -47,16 +47,18 @@ void Application::Update()
 
 void Application::Render()
 {
+
 	bool check_time = Time::Render(mHdc);
 	if (check_time)
 	{
+
 		global_time++;
 	}
 
-	if (global_time % 5 == 0)
+	if (global_time == 5)
 	{
 		ball_vect.push_back(Ball());
-		global_time++;
+		global_time = 0;
 	}
 
 	if (ball_vect.size() >= 10)

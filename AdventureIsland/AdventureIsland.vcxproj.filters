@@ -25,6 +25,12 @@
     <Filter Include="Input">
       <UniqueIdentifier>{def929c1-5c21-4559-8b33-bab792014625}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Time">
+      <UniqueIdentifier>{fce7ffba-c80e-438f-b9d3-eb253a81e2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{efc5be69-63ff-4528-9c33-13a58360f5ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdventureIsland.h">
@@ -51,6 +57,10 @@
     <ClInclude Include="Input.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Engine\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="AdventureIsland.ico">
@@ -76,5 +86,9 @@
     <ClCompile Include="Input.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Engine\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp" />
   </ItemGroup>
 </Project>

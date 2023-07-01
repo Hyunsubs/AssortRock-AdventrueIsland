@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "Input.h"
+#include "Time.h"
 
 using namespace key_logic;
 
@@ -20,6 +21,7 @@ void Application::Initialize(HWND hwnd)
 	mHdc = GetDC(mHwnd);
 
 	input::Input::Initialize();
+	key_logic::Time::Initialize();
 }
 
 void Application::Run()
@@ -32,6 +34,7 @@ void Application::Update()
 {
 	using namespace input;
 	Input::Update();
+	Time::Update();
 
 	if (Input::GetKey(eKeyCode::W))
 	{
@@ -61,5 +64,6 @@ void Application::Update()
 
 void Application::Render()
 {
+	Time::Render(mHdc);
 	Ellipse(mHdc, 100 + mPlayerPos.x, 100 + mPlayerPos.y, 200 +mPlayerPos.x, 200 + mPlayerPos.y);
 }

@@ -130,17 +130,21 @@
   <ItemGroup>
     <ClInclude Include="AdventureIsland.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="math_thing.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdventureIsland.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AdventureIsland.rc" />

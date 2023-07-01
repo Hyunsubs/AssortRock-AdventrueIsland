@@ -20,7 +20,7 @@ namespace key_logic
 		HWND mHwnd;
 		HDC mHdc;
 
-		Vector2 mPlayerPos;
+		
 
 	};
 }

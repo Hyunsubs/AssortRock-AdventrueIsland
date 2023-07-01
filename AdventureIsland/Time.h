@@ -29,7 +29,7 @@ namespace key_logic
 	public:
 		static void Initialize();
 		static void Update();
-		static void Render(HDC hdc);
+		static bool Render(HDC hdc);
 
 		__forceinline static float DelataTime() { return mDeltaTime; }
 

@@ -60,7 +60,9 @@
     <ClInclude Include="Time.h">
       <Filter>Engine\Time</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h" />
+    <ClInclude Include="Ball.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="AdventureIsland.ico">
@@ -89,6 +91,8 @@
     <ClCompile Include="Time.cpp">
       <Filter>Engine\Time</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Ball.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

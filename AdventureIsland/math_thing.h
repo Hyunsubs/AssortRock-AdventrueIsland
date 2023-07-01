@@ -1,5 +1,4 @@
 #pragma once
-
 namespace key_logic::math
 {
 	struct Vector2
@@ -12,6 +11,12 @@ namespace key_logic::math
 			, y(0.0f)
 		{
 
+		}
+		
+		Vector2(float x, float y)
+		{
+			this->x = x;
+			this->y = y;
 		}
 	};
 }

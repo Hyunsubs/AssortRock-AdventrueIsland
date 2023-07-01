@@ -31,7 +31,7 @@ namespace key_logic
 	}
 
 	
-	void Time::Render(HDC hdc)
+	bool Time::Render(HDC hdc)
 	{
 		
 		static float timeCheck = 0.0f;
@@ -55,7 +55,9 @@ namespace key_logic
 			TextOut(hdc, 10, 10, szFloat, strLen);
 
 			timeCheck = 0.0f;
+			return true;
 		}
+		return false;
 
 	}
 

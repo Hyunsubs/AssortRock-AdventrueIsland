@@ -1,9 +1,12 @@
 #include "Application.h"
 #include "Input.h"
 #include "Time.h"
+#include "Ball.h"
 
 using namespace key_logic;
+int global_time = 0;
 
+std::vector<Ball> ball_vect = {};
 Application::Application()
 	: mHwnd(NULL)
 	, mHdc(NULL)
@@ -22,6 +25,8 @@ void Application::Initialize(HWND hwnd)
 
 	input::Input::Initialize();
 	key_logic::Time::Initialize();
+
+
 }
 
 void Application::Run()
@@ -35,35 +40,28 @@ void Application::Update()
 	using namespace input;
 	Input::Update();
 	Time::Update();
-
-	if (Input::GetKey(eKeyCode::W))
-	{
-		mPlayerPos.y -= 0.01f;
-	}
-
-	if (Input::GetKey(eKeyCode::A))
-	{
-		mPlayerPos.x -= 0.01f;
-	}
-
-
-	if (Input::GetKey(eKeyCode::S))
-	{
-		mPlayerPos.y += 0.01f;
-	}
-
-
-	if (Input::GetKey(eKeyCode::D))
-	{
-		mPlayerPos.x += 0.01f;
-	}
-
 	
+
 	
 }
 
 void Application::Render()
 {
-	Time::Render(mHdc);
-	Ellipse(mHdc, 100 + mPlayerPos.x, 100 + mPlayerPos.y, 200 +mPlayerPos.x, 200 + mPlayerPos.y);
+	bool check_time = Time::Render(mHdc);
+	if (check_time)
+	{
+		global_time++;
+	}
+
+	if (global_time % 5 == 0)
+	{
+		ball_vect.push_back(Ball());
+		global_time++;
+	}
+
+	for (int i = 0; i < ball_vect.size(); i++)
+	{
+		ball_vect[i].Move(mHdc, ball_vect[i].rand_num);
+		ball_vect[i].is_Wall();
+	}
 }

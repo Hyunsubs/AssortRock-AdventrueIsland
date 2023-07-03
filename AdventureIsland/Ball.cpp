@@ -10,8 +10,8 @@ void Ball::Move(HDC hdc,int direction)
 {
 	
 	math::Vector2 cur_direction = mDirections[direction];
-	mBallPos.x += cur_direction.x * Time::DelataTime() * 300;
-	mBallPos.y += cur_direction.y * Time::DelataTime() * 300;
+	mBallPos.x += cur_direction.x * Time::DelataTime() * 300.0f;
+	mBallPos.y += cur_direction.y * Time::DelataTime() * 300.0f;
 
 	Ellipse(hdc, mBallPos.x, mBallPos.y, 100 + mBallPos.x, 100 + mBallPos.y);
 }

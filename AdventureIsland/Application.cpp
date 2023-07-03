@@ -7,6 +7,7 @@ using namespace key_logic;
 int global_time = 0;
 
 std::vector<Ball> ball_vect = {};
+
 Application::Application()
 	: mHwnd(NULL)
 	, mHdc(NULL)
@@ -57,12 +58,17 @@ void Application::Render()
 
 	if (global_time == 5)
 	{
-		ball_vect.push_back(Ball());
-		global_time = 0;
+		if (ball_vect.size() > 10)
+		{
+
+		}
+		else
+		{
+			ball_vect.push_back(Ball());
+			global_time = 0;
+		}
 	}
 
-	if (ball_vect.size() >= 10)
-		ball_vect.pop_back();
 
 	for (int i = 0; i < ball_vect.size(); i++)
 	{

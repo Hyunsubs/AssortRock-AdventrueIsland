@@ -20,7 +20,11 @@ namespace key_logic
 		HWND mHwnd;
 		HDC mHdc;
 
-		
+		UINT mWidth;
+		UINT mHeight;
+
+		HDC mBackHdc;
+		HBITMAP mBackBuffer; //비트맵 파일
 
 	};
 }

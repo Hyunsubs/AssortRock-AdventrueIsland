@@ -18,7 +18,7 @@ void Ball::Move(HDC hdc,int direction)
 
 void Ball::is_Wall()
 {
-	if (mBallPos.x <= 0 || mBallPos.x >= 1500 || mBallPos.y <= 0 || mBallPos.y >= 750)
+	if (mBallPos.x <= 0 || mBallPos.x >= 1500 || mBallPos.y <= 0 || mBallPos.y >= 780)
 	{
 		//위 충돌
 		//아래 혹은 좌측 아래 혹은 우측 아래로 감
@@ -38,7 +38,7 @@ void Ball::is_Wall()
 
 		//아래 충돌
 		//위 혹은 우측 위 혹은 좌측 위로 감
-		else if (mBallPos.y >= 750)
+		else if (mBallPos.y >= 780)
 		{
 			rand_num = rand() % 3; //0~2번 인덱스 
 		}

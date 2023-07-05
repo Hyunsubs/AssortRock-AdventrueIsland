@@ -11,6 +11,10 @@ std::vector<Ball> ball_vect = {};
 Application::Application()
 	: mHwnd(NULL)
 	, mHdc(NULL)
+	, mWidth(0)
+	, mHeight(0)
+	, mBackBuffer(NULL)
+	, mBackHdc(NULL)
 {
 	
 }
@@ -30,6 +34,14 @@ void Application::Initialize(HWND hwnd)
 
 	RECT rect = {0,0, mWidth, mHeight};
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+
+	SetWindowPos(mHwnd
+		, nullptr, 0, 0
+		, rect.right - rect.left
+		, rect.bottom - rect.top
+		, 0);
+	ShowWindow(mHwnd, true);
+
 
 	//윈도우 해상도 동일한 비트맵 생성
 	mBackBuffer = CreateCompatibleBitmap(mHdc, mWidth, mHeight);
@@ -63,10 +75,9 @@ void Application::Update()
 void Application::Render()
 {
 
-	bool check_time = Time::Render(mHdc);
-
 	Rectangle(mBackHdc, -1, -1, mWidth + 1, mHeight + 1);
 
+	bool check_time = Time::Render(mBackHdc);
 
 	if (check_time)
 	{
@@ -93,5 +104,6 @@ void Application::Render()
 		ball_vect[i].Move(mBackHdc, ball_vect[i].rand_num);
 		ball_vect[i].is_Wall();
 	}
+
 	BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHdc, 0, 0, SRCCOPY);
 }

@@ -1,8 +1,8 @@
 #pragma once
 #include "CommonInclude.h"
-#include "math_thing.h"
+#include "yhScene.h"
 
-namespace key_logic
+namespace yh
 {
 	using namespace math;
 	class Application
@@ -19,15 +19,15 @@ namespace key_logic
 	private:
 		HWND mHwnd;
 		HDC mHdc;
-
 		UINT mWidth;
 		UINT mHeight;
 
 		HDC mBackHdc;
-		HBITMAP mBackBuffer; //비트맵 파일
+		HBITMAP mBackBuffer;
+
+		Scene* mScene;
 
 	};
 }
-
 
 

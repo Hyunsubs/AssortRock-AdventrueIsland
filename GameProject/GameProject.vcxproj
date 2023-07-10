@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{90b64719-2544-4d98-bded-d77a5b009adf}</ProjectGuid>
-    <RootNamespace>AdventureIsland</RootNamespace>
+    <ProjectGuid>{0ea974da-3af3-4e61-9548-a925aeda3157}</ProjectGuid>
+    <RootNamespace>GameProject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,30 +129,54 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AdventureIsland.h" />
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="Ball.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="math_thing.h" />
+    <ClInclude Include="GameProject.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Time.h" />
+    <ClInclude Include="yhApplication.h" />
+    <ClInclude Include="yhComponent.h" />
+    <ClInclude Include="yhEnding.h" />
+    <ClInclude Include="yhEntity.h" />
+    <ClInclude Include="yhGameObject.h" />
+    <ClInclude Include="yhLayer.h" />
+    <ClInclude Include="yhMath.h" />
+    <ClInclude Include="yhInput.h" />
+    <ClInclude Include="yhObject.h" />
+    <ClInclude Include="yhPlay.h" />
+    <ClInclude Include="yhPlayer.h" />
+    <ClInclude Include="yhScene.h" />
+    <ClInclude Include="yhSceneChanger.h" />
+    <ClInclude Include="yhSceneManager.h" />
+    <ClInclude Include="yhSpriteRenderer.h" />
+    <ClInclude Include="yhTime.h" />
+    <ClInclude Include="yhTitle.h" />
+    <ClInclude Include="yhTransform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AdventureIsland.cpp" />
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="yhApplication.cpp" />
+    <ClCompile Include="yhComponent.cpp" />
+    <ClCompile Include="yhEnding.cpp" />
+    <ClCompile Include="yhEntity.cpp" />
+    <ClCompile Include="yhGameObject.cpp" />
+    <ClCompile Include="yhInput.cpp" />
+    <ClCompile Include="yhLayer.cpp" />
+    <ClCompile Include="yhPlay.cpp" />
+    <ClCompile Include="yhPlayer.cpp" />
+    <ClCompile Include="yhScene.cpp" />
+    <ClCompile Include="yhSceneChanger.cpp" />
+    <ClCompile Include="yhSceneManager.cpp" />
+    <ClCompile Include="yhSpriteRenderer.cpp" />
+    <ClCompile Include="yhTime.cpp" />
+    <ClCompile Include="yhTitle.cpp" />
+    <ClCompile Include="yhTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="AdventureIsland.rc" />
+    <ResourceCompile Include="GameProject.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="AdventureIsland.ico" />
-    <Image Include="icon1.ico" />
+    <Image Include="GameProject.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

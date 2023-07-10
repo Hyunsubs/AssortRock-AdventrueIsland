@@ -1,8 +1,7 @@
-#include "Input.h"
+#include "yhInput.h"
 
-namespace input
+namespace yh 
 {
-	//스태틱 변수는 꼭 외부에서 초기화 해주어야 한다.
 	std::vector<Input::Key> Input::mKeys = {};
 
 	int ASCII[(int)eKeyCode::End] =
@@ -12,13 +11,14 @@ namespace input
 		'Z', 'X', 'C', 'V', 'B', 'N', 'M',
 	};
 
-
 	void Input::Initialize()
 	{
-		for (int i = 0; i < (int)eKeyCode::End; i++)
+		for (size_t i = 0
+			; i < (int)eKeyCode::End
+			; i++)
 		{
 			Key key = {};
-			key.keyCode = (eKeyCode)i;
+			key.code = (eKeyCode)i;
 			key.state = eKeyState::None;
 			key.bPressed = false;
 
@@ -28,13 +28,14 @@ namespace input
 
 	void Input::Update()
 	{
-		for (int i = 0; i < (int)eKeyCode::End; i++)
+		for (size_t i = 0
+			; i < (int)eKeyCode::End
+			; i++)
 		{
-			
-			//루프 돌며 아스키에 모든 키값들이 눌렸는지 확인
-			//해당키가 눌려졌다.
+			// 해당키가 눌려졌다.
 			if (GetAsyncKeyState(ASCII[i]) & 0x8000)
 			{
+				// 이전 프레임에도 눌려져 있었다.
 				if (mKeys[i].bPressed == true)
 					mKeys[i].state = eKeyState::Pressed;
 				else
@@ -42,11 +43,9 @@ namespace input
 
 				mKeys[i].bPressed = true;
 			}
-			
-
-			else //해당키가 안눌려져 있다.
+			else // 해당키가 안눌려져 있다.
 			{
-				//이전 프레임에 눌려져 있었다.
+				// 이전프레임에 눌려져 있었다.
 				if (mKeys[i].bPressed == true)
 					mKeys[i].state = eKeyState::Up;
 				else
@@ -54,11 +53,6 @@ namespace input
 
 				mKeys[i].bPressed = false;
 			}
-
-
 		}
-
-
 	}
 }
-

@@ -26,7 +26,7 @@ void yh::Application::Initialize(HWND hwnd)
 	mHdc = GetDC(mHwnd);
 
 	mWidth = 512;
-	mHeight = 448;
+	mHeight = 512;
 
 	RECT rect = { 0,0, mWidth, mHeight };
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);

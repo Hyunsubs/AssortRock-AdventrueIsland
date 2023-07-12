@@ -2,7 +2,7 @@
 #include "yhTitle.h"
 #include "yhPlay.h"
 #include "yhEnding.h"
-
+#include "yhNameInput.h"
 namespace yh
 {
 	std::map<std::wstring, Scene*> SceneManager::mScenes = {};
@@ -13,6 +13,8 @@ namespace yh
 		SceneManager::CreateScene<Title>(L"TitleScene");
 		SceneManager::CreateScene<Play>(L"PlayScene");
 		SceneManager::CreateScene<Ending>(L"EndingScene");
+		SceneManager::CreateScene<NameInput>(L"NameInputScene");
+
 
 		LoadScene(L"TitleScene");
 	}

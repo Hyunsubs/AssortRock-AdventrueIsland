@@ -140,6 +140,7 @@
     <ClInclude Include="yhEnding.h" />
     <ClInclude Include="yhEntity.h" />
     <ClInclude Include="yhGameObject.h" />
+    <ClInclude Include="yhNameInput.h" />
     <ClInclude Include="yhTexture.h" />
     <ClInclude Include="yhLayer.h" />
     <ClInclude Include="yhMath.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="yhEnding.cpp" />
     <ClCompile Include="yhEntity.cpp" />
     <ClCompile Include="yhGameObject.cpp" />
+    <ClCompile Include="yhNameInput.cpp" />
     <ClCompile Include="yhTexture.cpp" />
     <ClCompile Include="yhInput.cpp" />
     <ClCompile Include="yhLayer.cpp" />

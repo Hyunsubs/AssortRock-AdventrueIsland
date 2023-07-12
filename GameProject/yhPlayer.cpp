@@ -24,19 +24,19 @@ void yh::Player::Update()
 
 	if (Input::GetKey(eKeyCode::W))
 	{
-		pos.y -= 300.0f * Time::DeltaTime();
+		pos.y -= 100.0f * Time::DeltaTime();
 	}
 	if (Input::GetKey(eKeyCode::A))
 	{
-		pos.x -= 300.0f * Time::DeltaTime();
+		pos.x -= 100.0f * Time::DeltaTime();
 	}
 	if (Input::GetKey(eKeyCode::S))
 	{
-		pos.y += 300.0f * Time::DeltaTime();
+		pos.y += 100.0f * Time::DeltaTime();
 	}
 	if (Input::GetKey(eKeyCode::D))
 	{
-		pos.x += 300.0f * Time::DeltaTime();
+		pos.x += 100.0f * Time::DeltaTime();
 	}
 	tr->SetPosition(pos);
 }

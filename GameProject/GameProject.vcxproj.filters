@@ -150,6 +150,9 @@
     <ClInclude Include="yhBackGround.h">
       <Filter>Contents\GameObject\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="yhNameInput.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -228,6 +231,9 @@
     </ClCompile>
     <ClCompile Include="yhBackGround.cpp">
       <Filter>Contents\GameObject\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="yhNameInput.cpp">
+      <Filter>Contents\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

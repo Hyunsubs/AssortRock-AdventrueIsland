@@ -30,7 +30,7 @@ void yh::Play::Initialize()
 	player->GetComponent<Transform>()->SetPosition(Vector2(256.0f,224.0f));
 	SpriteRenderer* player_sr = player->AddComponent<SpriteRenderer>();
 	player_sr->SetImage(image);
-	player_sr->SetScale(Vector2(1.5f, 1.5f));
+	player_sr->SetScale(Vector2(1.3f, 1.3f));
 }
 
 void yh::Play::Update()

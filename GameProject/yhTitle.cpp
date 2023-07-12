@@ -27,22 +27,17 @@ void yh::Title::Initialize()
 	BackGround* main_bg = object::Instantiate<BackGround>(eLayerType::Background);
 	SpriteRenderer* main_bgsr = main_bg->AddComponent<SpriteRenderer>();
 	main_bgsr->SetImage(image);
-	main_bgsr->SetScale(Vector2(2.0f, 3.12f));
+	main_bgsr->SetScale(Vector2(2.0f, 3.56f));
 	std::wstring name = main_bg->GetName();
 
 
 	image = Resources::Load<Texture>(L"TitleBG", L"..\\Resources\\image\\Title\\TitleName.png");
 	BackGround* title_bg = object::Instantiate<BackGround>(eLayerType::Background);
-	title_bg->GetComponent<Transform>()->SetPosition(Vector2(120.0f, 140.0f));
+	title_bg->GetComponent<Transform>()->SetPosition(Vector2(120.0f, 190.0f));
 	SpriteRenderer* title_bgsr = title_bg->AddComponent<SpriteRenderer>();
 	title_bgsr->SetImage(image);
 	title_bgsr->SetScale(Vector2(1.5f,1.5f));
 
-	image = Resources::Load<Texture>(L"Maker", L"..\\Resources\\image\\Title\\Maker.png");
-	BackGround* maker = object::Instantiate<BackGround>(eLayerType::Background);
-	maker->GetComponent<Transform>()->SetPosition(Vector2(240.0f, 300.0f));
-	SpriteRenderer* maker_sr = maker->AddComponent<SpriteRenderer>();
-	maker_sr->SetImage(image);
 	
 }
 

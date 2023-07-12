@@ -2,11 +2,15 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <set>
 #include <functional>
 #include <string>
 
-#include "yhMath.h"
 #include "framework.h"
+#include "yhMath.h"
+
+
+#pragma comment(lib, "Msimg32.lib")
 
 namespace yh::enums
 {

@@ -4,7 +4,7 @@
 
 namespace yh
 {
-	class GameObject
+	class GameObject : public Entity
 	{
 	public:
 		GameObject();

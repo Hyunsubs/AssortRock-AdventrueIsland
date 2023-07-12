@@ -2,6 +2,7 @@
 #include "yhLayer.h"
 #include "yhObject.h"
 #include "yhSceneChanger.h"
+#include "yhPlayer.h"
 
 
 yh::Play::Play()
@@ -15,6 +16,8 @@ yh::Play::~Play()
 void yh::Play::Initialize()
 {
 	SceneChanger* changer = object::Instantiate<SceneChanger>(eLayerType::Background);
+	Player* player = object::Instantiate<Player>(eLayerType::Player);
+	player->AddComponent<SpriteRenderer>();
 }
 
 void yh::Play::Update()
@@ -25,8 +28,4 @@ void yh::Play::Update()
 void yh::Play::Render(HDC hdc)
 {
 	Scene::Render(hdc);
-	wchar_t text[50] = {};
-	swprintf_s(text, 50, L"플레이 씬입니다");
-	int strLen = wcsnlen_s(text, 50);
-	TextOut(hdc, 200, 300, text, strLen);
 }

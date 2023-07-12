@@ -24,8 +24,4 @@ void yh::Ending::Update()
 void yh::Ending::Render(HDC hdc)
 {
 	Scene::Render(hdc);
-	wchar_t text[50] = {};
-	swprintf_s(text, 50, L"엔딩 씬입니다");
-	int strLen = wcsnlen_s(text, 50);
-	TextOut(hdc, 200, 300, text, strLen);
 }

@@ -2,7 +2,6 @@
 #include "yhTransform.h"
 #include "yhInput.h"
 #include "yhTime.h"
-#include "yhGameObject.h"
 
 yh::Player::Player()
 {

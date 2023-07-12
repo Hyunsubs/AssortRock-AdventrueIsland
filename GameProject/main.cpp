@@ -11,7 +11,10 @@
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
-yh::Application application;
+yh::Application appllication;
+
+ULONG_PTR gdiplusToken;
+Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -61,7 +64,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             // 게임 로직 돌려줘~
             // (게임 실행)
-            application.Run();
+            appllication.Run();
         }
     }
 
@@ -69,6 +72,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         //
     }
+
+    Gdiplus::GdiplusShutdown(gdiplusToken);
 
     return (int) msg.wParam;
 }
@@ -94,7 +99,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_GAMEPROJECT));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_GAMEPROJECT);
+    wcex.lpszMenuName   = nullptr;
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -116,9 +121,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      0, 0, 1600, 900, nullptr, nullptr, hInstance, nullptr);
+      0, 0, 256, 144, nullptr, nullptr, hInstance, nullptr);
+
+   Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
    
-   application.Initialize(hWnd);
+   appllication.Initialize(hWnd);
 
    if (!hWnd)
    {

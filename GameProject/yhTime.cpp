@@ -33,7 +33,8 @@ namespace yh
 
 	void Time::Render(HDC hdc)
 	{
-		static float timeCheck = 0.0f;
+		//프레임 표시
+		/*static float timeCheck = 0.0f;
 
 		timeCheck += mDeltaTime;
 		if (timeCheck >= 1.0f)
@@ -45,7 +46,7 @@ namespace yh
 			TextOut(hdc, 10, 10, szFloat, strLen);
 			timeCheck = 0.0f;
 			
-		}
+		}*/
 
 
 	}

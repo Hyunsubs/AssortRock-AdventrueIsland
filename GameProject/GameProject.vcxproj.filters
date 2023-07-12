@@ -16,9 +16,6 @@
     <Filter Include="Engine\CommonInclude">
       <UniqueIdentifier>{137d7a4e-e028-428d-b949-69f74f211d1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\CommonInclude\Time">
-      <UniqueIdentifier>{1ac038a7-c85c-46d8-92f0-ace3828af515}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scene">
       <UniqueIdentifier>{9a60c56a-73c7-4ac4-bf61-d93242025b84}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,21 @@
     </Filter>
     <Filter Include="Engine\Component\Transform">
       <UniqueIdentifier>{97f5e6e4-c22a-42a3-8171-757e7e4c9f76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{b7c1a0df-9335-4f25-88cc-8d7c8e1841d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\CommonInclude\Time">
+      <UniqueIdentifier>{1ac038a7-c85c-46d8-92f0-ace3828af515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{57f9bdde-3012-42b5-ab75-98d18e6fd4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\image">
+      <UniqueIdentifier>{1c1b9d7a-4737-4df3-b170-07d2b1513cfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BackGround">
+      <UniqueIdentifier>{58437397-bd26-46fd-a2f8-897d60d3847c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +105,6 @@
     <ClInclude Include="yhScene.h">
       <Filter>Engine\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="yhGameObject.h" />
     <ClInclude Include="yhComponent.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
@@ -123,6 +134,21 @@
     </ClInclude>
     <ClInclude Include="yhEnding.h">
       <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGameObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yhResource.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="yhResources.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="yhTexture.h">
+      <Filter>Engine\Resource\image</Filter>
+    </ClInclude>
+    <ClInclude Include="yhBackGround.h">
+      <Filter>Contents\GameObject\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +184,6 @@
     <ClCompile Include="yhScene.cpp">
       <Filter>Engine\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="yhGameObject.cpp" />
     <ClCompile Include="yhComponent.cpp">
       <Filter>Engine\Component</Filter>
     </ClCompile>
@@ -185,6 +210,24 @@
     </ClCompile>
     <ClCompile Include="yhEnding.cpp">
       <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGameObject.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yhResource.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="yhResources.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="yhTexture.cpp">
+      <Filter>Engine\Resource\image</Filter>
+    </ClCompile>
+    <ClCompile Include="yhMath.cpp">
+      <Filter>Engine\CommonInclude</Filter>
+    </ClCompile>
+    <ClCompile Include="yhBackGround.cpp">
+      <Filter>Contents\GameObject\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,7 +10,8 @@ mHdc(NULL),
 mWidth(0), 
 mHeight(0), 
 mBackBuffer(NULL), 
-mBackHdc(NULL)
+mBackHdc(NULL),
+mScene(nullptr)
 {
 	
 }
@@ -24,8 +25,8 @@ void yh::Application::Initialize(HWND hwnd)
 	mHwnd = hwnd;
 	mHdc = GetDC(mHwnd);
 
-	mWidth = 1600;
-	mHeight = 900;
+	mWidth = 512;
+	mHeight = 448;
 
 	RECT rect = { 0,0, mWidth, mHeight };
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);

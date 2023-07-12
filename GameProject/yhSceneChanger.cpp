@@ -27,6 +27,7 @@ void yh::SceneChanger::Update()
 	}
 
 	else if (Input::GetKey(eKeyCode::X))
+
 	{
 		SceneManager::LoadScene(L"EndingScene");
 	}

@@ -23,6 +23,7 @@ void yh::NameInput::Initialize()
 
 	Texture* image = Resources::Load<Texture>(L"nameinput",L"..\\Resources\\image\\UI\\NameInput.png");
 	BackGround* bg = object::Instantiate<BackGround>(eLayerType::Background);
+	bg->GetComponent<Transform>()->SetPosition(Vector2(256.0f,256.0f));
 	SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
 	bgsr->SetImage(image);
 	bgsr->SetScale(Vector2(2.0f, 2.3f));

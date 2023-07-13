@@ -136,6 +136,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="yhApplication.h" />
     <ClInclude Include="yhBackGround.h" />
+    <ClInclude Include="yhCamera.h" />
     <ClInclude Include="yhComponent.h" />
     <ClInclude Include="yhEnding.h" />
     <ClInclude Include="yhEntity.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="yhApplication.cpp" />
     <ClCompile Include="yhBackGround.cpp" />
+    <ClCompile Include="yhCamera.cpp" />
     <ClCompile Include="yhComponent.cpp" />
     <ClCompile Include="yhEnding.cpp" />
     <ClCompile Include="yhEntity.cpp" />

@@ -1,7 +1,7 @@
 #include "yhTexture.h"
 #include "yhApplication.h"
 
-extern yh::Application appllication;
+extern yh::Application application;
 
 namespace yh
 {
@@ -46,7 +46,7 @@ namespace yh
 			mWidth = info.bmWidth;
 			mHeight = info.bmHeight;
 
-			HDC mainDC = appllication.GetHdc();
+			HDC mainDC = application.GetHdc();
 			mHdc = CreateCompatibleDC(mainDC);
 
 			HBITMAP defaultBitmap = (HBITMAP)SelectObject(mHdc, mBitmap);

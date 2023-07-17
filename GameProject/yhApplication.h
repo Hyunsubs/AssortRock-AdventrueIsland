@@ -1,6 +1,5 @@
 #pragma once
 #include "CommonInclude.h"
-#include "yhScene.h"
 
 namespace yh
 {
@@ -30,7 +29,6 @@ namespace yh
 		HDC mBackHdc;
 		HBITMAP mBackBuffer;
 
-		Scene* mScene;
 
 	};
 }

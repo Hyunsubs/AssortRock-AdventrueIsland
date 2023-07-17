@@ -19,7 +19,6 @@ void yh::SceneChanger::Initialize()
 
 void yh::SceneChanger::Update()
 {
-	GameObject::Update();
 
 	if (Input::GetKey(eKeyCode::Z))
 	{

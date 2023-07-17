@@ -24,6 +24,23 @@ namespace yh
 
 	void Camera::Update()
 	{
+		if (Input::GetKey(eKeyCode::Up))
+		{
+			mLookPosition.y -= 300.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::Down))
+		{
+			mLookPosition.x -= 300.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			mLookPosition.y += 300.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			mLookPosition.x += 300.0f * Time::DeltaTime();
+		}
+
 		if (mTarget)
 		{
 			Transform* tr = mTarget->GetComponent<Transform>();

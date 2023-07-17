@@ -1,23 +1,28 @@
 #include "yhComponent.h"
 
-yh::Component::Component(eComponentType type) : mType(type),mOwner(nullptr)
+
+namespace yh
 {
+	Component::Component(eComponentType type) : mType(type)
+	{
+	}
+
+	Component::~Component()
+	{
+	}
+
+	void Component::Initialize()
+	{
+	}
+
+	void Component::Update()
+	{
+	}
+
+	void Component::Render(HDC hdc)
+	{
+	}
 }
 
-yh::Component::~Component()
-{
-}
-
-void yh::Component::Initialize()
-{
-}
-
-void yh::Component::Update()
-{
-}
-
-void yh::Component::Render(HDC hdc)
-{
-}
 
 

@@ -2,7 +2,7 @@
 #include "yhTime.h"
 #include "yhInput.h"
 #include "yhTitle.h"
-#include "yhScene.h"
+#include "yhCamera.h"
 #include "yhSceneManager.h"
 
 yh::Application::Application() : mHwnd(NULL), 
@@ -10,8 +10,7 @@ mHdc(NULL),
 mWidth(0), 
 mHeight(0), 
 mBackBuffer(NULL), 
-mBackHdc(NULL),
-mScene(nullptr)
+mBackHdc(NULL)
 {
 	
 }
@@ -50,7 +49,7 @@ void yh::Application::Initialize(HWND hwnd)
 
 	Time::Initialize();
 	Input::Initialize();
-
+	Camera::Initialize();
 	 
 	SceneManager::Initialize();
 
@@ -67,17 +66,24 @@ void yh::Application::Update()
 {
 	Time::Update();
 	Input::Update();
+	Camera::Update();
 
 	SceneManager::Update();
 }
 
 void yh::Application::Render()
 {
+
+	HBRUSH brush = CreateSolidBrush(RGB(125, 125, 125));
+	HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHdc, brush);
 	Rectangle(mBackHdc, -1, -1, mWidth + 1, mHeight + 1);
+	SelectObject(mBackHdc, oldBrush);
+	DeleteObject(brush);
+
 	Time::Render(mBackHdc);
 
 	SceneManager::Render(mBackHdc);
 
-	BitBlt(mHdc, 0, 0, mWidth, mHeight,
-		mBackHdc, 0, 0, SRCCOPY);
+	BitBlt(mHdc, 0, 0, mWidth, mHeight
+		, mBackHdc, 0, 0, SRCCOPY);
 }

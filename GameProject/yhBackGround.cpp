@@ -2,25 +2,38 @@
 #include "yhTransform.h"
 #include "yhInput.h"
 #include "yhTime.h"
+#include "yhSpriteRenderer.h"
 
-yh::BackGround::BackGround()
+
+namespace yh
 {
+	BackGround::BackGround()
+	{
+	}
+
+	BackGround::~BackGround()
+	{
+	}
+
+	void BackGround::Initialize()
+	{
+	}
+
+	void BackGround::Update()
+	{
+		GameObject::Update();
+
+		/*SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+
+		float alpha = sr->GetAlpha();
+		alpha -= 0.2f * Time::DeltaTime();
+		sr->SetAlpha(alpha);*/
+
+	}
+
+	void BackGround::Render(HDC hdc)
+	{
+		GameObject::Render(hdc);
+	}
 }
 
-yh::BackGround::~BackGround()
-{
-}
-
-void yh::BackGround::Initialize()
-{
-}
-
-void yh::BackGround::Update()
-{
-	GameObject::Update();
-}
-
-void yh::BackGround::Render(HDC hdc)
-{
-	GameObject::Render(hdc);
-}

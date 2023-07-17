@@ -2,31 +2,36 @@
 #include "yhTransform.h"
 #include "yhSpriteRenderer.h"
 
-yh::GameObject::GameObject() : mComponents()
-{
-	AddComponent<Transform>();
-}
 
-yh::GameObject::~GameObject()
+namespace yh
 {
-}
-
-void yh::GameObject::Initialize()
-{
-}
-
-void yh::GameObject::Update()
-{
-	for (Component* comp :mComponents )
+	GameObject::GameObject()
 	{
-		comp->Update();
+		AddComponent<Transform>();
+	}
+
+	GameObject::~GameObject()
+	{
+	}
+
+	void GameObject::Initialize()
+	{
+	}
+
+	void GameObject::Update()
+	{
+		for (Component* comp : mComponents)
+		{
+			comp->Update();
+		}
+	}
+
+	void GameObject::Render(HDC hdc)
+	{
+		for (Component* comp : mComponents)
+		{
+			comp->Render(hdc);
+		}
 	}
 }
 
-void yh::GameObject::Render(HDC hdc)
-{
-	for (Component* comp : mComponents)
-	{
-		comp->Render(hdc);
-	}
-}

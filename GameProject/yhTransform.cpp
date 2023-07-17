@@ -3,24 +3,29 @@
 #include "yhTime.h"
 
 
-yh::Transform::Transform()
-	:Component(eComponentType::Transform)
+namespace yh
 {
+	Transform::Transform()
+		:Component(eComponentType::Transform)
+	{
+	}
+
+	Transform::~Transform()
+	{
+	}
+
+	void Transform::Initialize()
+	{
+	}
+
+	void Transform::Update()
+	{
+
+	}
+
+	void Transform::Render(HDC hdc)
+	{
+	}
 }
 
-yh::Transform::~Transform()
-{
-}
 
-void yh::Transform::Initialize()
-{
-}
-
-void yh::Transform::Update()
-{
-
-}
-
-void yh::Transform::Render(HDC hdc)
-{
-}

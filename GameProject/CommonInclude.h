@@ -5,6 +5,7 @@
 #include <set>
 #include <functional>
 #include <string>
+#include <filesystem>
 
 #include "framework.h"
 #include "yhMath.h"
@@ -29,6 +30,8 @@ namespace yh::enums
 	{
 		Transform,
 		SpriteRenderer,
+		Animation,
+		Animator,
 		End,
 
 	};

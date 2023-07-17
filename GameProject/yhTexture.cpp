@@ -1,5 +1,6 @@
 #include "yhTexture.h"
 #include "yhApplication.h"
+#include "yhResources.h"
 
 extern yh::Application application;
 
@@ -24,6 +25,32 @@ namespace yh
 		mBitmap = NULL;
 	}
 
+	Texture* Texture::Create(const std::wstring& name, UINT width, UINT height)
+	{
+		Texture* image = Resources::Find<Texture>(name);
+		if (image != nullptr)
+			return image;
+
+		image = new Texture();
+		image->SetWidth(width);
+		image->SetHeight(height);
+		HDC hdc = application.GetHdc();
+		HBITMAP bitmap = CreateCompatibleBitmap(hdc, width, height);
+		image->SetHBitmap(bitmap);
+
+		HDC bitmapHdc = CreateCompatibleDC(hdc);
+		image->SetHdc(bitmapHdc);
+
+		HBITMAP defaultBitmap = (HBITMAP)SelectObject(bitmapHdc, bitmap);
+		DeleteObject(defaultBitmap);
+
+		image->SetName(name);
+		Resources::Insert<Texture>(name, image);
+
+
+		return image;
+	}
+
 	HRESULT Texture::Load(const std::wstring& path)
 	{
 		//확장자 bmp일때와 png일때
@@ -42,6 +69,9 @@ namespace yh
 
 			BITMAP info = {};
 			GetObject(mBitmap, sizeof(BITMAP), &info);
+
+			if (info.bmBitsPixel == 32)
+				mType = eTextureType::AlphaBmp;
 
 			mWidth = info.bmWidth;
 			mHeight = info.bmHeight;

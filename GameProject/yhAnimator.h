@@ -18,8 +18,10 @@ namespace yh
 		void CreateAnimation(const std::wstring& name
 			, class Texture* texture
 			, Vector2 leftTop, Vector2 size, UINT spriteLength
-			, Vector2 offset = Vector2::Zero, float duration = 0.1f,
-			Vector2 scale = Vector2::One);
+			, Vector2 scale = Vector2::One
+			, Vector2 offset = Vector2::Zero
+			, float duration = 0.1f
+			);
 		void CreateAnimationFolder(const std::wstring& name
 			, const std::wstring& path
 			, Vector2 offset = Vector2::Zero, float duration = 0.1f);

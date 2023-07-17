@@ -30,8 +30,28 @@ void yh::Title::Initialize()
 	SpriteRenderer* main_bgsr = main_bg->AddComponent<SpriteRenderer>();
 	main_bgsr->SetImage(image);
 	main_bgsr->SetScale(Vector2(2.0f, 3.56f));
-	std::wstring name = main_bg->GetName();
-	main_bgsr->SetAffectCamera(false);
+
+	image = Resources::Load<Texture>(L"Sword", L"..\\Resources\\Image\\Title\\sword.bmp");
+	BackGround* sword = object::Instantiate<BackGround>(eLayerType::Background);
+	sword->GetComponent<Transform>()->SetPosition(Vector2(130.0f, 256.0f));
+	SpriteRenderer* sword_bgsr = sword->AddComponent<SpriteRenderer>();
+	sword_bgsr->SetImage(image);
+	sword_bgsr->SetScale(Vector2(2.0f, 2.0f));
+
+	image = Resources::Load<Texture>(L"Triforce", L"..\\Resources\\Image\\Title\\triforce.bmp");
+	BackGround* tri = object::Instantiate<BackGround>(eLayerType::Background);
+	tri->GetComponent<Transform>()->SetPosition(Vector2(256.0f, 230.0f));
+	SpriteRenderer* tri_bgsr = tri->AddComponent<SpriteRenderer>();
+	tri_bgsr->SetImage(image);
+	tri_bgsr->SetScale(Vector2(2.0f, 2.0f));
+
+	image = Resources::Load<Texture>(L"Title", L"..\\Resources\\Image\\Title\\title.bmp");
+	BackGround* main_title = object::Instantiate<BackGround>(eLayerType::Background);
+	main_title->GetComponent<Transform>()->SetPosition(Vector2(256.0f, 256.0f));
+	SpriteRenderer* title_bgsr = main_title->AddComponent<SpriteRenderer>();
+	title_bgsr->SetImage(image);
+	title_bgsr->SetScale(Vector2(2.0f, 2.0f));
+
 
 	
 	

@@ -36,7 +36,7 @@ namespace yh
 			mActiveAnimation->Render(hdc);
 	}
 
-	void Animator::CreateAnimation(const std::wstring& name, Texture* texture, Vector2 leftTop, Vector2 size, UINT spriteLength, Vector2 offset, float duration, Vector2 scale)
+	void Animator::CreateAnimation(const std::wstring& name, Texture* texture, Vector2 leftTop, Vector2 size, UINT spriteLength, Vector2 scale,Vector2 offset, float duration)
 	{
 		Animation* animation = nullptr;
 		animation = Resources::Find<Animation>(name);

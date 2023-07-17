@@ -25,15 +25,24 @@ yh::Play::~Play()
 
 void yh::Play::Initialize()
 {
+
 	SceneChanger* changer = object::Instantiate<SceneChanger>(eLayerType::Background);
 	
-
+	BackGround* stage = object::Instantiate<BackGround>(eLayerType::Background);
 	Player* player = object::Instantiate<Player>(eLayerType::Player);
 	Transform* tr = player->GetComponent<Transform>();
 
 	tr->SetPosition(Vector2(256.0f, 256.0f));
+	tr = stage->GetComponent<Transform>();
+	tr->SetPosition(Vector2(256.0f, 256.0f));
 
-	Texture* image = Resources::Load<Texture>(L"Smile"
+	SpriteRenderer* stage_sr = stage->AddComponent<SpriteRenderer>();
+	Texture* image = Resources::Load<Texture>(L"stage",L"..\\Resources\\Image\\Maps\\castle_garden.png");
+
+
+	stage_sr->SetImage(image);
+	stage_sr->SetScale(Vector2(2.0f, 2.0f));
+	image = Resources::Load<Texture>(L"Smile"
 		, L"..\\Resources\\Image\\Player\\link1.bmp");
 
 	Animator* at = player->AddComponent<Animator>();
@@ -42,7 +51,9 @@ void yh::Play::Initialize()
 	at->CreateAnimation(L"LinkBackward", image, Vector2(0.0f, 108.0f), Vector2(17.2f, 27.0f), 9);
 	at->CreateAnimation(L"LinkIdleUp", image, Vector2(0.0f, 108.0f), Vector2(17.2f, 27.0f), 1);
 	at->CreateAnimation(L"LinkRight", image, Vector2(0.0f, 54.0f), Vector2(17.9f, 27.0f), 12);
-	at->CreateAnimation(L"LinkIdleRight", image, Vector2(0.0f, 54.0f), Vector2(17.2f, 27.0f), 1);
+	at->CreateAnimation(L"LinkIdleRight", image, Vector2(0.0f, 54.0f), Vector2(17.9f, 27.0f), 1);
+
+	Camera::SetTarget(stage);
 }
 
 void yh::Play::Update()

@@ -156,9 +156,6 @@
     <ClInclude Include="yhBackGround.h">
       <Filter>Contents\GameObject\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="yhNameInput.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="yhAnimation.h">
       <Filter>Engine\Resource\Animation</Filter>
     </ClInclude>
@@ -170,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="yhObject.h">
       <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yhTitleAnimation.h">
+      <Filter>Contents\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -250,9 +250,6 @@
     <ClCompile Include="yhBackGround.cpp">
       <Filter>Contents\GameObject\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="yhNameInput.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="yhAnimation.cpp">
       <Filter>Engine\Resource\Animation</Filter>
     </ClCompile>
@@ -261,6 +258,9 @@
     </ClCompile>
     <ClCompile Include="yhCamera.cpp">
       <Filter>Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="yhTitleAnimation.cpp">
+      <Filter>Contents\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

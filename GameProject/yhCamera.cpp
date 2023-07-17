@@ -24,21 +24,21 @@ namespace yh
 
 	void Camera::Update()
 	{
-		if (Input::GetKey(eKeyCode::Up))
+		if (Input::GetKey(eKeyCode::W))
 		{
-			mLookPosition.y -= 300.0f * Time::DeltaTime();
+			mLookPosition.y -= 120.0f * Time::DeltaTime();
 		}
-		if (Input::GetKey(eKeyCode::Down))
+		if (Input::GetKey(eKeyCode::S))
 		{
-			mLookPosition.x -= 300.0f * Time::DeltaTime();
+			mLookPosition.x -= 120.0f * Time::DeltaTime();
 		}
-		if (Input::GetKey(eKeyCode::Left))
+		if (Input::GetKey(eKeyCode::A))
 		{
-			mLookPosition.y += 300.0f * Time::DeltaTime();
+			mLookPosition.y += 120.0f * Time::DeltaTime();
 		}
-		if (Input::GetKey(eKeyCode::Right))
+		if (Input::GetKey(eKeyCode::D))
 		{
-			mLookPosition.x += 300.0f * Time::DeltaTime();
+			mLookPosition.x += 120.0f * Time::DeltaTime();
 		}
 
 		if (mTarget)

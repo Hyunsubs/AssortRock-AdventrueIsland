@@ -29,11 +29,11 @@ namespace yh
 		BackGroundAnimation* tri_left = object::Instantiate<BackGroundAnimation>(eLayerType::Background);
 		BackGroundAnimation* tri_right = object::Instantiate<BackGroundAnimation>(eLayerType::Background);
 		Transform* up = tri_up->GetComponent<Transform>();
-		up->SetPosition(Vector2(270.0f, 0.0f));
+		up->SetPosition(Vector2(256.0f, 10.0f));
 		Transform* left = tri_left->GetComponent<Transform>();
-		left->SetPosition(Vector2(18.0f, 512.0f));
+		left->SetPosition(Vector2(0.0f, 512.0f));
 		Transform* right = tri_right->GetComponent<Transform>();
-		right->SetPosition(Vector2(530.0f, 512.0f));
+		right->SetPosition(Vector2(512.0f, 512.0f));
 	
 
 		Animator* up_at = tri_up->AddComponent<Animator>();

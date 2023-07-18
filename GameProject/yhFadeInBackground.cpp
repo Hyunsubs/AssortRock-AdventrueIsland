@@ -22,7 +22,7 @@ namespace yh
 		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 
 		float alpha = sr->GetAlpha();
-		alpha -= 0.1f * Time::DeltaTime();
+		alpha += 0.1f * Time::DeltaTime();
 		sr->SetAlpha(alpha);
 		
 

@@ -30,7 +30,7 @@ void yh::Title::Initialize()
 	FadeInBackground* main_bg = object::Instantiate<FadeInBackground>(eLayerType::Background);
 	main_bg->GetComponent<Transform>()->SetPosition(Vector2(256.0f, 256.0f));
 	SpriteRenderer* main_bgsr = main_bg->AddComponent<SpriteRenderer>();
-	main_bgsr->SetAlpha(1.0f);
+	main_bgsr->SetAlpha(0.0f);
 	main_bgsr->SetImage(image);
 	main_bgsr->SetScale(Vector2(2.0f, 3.56f));
 	main_bgsr->SetAffectCamera(false);

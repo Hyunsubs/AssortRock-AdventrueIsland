@@ -33,7 +33,7 @@ namespace yh
 			, tr->GetPosition()
 			, Vector2(mTexture->GetWidth(), mTexture->GetHeight())
 			, Vector2(0.0f, 0.0f)
-			, Vector2(mTexture->GetWidth(),mTexture->GetHeight())
+			, Vector2(mTexture->GetWidth(), mTexture->GetHeight())
 			, Vector2::Zero
 			, mScale
 			, mAlpha);

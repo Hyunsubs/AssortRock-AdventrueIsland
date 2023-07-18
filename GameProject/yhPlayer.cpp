@@ -36,8 +36,10 @@ namespace yh
 
 		//GetKey statement
 		CheckKey(tr,anim);
+
 		//키업 Statement
 		CheckKeyUp(anim);
+
 		//키다운 Statement
 		CheckKeyDown(anim);
 
@@ -99,19 +101,19 @@ namespace yh
 
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.y -= 120.0f * Time::DeltaTime();
+			pos.y -= 150.0f * Time::DeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 120.0f * Time::DeltaTime();
+			pos.x -= 150.0f * Time::DeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::S))
 		{
-			pos.y += 120.0f * Time::DeltaTime();
+			pos.y += 150.0f * Time::DeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 120.0f * Time::DeltaTime();
+			pos.x += 150.0f * Time::DeltaTime();
 		}
 		tr->SetPosition(pos);
 	}

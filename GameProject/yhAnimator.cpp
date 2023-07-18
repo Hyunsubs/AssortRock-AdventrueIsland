@@ -8,7 +8,11 @@ namespace yh
 		: Component(eComponentType::Animator)
 		, mAlpha(1.0f)
 		, mScale(Vector2::One)
+		, mActiveAnimation(nullptr)
+		, mbAffectedCamera(false)
+		, mbLoop(false)
 	{
+
 	}
 
 	Animator::~Animator()
@@ -66,6 +70,8 @@ namespace yh
 
 		std::filesystem::path fs(path);
 		std::vector<Texture*> images = {};
+
+		std::wstring spriteSheetName = name + L"spriteSheet";
 		for (auto& p : std::filesystem::recursive_directory_iterator(path)) 
 		{
 			std::wstring fileName = p.path().filename();
@@ -85,12 +91,12 @@ namespace yh
 			fileCout++;
 		}
 
-		Texture* spriteSheet = Texture::Create(name, width * fileCout, height);
+		Texture* spriteSheet = Texture::Create(spriteSheetName, width * fileCout, height);
 
 		int idx = 0;
 		for(Texture* image : images)
 		{
-			BitBlt(spriteSheet->GetHdc(), width * idx, 0
+			BitBlt(spriteSheet->GetHdc(), width * idx + ((width - image->GetWidth()) / 2.0f), 0
 				, image->GetWidth(), image->GetHeight()
 				, image->GetHdc(), 0, 0, SRCCOPY);
 			idx++;

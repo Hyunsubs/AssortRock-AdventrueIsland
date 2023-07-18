@@ -36,6 +36,11 @@ void yh::SceneChanger::Update()
 		SceneManager::LoadScene(L"TitleScene");
 	}
 
+	else if (Input::GetKey(eKeyCode::V))
+	{
+		SceneManager::LoadScene(L"TitleAnimScene");
+	}
+
 
 }
 

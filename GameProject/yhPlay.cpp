@@ -50,12 +50,12 @@ void yh::Play::Initialize()
 	at->CreateAnimation(L"LinkIdleDown", image, Vector2(0.0f, 0.0f), Vector2(17.2f, 27.0f), 1);
 	at->CreateAnimation(L"LinkBackward", image, Vector2(0.0f, 108.0f), Vector2(17.2f, 27.0f), 9);
 	at->CreateAnimation(L"LinkIdleUp", image, Vector2(0.0f, 108.0f), Vector2(17.2f, 27.0f), 1);
-	at->CreateAnimation(L"LinkRight", image, Vector2(0.0f, 54.0f), Vector2(18.0f, 27.0f), 11);
-	at->CreateAnimation(L"LinkIdleRight", image, Vector2(0.0f, 54.0f), Vector2(18.0f, 27.0f), 1);
+	at->CreateAnimation(L"LinkRight", image, Vector2(0.0f, 54.0f), Vector2(17.9f, 27.0f), 11);
+	at->CreateAnimation(L"LinkIdleRight", image, Vector2(0.0f, 54.0f), Vector2(17.9f, 27.0f), 1);
 
 	image = Resources::Load<Texture>(L"LinkLeftSide", L"..\\Resources\\Image\\Player\\leftside.bmp");
-	at->CreateAnimation(L"LinkIdleLeft", image, Vector2(0.0f, 0.0f), Vector2(18.0f, 24.0f), 1);
-	at->CreateAnimation(L"LinkLeft", image, Vector2(0.0f, 0.0f), Vector2(18.0f, 24.0f), 12);
+	at->CreateAnimation(L"LinkIdleLeft", image, Vector2(0.0f, 0.0f), Vector2(17.9f, 24.0f), 1);
+	at->CreateAnimation(L"LinkLeft", image, Vector2(0.0f, 0.0f), Vector2(17.9f, 24.0f), 12);
 	at->SetAffectedCamera(true);
 	at->SetScale(Vector2(2.0f,2.0f));
 

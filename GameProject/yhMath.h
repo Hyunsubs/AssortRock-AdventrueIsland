@@ -27,27 +27,35 @@ namespace yh::math
 
 		}
 
+		Vector2 operator+(const Vector2 other)
+		{
+			Vector2 temp;
+			temp.x = this->x + other.x;
+			temp.y = this->y + other.y;
+			return temp;
+		}
+
 		Vector2 operator-(const Vector2 other)
 		{
 			Vector2 temp;
-			temp.x = x - other.x;
-			temp.y = y - other.y;
+			temp.x = this->x - other.x;
+			temp.y = this->y - other.y;
 			return temp;
 		}
 
 		Vector2 operator/(const float value)
 		{
 			Vector2 temp;
-			temp.x = x / value;
-			temp.y = y / value;
+			temp.x = this->x / value;
+			temp.y = this->y / value;
 			return temp;
 		}
 
 		Vector2 operator*(const Vector2 other)
 		{
 			Vector2 temp;
-			temp.x = x * other.x;
-			temp.y = y * other.y;
+			temp.x = this->x * other.x;
+			temp.y = this->y * other.y;
 			return temp;
 		}
 

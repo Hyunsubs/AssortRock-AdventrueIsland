@@ -39,7 +39,7 @@ namespace yh
 
 		void Create(const std::wstring& name
 			, class Texture* texture
-			, Vector2 leftTop, Vector2 size, Vector2 offset, Vector2 scale
+			, Vector2 leftTop, Vector2 size, Vector2 offset
 			, UINT spriteLength, float duration);
 
 		void Reset();

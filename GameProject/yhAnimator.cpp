@@ -7,6 +7,7 @@ namespace yh
 	Animator::Animator()
 		: Component(eComponentType::Animator)
 		, mAlpha(1.0f)
+		, mScale(Vector2::One)
 	{
 	}
 
@@ -36,7 +37,10 @@ namespace yh
 			mActiveAnimation->Render(hdc);
 	}
 
-	void Animator::CreateAnimation(const std::wstring& name, Texture* texture, Vector2 leftTop, Vector2 size, UINT spriteLength, Vector2 scale,Vector2 offset, float duration)
+	void Animator::CreateAnimation(const std::wstring& name
+		, Texture* texture, Vector2 leftTop
+		, Vector2 size, UINT spriteLength
+		, Vector2 offset, float duration)
 	{
 		Animation* animation = nullptr;
 		animation = Resources::Find<Animation>(name);
@@ -44,7 +48,10 @@ namespace yh
 			return;
 
 		animation = new Animation();
-		animation->Create(name, texture, leftTop, size, offset, scale, spriteLength, duration);
+		animation->Create(name, texture, 
+			leftTop, size, 
+			offset, spriteLength, 
+			duration);
 		animation->SetAnimator(this);
 		
 		mAnimations.insert(std::make_pair(name, animation));
@@ -91,8 +98,7 @@ namespace yh
 
 		CreateAnimation(name
 			, spriteSheet, Vector2(0.0f, 0.0f)
-			, Vector2(width, height), fileCout
-			, offset, duration);
+			, Vector2(width, height), fileCout, offset, duration);
 	}
 
 	Animation* Animator::FindAnimation(const std::wstring& name)

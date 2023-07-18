@@ -43,32 +43,45 @@ void yh::Animation::Render(HDC hdc)
 	if (mTexture == nullptr)
 		return;
 
+	Sprite sprite = mSpriteSheet[mIndex];
+
 	Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
-	Vector2 pos = tr->GetPosition();
+	Vector2 pos = tr->GetPosition() - (sprite.size / 2.0f) + sprite.offset;
 
-	if (mAnimator->GetAffectedCamera())
-		pos = Camera::CalculatePosition(pos);
+	Animator* animator = mAnimator;
 
-	BLENDFUNCTION func = {};
-	func.BlendOp = AC_SRC_OVER;
-	func.BlendFlags = 0;
-	func.AlphaFormat = AC_SRC_ALPHA;
-	// 0.0f ~ 1.0f -> 0 ~ 255
-	int alpha = (int)(mAnimator->GetAlpha() * 255.0f);
-	if (alpha <= 0)
-		alpha = 0;
-	func.SourceConstantAlpha = alpha; // 0 ~ 255
+	mTexture->Render(hdc
+		, pos
+		, sprite.size
+		, sprite.leftTop
+		, sprite.size
+		, sprite.offset
+		, animator->GetScale()
+		, animator->GetAlpha());
 
-	AlphaBlend(hdc, (int)pos.x - (mSpriteSheet[mIndex].size.x / 2.0f) + mSpriteSheet[mIndex].offset.x
-		, (int)pos.y - (mSpriteSheet[mIndex].size.y / 2.0f) + mSpriteSheet[mIndex].offset.y
-		, mSpriteSheet[mIndex].size.x * mSpriteSheet[mIndex].scale.x
-		, mSpriteSheet[mIndex].size.y * mSpriteSheet[mIndex].scale.y
-		, mTexture->GetHdc()
-		, mSpriteSheet[mIndex].leftTop.x
-		, mSpriteSheet[mIndex].leftTop.y
-		, mSpriteSheet[mIndex].size.x
-		, mSpriteSheet[mIndex].size.y
-		, func);
+	//if (mAnimator->GetAffectedCamera())
+	//	pos = Camera::CalculatePosition(pos);
+
+	//BLENDFUNCTION func = {};
+	//func.BlendOp = AC_SRC_OVER;
+	//func.BlendFlags = 0;
+	//func.AlphaFormat = AC_SRC_ALPHA;
+	//// 0.0f ~ 1.0f -> 0 ~ 255
+	//int alpha = (int)(mAnimator->GetAlpha() * 255.0f);
+	//if (alpha <= 0)
+	//	alpha = 0;
+	//func.SourceConstantAlpha = alpha; // 0 ~ 255
+
+	//AlphaBlend(hdc, (int)pos.x - (mSpriteSheet[mIndex].size.x / 2.0f) + mSpriteSheet[mIndex].offset.x
+	//	, (int)pos.y - (mSpriteSheet[mIndex].size.y / 2.0f) + mSpriteSheet[mIndex].offset.y
+	//	, mSpriteSheet[mIndex].size.x * mSpriteSheet[mIndex].scale.x
+	//	, mSpriteSheet[mIndex].size.y * mSpriteSheet[mIndex].scale.y
+	//	, mTexture->GetHdc()
+	//	, mSpriteSheet[mIndex].leftTop.x
+	//	, mSpriteSheet[mIndex].leftTop.y
+	//	, mSpriteSheet[mIndex].size.x
+	//	, mSpriteSheet[mIndex].size.y
+	//	, func);
 }
 
 void yh::Animation::Create(const std::wstring& name, 
@@ -76,7 +89,6 @@ void yh::Animation::Create(const std::wstring& name,
 	Vector2 leftTop, 
 	Vector2 size, 
 	Vector2 offset,
-	Vector2 scale,
 	UINT spriteLength, 
 	float duration)
 {
@@ -89,7 +101,6 @@ void yh::Animation::Create(const std::wstring& name,
 		sprite.leftTop.x = leftTop.x + (size.x*i);
 		sprite.leftTop.y = leftTop.y;
 		sprite.size = size;
-		sprite.scale = scale;
 		sprite.offset = offset;
 		sprite.duration = duration;
 

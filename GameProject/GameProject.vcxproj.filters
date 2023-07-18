@@ -171,6 +171,15 @@
     <ClInclude Include="yhTitleAnimation.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="yhBackGroundAnimation.h">
+      <Filter>Contents\GameObject\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="yhFadeInBackground.h">
+      <Filter>Contents\GameObject\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="yhSwordBG.h">
+      <Filter>Contents\GameObject\BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -261,6 +270,15 @@
     </ClCompile>
     <ClCompile Include="yhTitleAnimation.cpp">
       <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhBackGroundAnimation.cpp">
+      <Filter>Contents\GameObject\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="yhFadeInBackground.cpp">
+      <Filter>Contents\GameObject\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="yhSwordBG.cpp">
+      <Filter>Contents\GameObject\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

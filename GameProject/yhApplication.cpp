@@ -74,7 +74,7 @@ void yh::Application::Update()
 void yh::Application::Render()
 {
 
-	HBRUSH brush = CreateSolidBrush(RGB(125, 125, 125));
+	HBRUSH brush = CreateSolidBrush(RGB(0, 0, 0));
 	HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHdc, brush);
 	Rectangle(mBackHdc, -1, -1, mWidth + 1, mHeight + 1);
 	SelectObject(mBackHdc, oldBrush);

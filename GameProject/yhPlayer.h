@@ -13,8 +13,11 @@ namespace yh
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
-	private:
 
+		void CheckKeyDown(class Animator* anim);
+		void CheckKeyUp(class Animator* anim);
+		void CheckKey(class Transform* tr, class Animator* anim);
+	private:
 	};
 }
 

@@ -21,14 +21,14 @@ void yh::BackGroundAnimation::Update()
 	if (tr->GetPosition().y < 250.0f)
 	{
 		Vector2 temp = tr->GetPosition();
-		temp.y += 30.0f * Time::DeltaTime();
+		temp.y += 28.0f * Time::DeltaTime();
 		tr->SetPosition(temp);
 	}
 
 	else if (tr->GetPosition().y > 256.0f && tr->GetPosition().x < 250.0f)
 	{
 		Vector2 temp = tr->GetPosition();
-		temp.y -= 30.0f * Time::DeltaTime();
+		temp.y -= 28.0f * Time::DeltaTime();
 		temp.x += 30.0f * Time::DeltaTime();
 		tr->SetPosition(temp);
 	}
@@ -36,7 +36,7 @@ void yh::BackGroundAnimation::Update()
 	else if (tr->GetPosition().y > 256.0f && tr->GetPosition().x > 256.0f)
 	{
 		Vector2 temp = tr->GetPosition();
-		temp.y -= 30.0f * Time::DeltaTime();
+		temp.y -= 28.0f * Time::DeltaTime();
 		temp.x -= 30.0f * Time::DeltaTime();
 		tr->SetPosition(temp);
 	}

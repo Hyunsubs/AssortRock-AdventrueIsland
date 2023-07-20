@@ -20,7 +20,7 @@ namespace yh
 		Vector2 temp = tr->GetPosition();
 		if (temp.y < 255.0f)
 		{
-			temp.y += 500.0f * Time::DeltaTime();
+			temp.y += 300.0f * Time::DeltaTime();
 			tr->SetPosition(temp);
 		}
 

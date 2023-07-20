@@ -76,6 +76,12 @@
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{2cc24a19-6fe1-4d18-80ef-91237ffa1a9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Collider">
+      <UniqueIdentifier>{fd0ffa9b-b6b6-46b1-b65d-44d4acf4c023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Collision">
+      <UniqueIdentifier>{2eec07dc-e54a-40bc-bdd1-f5571605daee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -180,6 +186,12 @@
     <ClInclude Include="yhSwordBG.h">
       <Filter>Contents\GameObject\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="yhCollider.h">
+      <Filter>Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="yhCollisionManager.h">
+      <Filter>Engine\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -279,6 +291,12 @@
     </ClCompile>
     <ClCompile Include="yhSwordBG.cpp">
       <Filter>Contents\GameObject\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="yhCollider.cpp">
+      <Filter>Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="yhCollisionManager.cpp">
+      <Filter>Engine\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

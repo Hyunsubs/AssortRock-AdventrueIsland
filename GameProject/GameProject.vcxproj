@@ -140,6 +140,8 @@
     <ClInclude Include="yhBackGround.h" />
     <ClInclude Include="yhBackGroundAnimation.h" />
     <ClInclude Include="yhCamera.h" />
+    <ClInclude Include="yhCollider.h" />
+    <ClInclude Include="yhCollisionManager.h" />
     <ClInclude Include="yhComponent.h" />
     <ClInclude Include="yhEnding.h" />
     <ClInclude Include="yhEntity.h" />
@@ -172,6 +174,8 @@
     <ClCompile Include="yhBackGround.cpp" />
     <ClCompile Include="yhBackGroundAnimation.cpp" />
     <ClCompile Include="yhCamera.cpp" />
+    <ClCompile Include="yhCollider.cpp" />
+    <ClCompile Include="yhCollisionManager.cpp" />
     <ClCompile Include="yhComponent.cpp" />
     <ClCompile Include="yhEnding.cpp" />
     <ClCompile Include="yhEntity.cpp" />

@@ -5,12 +5,12 @@
 #include "yhAnimator.h"
 #include "yhSpriteRenderer.h"
 #include "yhResources.h"
-
-
+#include "yhGameObject.h"
 
 namespace yh
 {
 	Player::Player()
+		:state(PlayerState::Idle)
 	{
 	}
 
@@ -30,18 +30,30 @@ namespace yh
 	{
 		GameObject::Update();
 
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPosition();
-		Animator* anim = GetComponent<Animator>();
-
-		//GetKey statement
-		CheckKey(tr,anim);
-
-		//키업 Statement
-		CheckKeyUp(anim);
-
-		//키다운 Statement
-		CheckKeyDown(anim);
+		switch (state)
+		{
+		case yh::Player::PlayerState::Idle:
+			Idle();
+			break;
+		case yh::Player::PlayerState::Move:
+			Move();
+			break;
+		case yh::Player::PlayerState::Attack:
+			Attack();
+			break;
+		case yh::Player::PlayerState::Death:
+			Death();
+			break;
+		case yh::Player::PlayerState::Falling:
+			Falling();
+			break;
+		case yh::Player::PlayerState::Map:
+			Map();
+			break;
+		case yh::Player::PlayerState::Ui:
+			Ui();
+			break;
+		}
 
 
 		
@@ -53,52 +65,42 @@ namespace yh
 
 	}
 
-	void Player::CheckKeyDown(Animator* anim)
+
+	void Player::Idle()
 	{
-		if (Input::GetKeyDown(eKeyCode::W))
+		Animator* anim = GetComponent<Animator>();
+		if (Input::GetKey(eKeyCode::W))
 		{
 			anim->PlayAnimation(L"LinkBackward", true);
+			state = PlayerState::Move;
 		}
-		if (Input::GetKeyDown(eKeyCode::A))
+		if (Input::GetKey(eKeyCode::A))
 		{
 			anim->PlayAnimation(L"LinkLeft", true);
+			state = PlayerState::Move;
 		}
-		if (Input::GetKeyDown(eKeyCode::S))
+		if (Input::GetKey(eKeyCode::S))
 		{
 			anim->PlayAnimation(L"LinkForward", true);
+			state = PlayerState::Move;
 		}
-		if (Input::GetKeyDown(eKeyCode::D))
+		if (Input::GetKey(eKeyCode::D))
 		{
 			anim->PlayAnimation(L"LinkRight", true);
+			state = PlayerState::Move;
 		}
+		if (Input::GetKey(eKeyCode::J))
+		{
+			state = PlayerState::Attack;
+		}
+
 	}
 
-	void Player::CheckKeyUp(Animator* anim)
+	void Player::Move()
 	{
-		if (Input::GetKeyUp(eKeyCode::W))
-		{
-			anim->PlayAnimation(L"LinkIdleUp", false);
-		}
-		if (Input::GetKeyUp(eKeyCode::A))
-		{
-			anim->PlayAnimation(L"LinkIdleLeft", false);
-		}
-		if (Input::GetKeyUp(eKeyCode::S))
-		{
-			anim->PlayAnimation(L"LinkIdleDown", false);
-		}
-		if (Input::GetKeyUp(eKeyCode::D))
-		{
-			anim->PlayAnimation(L"LinkIdleRight", false);
-		}
-
-		
-	}
-
-	void Player::CheckKey(Transform* tr,Animator* anim)
-	{
+		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
-
+		Animator* anim = GetComponent<Animator>();
 		if (Input::GetKey(eKeyCode::W))
 		{
 			pos.y -= 150.0f * Time::DeltaTime();
@@ -116,6 +118,48 @@ namespace yh
 			pos.x += 150.0f * Time::DeltaTime();
 		}
 		tr->SetPosition(pos);
+
+		if (Input::GetKeyUp(eKeyCode::W))
+		{
+			anim->PlayAnimation(L"LinkIdleUp", false);
+			state = PlayerState::Idle;
+		}
+		if (Input::GetKeyUp(eKeyCode::A))
+		{
+			anim->PlayAnimation(L"LinkIdleLeft", false);
+			state = PlayerState::Idle;
+		}
+		if (Input::GetKeyUp(eKeyCode::S))
+		{
+			anim->PlayAnimation(L"LinkIdleDown", false);
+			state = PlayerState::Idle;
+		}
+		if (Input::GetKeyUp(eKeyCode::D))
+		{
+			anim->PlayAnimation(L"LinkIdleRight", false);
+			state = PlayerState::Idle;
+		}
+	}
+
+	void Player::Attack()
+	{
+		state = PlayerState::Idle;
+	}
+
+	void Player::Death()
+	{
+	}
+
+	void Player::Map()
+	{
+	}
+
+	void Player::Falling()
+	{
+	}
+
+	void Player::Ui()
+	{
 	}
 
 

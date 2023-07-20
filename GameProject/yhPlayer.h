@@ -6,6 +6,20 @@ namespace yh
 	class Player : public GameObject
 	{
 	public:
+		enum class PlayerState
+		{
+			Idle,
+			Move,
+			Attack,
+			Death,
+			Map,
+			Falling,
+			Ui,
+			End,
+		};
+
+
+
 		Player();
 		virtual ~Player();
 
@@ -14,10 +28,18 @@ namespace yh
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 
-		void CheckKeyDown(class Animator* anim);
-		void CheckKeyUp(class Animator* anim);
-		void CheckKey(class Transform* tr, class Animator* anim);
+
+		void Idle();
+		void Move();
+		void Attack();
+		void Death();
+		void Map();
+		void Falling();
+		void Ui();
+
 	private:
+		PlayerState state;
+		
 	};
 }
 

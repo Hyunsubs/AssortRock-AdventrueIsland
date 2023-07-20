@@ -32,6 +32,7 @@ void yh::Play::Initialize()
 	Player* player = object::Instantiate<Player>(eLayerType::Player);
 	Transform* tr = player->GetComponent<Transform>();
 
+
 	tr->SetPosition(Vector2(256.0f, 256.0f));
 	tr = stage->GetComponent<Transform>();
 	tr->SetPosition(Vector2(256.0f, 256.0f));
@@ -52,6 +53,10 @@ void yh::Play::Initialize()
 	at->CreateAnimation(L"LinkIdleUp", image, Vector2(0.0f, 108.0f), Vector2(17.2f, 27.0f), 1, Vector2::Zero, 0.05f);
 	at->CreateAnimation(L"LinkRight", image, Vector2(0.0f, 54.0f), Vector2(17.9f, 27.0f), 11, Vector2::Zero, 0.05f);
 	at->CreateAnimation(L"LinkIdleRight", image, Vector2(0.0f, 54.0f), Vector2(17.9f, 27.0f), 1, Vector2::Zero, 0.05f);
+	
+	
+	
+
 
 	image = Resources::Load<Texture>(L"LinkLeftSide", L"..\\Resources\\Image\\Player\\leftside.bmp");
 	at->CreateAnimation(L"LinkIdleLeft", image, Vector2(0.0f, 0.0f), Vector2(17.9f, 24.0f), 1, Vector2::Zero, 0.05f);

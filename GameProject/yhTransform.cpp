@@ -7,6 +7,7 @@ namespace yh
 {
 	Transform::Transform()
 		:Component(eComponentType::Transform)
+		, mRotation(0.0f)
 	{
 	}
 

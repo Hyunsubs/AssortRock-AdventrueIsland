@@ -112,7 +112,8 @@ namespace yh
 		, Vector2 rightBottom
 		, Vector2 offset
 		, Vector2 scale
-		, float alpha)
+		, float alpha
+		, float rotate)
 	{
 		if (mBitmap == nullptr && mImage == nullptr)
 			return;
@@ -138,11 +139,12 @@ namespace yh
 			func.BlendFlags = 0;
 			func.AlphaFormat = AC_SRC_ALPHA;
 			// 0.0f ~ 1.0f -> 0 ~ 255
-			int alpha = 1.0f;
 			alpha = (int)(alpha * 255.0f);
 
 			if (alpha <= 0)
 				alpha = 0;
+			else if (alpha >= 255)
+				alpha = 255.0f;
 
 			func.SourceConstantAlpha = alpha; // 0 ~ 255
 
@@ -165,6 +167,9 @@ namespace yh
 				, Gdiplus::Color(255, 255, 255));
 
 			Gdiplus::Graphics graphics(hdc);
+			graphics.TranslateTransform((float)pos.x, (float)pos.y);
+			graphics.RotateTransform(rotate);
+			graphics.TranslateTransform(-(float)pos.x, -(float)pos.y);
 			graphics.DrawImage(mImage
 				, Gdiplus::Rect
 				(
@@ -178,6 +183,8 @@ namespace yh
 				, Gdiplus::UnitPixel
 				, nullptr);
 		}
+
+
 
 	}
 

@@ -44,9 +44,8 @@ void yh::Animation::Render(HDC hdc)
 		return;
 
 	Sprite sprite = mSpriteSheet[mIndex];
-
 	Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
-	Vector2 pos = tr->GetPosition() - (sprite.size / 2.0f) + sprite.offset;
+	Vector2 pos = tr->GetPosition();
 
 	Animator* animator = mAnimator;
 
@@ -57,7 +56,8 @@ void yh::Animation::Render(HDC hdc)
 		, sprite.size
 		, sprite.offset
 		, animator->GetScale()
-		, animator->GetAlpha());
+		, animator->GetAlpha()
+		, tr->GetRotation());
 
 }
 
@@ -75,8 +75,13 @@ void yh::Animation::Create(const std::wstring& name,
 	{
 		Sprite sprite = {};
 
-		sprite.leftTop.x = leftTop.x + (size.x*i);
+		sprite.leftTop.x = leftTop.x + (size.x * i);
 		sprite.leftTop.y = leftTop.y;
+		if (sprite.leftTop.x >= texture->GetWidth())
+		{
+			sprite.leftTop.x = sprite.leftTop.x - texture->GetWidth();
+			sprite.leftTop.y = leftTop.y + size.y;
+		}
 		sprite.size = size;
 		sprite.offset = offset;
 		sprite.duration = duration;

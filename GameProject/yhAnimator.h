@@ -15,7 +15,7 @@ namespace yh
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 
-		void CreateAnimation(const std::wstring& name
+		Animation* CreateAnimation(const std::wstring& name
 			, class Texture* texture
 			, Vector2 leftTop, Vector2 size
 			, UINT spriteLength

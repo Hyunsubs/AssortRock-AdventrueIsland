@@ -31,7 +31,8 @@ namespace yh
 			, Vector2 rightBottom
 			, Vector2 offset = Vector2::Zero
 			, Vector2 scale = Vector2::One
-			, float alpha = 1.0f);
+			, float alpha = 1.0f
+			, float rotate = 0.0f);
 		
 		void SetWidth(UINT width) { mWidth = width; }
 		UINT GetWidth() { return mWidth; }

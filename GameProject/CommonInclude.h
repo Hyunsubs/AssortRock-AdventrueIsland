@@ -6,6 +6,7 @@
 #include <functional>
 #include <string>
 #include <filesystem>
+#include <bitset>
 
 #include "framework.h"
 #include "yhMath.h"
@@ -32,6 +33,7 @@ namespace yh::enums
 		SpriteRenderer,
 		Animation,
 		Animator,
+		Collider,
 		End,
 
 	};

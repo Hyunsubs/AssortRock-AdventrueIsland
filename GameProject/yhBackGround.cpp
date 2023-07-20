@@ -23,11 +23,6 @@ namespace yh
 	{
 		GameObject::Update();
 
-		/*SpriteRenderer* sr = GetComponent<SpriteRenderer>();
-
-		float alpha = sr->GetAlpha();
-		alpha -= 0.2f * Time::DeltaTime();
-		sr->SetAlpha(alpha);*/
 
 	}
 

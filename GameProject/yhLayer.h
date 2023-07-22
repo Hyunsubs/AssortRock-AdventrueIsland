@@ -18,6 +18,7 @@ namespace yh
 		{
 			mGameObjects.push_back(gameObj);
 		}
+		std::vector<GameObject*> GetGameObject() { return mGameObjects; }
 
 	private:
 		std::vector<GameObject*> mGameObjects;

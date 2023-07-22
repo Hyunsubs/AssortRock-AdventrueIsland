@@ -59,6 +59,22 @@ namespace yh::math
 			return temp;
 		}
 
+		Vector2 operator+=(const float value)
+		{
+			Vector2 temp;
+			temp.x = this->x += value;
+			temp.y = this->y += value;
+			return temp;
+		}
+
+		Vector2 operator+=(const Vector2 other)
+		{
+			//위에 만든 + 오퍼레이터 활용
+			Vector2 temp;
+			temp = temp + other;
+			return temp;
+		}
+
 	};
 
 

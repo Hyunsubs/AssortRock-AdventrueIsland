@@ -18,6 +18,14 @@ namespace yh
 			End,
 		};
 
+		enum class Directions
+		{
+			Forward,
+			Backward,
+			Left,
+			Right
+		};
+
 
 
 		Player();
@@ -39,7 +47,7 @@ namespace yh
 
 	private:
 		PlayerState state;
-		
+		Directions direction;
 	};
 }
 

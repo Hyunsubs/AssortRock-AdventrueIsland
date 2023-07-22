@@ -137,6 +137,7 @@
     <ClInclude Include="yhAnimation.h" />
     <ClInclude Include="yhAnimator.h" />
     <ClInclude Include="yhApplication.h" />
+    <ClInclude Include="yhAsciiRender.h" />
     <ClInclude Include="yhBackGround.h" />
     <ClInclude Include="yhBackGroundAnimation.h" />
     <ClInclude Include="yhCamera.h" />
@@ -147,6 +148,8 @@
     <ClInclude Include="yhEntity.h" />
     <ClInclude Include="yhFadeInBackground.h" />
     <ClInclude Include="yhGameObject.h" />
+    <ClInclude Include="yhPlayerShield.h" />
+    <ClInclude Include="yhPlayerSword.h" />
     <ClInclude Include="yhSwordBG.h" />
     <ClInclude Include="yhTexture.h" />
     <ClInclude Include="yhLayer.h" />
@@ -171,6 +174,7 @@
     <ClCompile Include="yhAnimation.cpp" />
     <ClCompile Include="yhAnimator.cpp" />
     <ClCompile Include="yhApplication.cpp" />
+    <ClCompile Include="yhAsciiRender.cpp" />
     <ClCompile Include="yhBackGround.cpp" />
     <ClCompile Include="yhBackGroundAnimation.cpp" />
     <ClCompile Include="yhCamera.cpp" />
@@ -181,6 +185,8 @@
     <ClCompile Include="yhEntity.cpp" />
     <ClCompile Include="yhFadeInBackground.cpp" />
     <ClCompile Include="yhGameObject.cpp" />
+    <ClCompile Include="yhPlayerShield.cpp" />
+    <ClCompile Include="yhPlayerSword.cpp" />
     <ClCompile Include="yhSwordBG.cpp" />
     <ClCompile Include="yhTexture.cpp" />
     <ClCompile Include="yhInput.cpp" />

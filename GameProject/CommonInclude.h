@@ -19,6 +19,8 @@ namespace yh::enums
 	enum class eLayerType
 	{
 		Background,
+		Sword,
+		Shield,
 		Player,
 		Monster,
 		Effect,

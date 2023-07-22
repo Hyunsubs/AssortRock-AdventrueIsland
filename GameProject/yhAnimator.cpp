@@ -4,6 +4,8 @@
 
 namespace yh
 {
+	
+
 	Animator::Animator()
 		: Component(eComponentType::Animator)
 		, mAlpha(1.0f)
@@ -50,6 +52,7 @@ namespace yh
 		animation = Resources::Find<Animation>(name);
 		if (animation != nullptr)
 			return animation;
+	
 
 		animation = new Animation();
 		animation->Create(name, texture, 
@@ -58,9 +61,9 @@ namespace yh
 			duration);
 		animation->SetAnimator(this);
 		
+		
 		mAnimations.insert(std::make_pair(name, animation));
 		Resources::Insert<Animation>(name, animation);
-
 		return animation;
 	}
 
@@ -93,7 +96,7 @@ namespace yh
 			fileCout++;
 		}
 
-		std::wstring spriteSheetName = name + L"spriteSheet";
+		std::wstring spriteSheetName = L"spriteSheet" + name;
 		Texture* spriteSheet = Texture::Create(spriteSheetName, width * fileCout, height);
 
 		int idx = 0;

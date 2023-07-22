@@ -192,6 +192,15 @@
     <ClInclude Include="yhCollisionManager.h">
       <Filter>Engine\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="yhAsciiRender.h">
+      <Filter>Contents\GameObject\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="yhPlayerSword.h">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yhPlayerShield.h">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -297,6 +306,15 @@
     </ClCompile>
     <ClCompile Include="yhCollisionManager.cpp">
       <Filter>Engine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="yhAsciiRender.cpp">
+      <Filter>Contents\GameObject\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="yhPlayerSword.cpp">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yhPlayerShield.cpp">
+      <Filter>Contents\GameObject\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

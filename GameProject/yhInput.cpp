@@ -1,14 +1,21 @@
 #include "yhInput.h"
+#include "yhApplication.h"
+
+extern yh::Application application;
 
 namespace yh 
 {
 	std::vector<Input::Key> Input::mKeys = {};
+	math::Vector2 Input::mMousePosition = math::Vector2::Zero;
 
 	int ASCII[(int)eKeyCode::End] =
 	{
 		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
-		'Z', 'X', 'C', 'V', 'B', 'N', 'M', VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT,
+		'Z', 'X', 'C', 'V', 'B', 'N', 'M', 
+		VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT,
+		VK_LBUTTON, VK_RBUTTON, MK_MBUTTON,
+		VK_SPACE
 	};
 
 	void Input::Initialize()
@@ -54,5 +61,11 @@ namespace yh
 				mKeys[i].bPressed = false;
 			}
 		}
+
+		POINT mousePos = {};
+		GetCursorPos(&mousePos);
+		ScreenToClient(application.GetHwnd(), &mousePos);
+		mMousePosition.x = (float)mousePos.x;
+		mMousePosition.y = (float)mousePos.y;
 	}
 }

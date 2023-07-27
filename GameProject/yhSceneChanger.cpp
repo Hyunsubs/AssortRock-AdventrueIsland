@@ -4,6 +4,8 @@
 #include "yhTime.h"
 #include "yhScene.h"
 #include "yhSceneManager.h"
+#include "yhPlay.h"
+#include "yhCamera.h"
 
 yh::SceneChanger::SceneChanger()
 {
@@ -26,9 +28,9 @@ void yh::SceneChanger::Update()
 	}
 
 	else if (Input::GetKey(eKeyCode::X))
-
 	{
-		SceneManager::LoadScene(L"EndingScene");
+		SceneManager::LoadScene(L"HouseScene");
+		Camera::ResetCamera();
 	}
 
 	else if (Input::GetKey(eKeyCode::C))

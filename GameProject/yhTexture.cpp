@@ -184,9 +184,11 @@ namespace yh
 				, nullptr);
 		}
 
+		Rectangle(hdc
+			, pos.x, pos.y
+			, pos.x + 10, pos.y + 10);
 
 
 	}
-
 
 }

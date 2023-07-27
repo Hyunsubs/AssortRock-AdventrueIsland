@@ -16,8 +16,7 @@ namespace yh
 		virtual void Update();
 		virtual void Render(HDC hdc);
 	private:
-
-		
+		class PlayerSword* sword;
 	};
 }
 

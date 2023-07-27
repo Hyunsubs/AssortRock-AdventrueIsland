@@ -49,7 +49,15 @@ namespace yh
 
 		mDistance = mLookPosition - (mResolution / 2.0f);
 
+	}
 
+
+	void Camera::ResetCamera()
+	{
+		mResolution.x = application.GetWidth();
+		mResolution.y = application.GetHeight();
+		mLookPosition = mResolution / 2.0f;
+		mTarget = nullptr;
 	}
 
 }

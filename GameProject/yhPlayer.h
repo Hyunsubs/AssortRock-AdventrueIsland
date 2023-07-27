@@ -14,6 +14,7 @@ namespace yh
 			Death,
 			Map,
 			Falling,
+			Carrying,
 			Ui,
 			End,
 		};
@@ -36,6 +37,10 @@ namespace yh
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 
+		virtual void OnCollisionEnter(class Collider* other) override;
+		virtual void OnCollisionStay(class Collider* other) override;
+		virtual void OnCollisionExit(class Collider* other) override;
+
 
 		void Idle();
 		void Move();
@@ -44,10 +49,17 @@ namespace yh
 		void Map();
 		void Falling();
 		void Ui();
+		void Carrying();
+
+		PlayerState GetState() { return state; }
+		void SetState(PlayerState pstate) { state = pstate; }
 
 	private:
 		PlayerState state;
 		Directions direction;
+		class PlayerSword* sword;
+		int hp;
+		int mp;
 	};
 }
 

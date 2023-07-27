@@ -24,7 +24,6 @@ namespace yh
 
 		static Scene* LoadScene(const std::wstring& name);
 		static Scene* GetActiveScene() { return mActiveScenes; }
-
 	private:
 		//트리 자료구조
 		static std::map<std::wstring, Scene*> mScenes;

@@ -3,13 +3,25 @@
 #include "yhTransform.h"
 #include "yhAnimator.h"
 #include "yhTime.h"
-
+#include "yhCollider.h"
+#include "yhGreenKnight.h"
 
 namespace yh
 {
 	PlayerSword::PlayerSword() :
-		state(PlayerSword::SwordState::Idle)
+		state(PlayerSword::SwordState::Idle),
+		direction(Directions::Backward)
 	{
+		//검 애니메이션 세팅
+		sword_anim = AddComponent<Animator>();
+		col = AddComponent<Collider>();
+		sword_anim->SetScale(Vector2(2.0f,2.0f));
+		sword_anim->CreateAnimationFolder(L"SwordAttackForward", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Forward", Vector2(0.0f, -15.0f), 0.01f);
+		sword_anim->CreateAnimationFolder(L"SwordAttackLeft", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Left", Vector2(-15.0f, 10.0f), 0.01f);
+		sword_anim->CreateAnimationFolder(L"SwordAttackRight", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Right", Vector2(15.0f, 10.0f), 0.01f);
+		sword_anim->CreateAnimationFolder(L"SwordAttackBackward", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Backward", Vector2(0.0f, 15.0f), 0.01f);
+	
+		
 	}
 	PlayerSword::~PlayerSword()
 	{
@@ -52,9 +64,43 @@ namespace yh
 		GameObject::Render(hdc);
 
 	}
+	void PlayerSword::OnCollisionEnter(Collider* other)
+	{
+		GreenKnight* knight = dynamic_cast<GreenKnight*>(other->GetOwner());
+		Transform* tr = knight->GetComponent<Transform>();
+		Vector2 pos = tr->GetPosition();
+		switch (direction)
+		{
+		case yh::PlayerSword::Directions::Forward:
+			pos.y -= 10.0f;
+			tr->SetPosition(pos);
+			break;
+		case yh::PlayerSword::Directions::Backward:
+			pos.y += 10.0f;
+			tr->SetPosition(pos);
+			break;
+		case yh::PlayerSword::Directions::Left:
+			pos.x -= 10.0f;
+			tr->SetPosition(pos);
+			break;
+		case yh::PlayerSword::Directions::Right:
+			pos.x += 10.0f;
+			tr->SetPosition(pos);
+			break;
+		case yh::PlayerSword::Directions::None:
+			break;
+		default:
+			break;
+		}
+	}
+	void PlayerSword::OnCollisionStay(Collider* other)
+	{
+	}
+	void PlayerSword::OnCollisionExit(Collider* other)
+	{
+	}
 	void PlayerSword::Idle()
 	{
-		Animator* anim = GetComponent<Animator>();
 		if (Input::GetKey(eKeyCode::W))
 		{
 			state = SwordState::Move;
@@ -80,16 +126,24 @@ namespace yh
 			switch (direction)
 			{
 			case yh::PlayerSword::Directions::Forward:
-				anim->PlayAnimation(L"SwordAttackForward", false);
+				sword_anim->PlayAnimation(L"SwordAttackForward", false);
+				col->SetSize(Vector2(70.0f, 20.0f));
+				col->SetOffset(Vector2(0.0f,-30.0f));
 				break;
 			case yh::PlayerSword::Directions::Backward:
-				anim->PlayAnimation(L"SwordAttackBackward", false);
+				sword_anim->PlayAnimation(L"SwordAttackBackward", false);
+				col->SetSize(Vector2(70.0f, 20.0f));
+				col->SetOffset(Vector2(0.0f, 30.0f));
 				break;
 			case yh::PlayerSword::Directions::Left:
-				anim->PlayAnimation(L"SwordAttackLeft", false);
+				sword_anim->PlayAnimation(L"SwordAttackLeft", false);
+				col->SetSize(Vector2(20.0f, 70.0f));
+				col->SetOffset(Vector2(-30.0f, 0.0f));
 				break;
 			case yh::PlayerSword::Directions::Right:
-				anim->PlayAnimation(L"SwordAttackRight", false);
+				sword_anim->PlayAnimation(L"SwordAttackRight", false);
+				col->SetSize(Vector2(20.0f, 70.0f));
+				col->SetOffset(Vector2(30.0f, 0.0f));
 				break;
 			default:
 				break;
@@ -105,22 +159,22 @@ namespace yh
 		Animator* anim = GetComponent<Animator>();
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.y -= 150.0f * Time::DeltaTime();
+			//pos.y -= 150.0f * Time::DeltaTime();
 			direction = Directions::Forward;
 		}
 		if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 150.0f * Time::DeltaTime();
+			//pos.x -= 150.0f * Time::DeltaTime();
 			direction = Directions::Left;
 		}
 		if (Input::GetKey(eKeyCode::S))
 		{
-			pos.y += 150.0f * Time::DeltaTime();
+			//pos.y += 150.0f * Time::DeltaTime();
 			direction = Directions::Backward;
 		}
 		if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 150.0f * Time::DeltaTime();
+			//pos.x += 150.0f * Time::DeltaTime();
 			direction = Directions::Right;
 		}
 		tr->SetPosition(pos);
@@ -152,7 +206,15 @@ namespace yh
 	}
 	void PlayerSword::Attack()
 	{
-		state = SwordState::Idle;
+		Animator* anim = GetComponent<Animator>();
+		Collider* col = GetComponent<Collider>();
+		if (anim->IsActiveAnimationComplete())
+		{
+			col->SetSize(Vector2(0.0f, 20.0f));
+			col->SetOffset(Vector2::Zero);
+			state = SwordState::Idle;
+		}
+		
 	}
 	void PlayerSword::Death()
 	{

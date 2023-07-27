@@ -144,12 +144,16 @@
     <ClInclude Include="yhCollider.h" />
     <ClInclude Include="yhCollisionManager.h" />
     <ClInclude Include="yhComponent.h" />
-    <ClInclude Include="yhEnding.h" />
+    <ClInclude Include="yhGreenKnight.h" />
+    <ClInclude Include="yhHouse.h" />
     <ClInclude Include="yhEntity.h" />
     <ClInclude Include="yhFadeInBackground.h" />
     <ClInclude Include="yhGameObject.h" />
+    <ClInclude Include="yhObstacle.h" />
+    <ClInclude Include="yhPitFall.h" />
     <ClInclude Include="yhPlayerShield.h" />
     <ClInclude Include="yhPlayerSword.h" />
+    <ClInclude Include="yhRigidbody.h" />
     <ClInclude Include="yhSwordBG.h" />
     <ClInclude Include="yhTexture.h" />
     <ClInclude Include="yhLayer.h" />
@@ -164,9 +168,11 @@
     <ClInclude Include="yhSceneChanger.h" />
     <ClInclude Include="yhSceneManager.h" />
     <ClInclude Include="yhSpriteRenderer.h" />
+    <ClInclude Include="yhTile.h" />
     <ClInclude Include="yhTime.h" />
     <ClInclude Include="yhTitle.h" />
     <ClInclude Include="yhTitleAnimation.h" />
+    <ClInclude Include="yhToolScene.h" />
     <ClInclude Include="yhTransform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -181,12 +187,16 @@
     <ClCompile Include="yhCollider.cpp" />
     <ClCompile Include="yhCollisionManager.cpp" />
     <ClCompile Include="yhComponent.cpp" />
-    <ClCompile Include="yhEnding.cpp" />
+    <ClCompile Include="yhGreenKnight.cpp" />
+    <ClCompile Include="yhHouse.cpp" />
     <ClCompile Include="yhEntity.cpp" />
     <ClCompile Include="yhFadeInBackground.cpp" />
     <ClCompile Include="yhGameObject.cpp" />
+    <ClCompile Include="yhObstacle.cpp" />
+    <ClCompile Include="yhPitFall.cpp" />
     <ClCompile Include="yhPlayerShield.cpp" />
     <ClCompile Include="yhPlayerSword.cpp" />
+    <ClCompile Include="yhRigidbody.cpp" />
     <ClCompile Include="yhSwordBG.cpp" />
     <ClCompile Include="yhTexture.cpp" />
     <ClCompile Include="yhInput.cpp" />
@@ -200,9 +210,11 @@
     <ClCompile Include="yhSceneChanger.cpp" />
     <ClCompile Include="yhSceneManager.cpp" />
     <ClCompile Include="yhSpriteRenderer.cpp" />
+    <ClCompile Include="yhTile.cpp" />
     <ClCompile Include="yhTime.cpp" />
     <ClCompile Include="yhTitle.cpp" />
     <ClCompile Include="yhTitleAnimation.cpp" />
+    <ClCompile Include="yhToolScene.cpp" />
     <ClCompile Include="yhTransform.cpp" />
   </ItemGroup>
   <ItemGroup>

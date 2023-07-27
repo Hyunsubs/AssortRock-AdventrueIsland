@@ -16,6 +16,8 @@ namespace yh
 		static Vector2 CalculatePosition(Vector2 pos) { return pos - mDistance; }
 		static void SetTarget(GameObject* target) { mTarget = target; }
 
+		static void ResetCamera();
+
 	private:
 		static Vector2 mResolution;
 		static Vector2 mLookPosition;

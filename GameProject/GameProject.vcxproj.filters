@@ -61,9 +61,6 @@
     <Filter Include="Engine\Resource">
       <UniqueIdentifier>{57f9bdde-3012-42b5-ab75-98d18e6fd4c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Resource\image">
-      <UniqueIdentifier>{1c1b9d7a-4737-4df3-b170-07d2b1513cfb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\BackGround">
       <UniqueIdentifier>{58437397-bd26-46fd-a2f8-897d60d3847c}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,21 @@
     </Filter>
     <Filter Include="Engine\Collision">
       <UniqueIdentifier>{2eec07dc-e54a-40bc-bdd1-f5571605daee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Interaction">
+      <UniqueIdentifier>{4a8ae14a-4b2a-4f30-9e3e-e730f0dd5adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Monster">
+      <UniqueIdentifier>{f00e0416-73a2-4043-be00-f9defb9439d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Rigidbody">
+      <UniqueIdentifier>{9d5e03bd-a454-4233-b0ee-1c03b143f33d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Texture">
+      <UniqueIdentifier>{1c1b9d7a-4737-4df3-b170-07d2b1513cfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tool">
+      <UniqueIdentifier>{0072bd84-deb9-4dd7-a5b1-6753876146b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +156,7 @@
     <ClInclude Include="yhSceneChanger.h">
       <Filter>Contents\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="yhEnding.h">
+    <ClInclude Include="yhHouse.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="yhGameObject.h">
@@ -157,7 +169,7 @@
       <Filter>Engine\Resource</Filter>
     </ClInclude>
     <ClInclude Include="yhTexture.h">
-      <Filter>Engine\Resource\image</Filter>
+      <Filter>Engine\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="yhBackGround.h">
       <Filter>Contents\GameObject\BackGround</Filter>
@@ -200,6 +212,24 @@
     </ClInclude>
     <ClInclude Include="yhPlayerShield.h">
       <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yhObstacle.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhPitFall.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhRigidbody.h">
+      <Filter>Engine\Component\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="yhToolScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yhTile.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGreenKnight.h">
+      <Filter>Contents\GameObject\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -259,7 +289,7 @@
     <ClCompile Include="yhSceneChanger.cpp">
       <Filter>Contents\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="yhEnding.cpp">
+    <ClCompile Include="yhHouse.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="yhGameObject.cpp">
@@ -272,7 +302,7 @@
       <Filter>Engine\Resource</Filter>
     </ClCompile>
     <ClCompile Include="yhTexture.cpp">
-      <Filter>Engine\Resource\image</Filter>
+      <Filter>Engine\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="yhMath.cpp">
       <Filter>Engine\CommonInclude</Filter>
@@ -315,6 +345,24 @@
     </ClCompile>
     <ClCompile Include="yhPlayerShield.cpp">
       <Filter>Contents\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yhObstacle.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhPitFall.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhRigidbody.cpp">
+      <Filter>Engine\Component\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="yhToolScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhTile.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGreenKnight.cpp">
+      <Filter>Contents\GameObject\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

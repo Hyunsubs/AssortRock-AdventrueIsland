@@ -12,6 +12,7 @@ namespace yh
 			auto iter = mResources.find(name);
 			if (iter == mResources.end())
 				return nullptr;
+
 			return dynamic_cast<T*>(iter->second);
 		}
 

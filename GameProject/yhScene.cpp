@@ -31,3 +31,5 @@ void yh::Scene::Render(HDC hdc)
 		layer.Render(hdc);
 	}
 }
+
+

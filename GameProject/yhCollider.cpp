@@ -46,6 +46,7 @@ namespace yh
 		{
 			pen = CreatePen(PS_SOLID, 2, RGB(255, 50, 50));
 		}
+
 		else
 		{
 			pen = CreatePen(PS_SOLID, 2, RGB(50, 255, 50));

@@ -1,7 +1,7 @@
 #include "yhSceneManager.h"
 #include "yhTitle.h"
 #include "yhPlay.h"
-#include "yhEnding.h"
+#include "yhHouse.h"
 #include "yhTitleAnimation.h"
 
 namespace yh
@@ -13,7 +13,7 @@ namespace yh
 	{
 		SceneManager::CreateScene<Title>(L"TitleScene");
 		SceneManager::CreateScene<Play>(L"PlayScene");
-		SceneManager::CreateScene<Ending>(L"EndingScene");
+		SceneManager::CreateScene<House>(L"HouseScene");
 		SceneManager::CreateScene<TitleAnimation>(L"TitleAnimScene");
 
 		LoadScene(L"TitleAnimScene");
@@ -41,5 +41,6 @@ namespace yh
 
 		return iter->second;
 	}
+
 }
 

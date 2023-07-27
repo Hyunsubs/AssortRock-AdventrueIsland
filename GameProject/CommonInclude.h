@@ -14,14 +14,20 @@
 
 #pragma comment(lib, "Msimg32.lib")
 
+#define TILE_WIDTH 32
+#define TILE_HEIGHT 32
+
 namespace yh::enums
 {
 	enum class eLayerType
 	{
 		Background,
+		Obstacle,
+		PitFall,
+		Player,
+		Tile,
 		Sword,
 		Shield,
-		Player,
 		Monster,
 		Effect,
 		UI,
@@ -36,6 +42,7 @@ namespace yh::enums
 		Animation,
 		Animator,
 		Collider,
+		Rigidbody,
 		End,
 
 	};

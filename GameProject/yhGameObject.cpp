@@ -6,6 +6,7 @@
 namespace yh
 {
 	GameObject::GameObject()
+		: mState(eState::Active)
 	{
 		AddComponent<Transform>();
 	}

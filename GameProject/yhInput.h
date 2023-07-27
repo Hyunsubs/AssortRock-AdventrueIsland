@@ -9,6 +9,8 @@ namespace yh
 		A, S, D, F, G, H, J, K, L,
 		Z, X, C, V, B, N, M,
 		Up, Down, Left, Right,
+		MouseLeft, MouseRight, MouseWheel,
+		Space,
 		End,
 	};
 
@@ -45,9 +47,14 @@ namespace yh
 		{
 			return mKeys[(int)code].state == eKeyState::Pressed;
 		}
+		__forceinline static math::Vector2 GetMousePosition()
+		{
+			return mMousePosition;
+		}
 
 	private:
 		static std::vector<Key> mKeys;
+		static math::Vector2 mMousePosition;
 	};
 }
 

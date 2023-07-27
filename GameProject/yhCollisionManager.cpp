@@ -55,22 +55,20 @@ namespace yh
 	}
 	void CollisionManager::LayerCollision(Scene* scene,eLayerType left, eLayerType right)
 	{
-		//finds left layer Object
-
-
-		//finds right layer Object
-
+		// finds left layer objects
 		Layer& leftLayer = scene->GetLayer(left);
-		std::vector<GameObject*> lefts = leftLayer.GetGameObject();
+		std::vector<GameObject*>& lefts = leftLayer.GetGameObjects();
 
-		Layer& rightLayer = scene->GetLayer(left);
-		std::vector<GameObject*> rights = rightLayer.GetGameObject();
+		Layer& rightLayer = scene->GetLayer(right);
+		std::vector<GameObject*>& rights = rightLayer.GetGameObjects();
 
-		for  (GameObject* left: lefts)
+		// finds right layer Objects
+		for (GameObject* left : lefts)
 		{
 			Collider* leftCol = left->GetComponent<Collider>();
 			if (leftCol == nullptr)
 				continue;
+
 			for (GameObject* right : rights)
 			{
 				Collider* rightCol = right->GetComponent<Collider>();
@@ -81,7 +79,6 @@ namespace yh
 
 				ColliderCollision(leftCol, rightCol);
 			}
-
 		}
 
 

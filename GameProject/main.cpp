@@ -5,6 +5,13 @@
 #include "GameProject.h"
 #include "yhApplication.h"
 
+//
+#include "yhTexture.h"
+#include "yhResources.h"
+#include "yhInput.h"
+#include "yhTile.h"
+
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -17,9 +24,10 @@ ULONG_PTR gdiplusToken;
 Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
+ATOM                MyRegisterClass(HINSTANCE hInstance, const wchar_t* name, WNDPROC proc);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK    WndToolProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -35,7 +43,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_GAMEPROJECT, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
+    MyRegisterClass(hInstance, szWindowClass, WndProc);
+    MyRegisterClass(hInstance, L"Tool", WndToolProc);
+
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance(hInstance, nCmdShow))
@@ -87,7 +97,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int)msg.wParam;
 }
 
-ATOM MyRegisterClass(HINSTANCE hInstance)
+ATOM MyRegisterClass(HINSTANCE hInstance, const wchar_t* name, WNDPROC proc)
 {
     WNDCLASSEXW wcex;
 
@@ -177,6 +187,71 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
+
+        // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+        EndPaint(hWnd, &ps);
+    }
+    break;
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        break;
+    default:
+        return DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    return 0;
+}
+
+
+LRESULT CALLBACK WndToolProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    switch (message)
+    {
+    case WM_COMMAND:
+    {
+        int wmId = LOWORD(wParam);
+        // 메뉴 선택을 구문 분석합니다:
+        switch (wmId)
+        {
+        case IDM_ABOUT:
+            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+            break;
+        case IDM_EXIT:
+            DestroyWindow(hWnd);
+            break;
+        default:
+            return DefWindowProc(hWnd, message, wParam, lParam);
+        }
+    }
+    break;
+    case WM_LBUTTONDOWN:
+    {
+        POINT mousePos = {};
+        GetCursorPos(&mousePos);
+        ScreenToClient(hWnd, &mousePos);
+
+        int idxX = mousePos.x / (TILE_WIDTH);
+        int idxY = mousePos.y / (TILE_HEIGHT);
+
+        yh::Tile::mSelectedX = idxX;
+        yh::Tile::mSelectedY = idxY;
+    }
+    break;
+    case WM_PAINT:
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hWnd, &ps);
+
+        //Rectangle(hdc, 0, 0, 100, 100);
+        //여기서 이미지 를 그려준다.
+
+        yh::Texture* springFloor
+            = yh::Resources::Find<yh::Texture>(L"SprintFloorTile");
+
+        TransparentBlt(hdc
+            , 0, 0, springFloor->GetWidth(), springFloor->GetHeight()
+            , springFloor->GetHdc()
+            , 0, 0, springFloor->GetWidth(), springFloor->GetHeight()
+            , RGB(255, 0, 255));
 
         // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
         EndPaint(hWnd, &ps);

@@ -14,6 +14,7 @@ namespace yh
 			Death,
 			Map,
 			Falling,
+			Carrying,
 			Ui,
 			End,
 		};
@@ -37,6 +38,9 @@ namespace yh
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 
+		virtual void OnCollisionEnter(class Collider* other);
+		virtual void OnCollisionStay(class Collider* other);
+		virtual void OnCollisionExit(class Collider* other);
 
 		void Idle();
 		void Move();
@@ -49,5 +53,7 @@ namespace yh
 	private:
 		SwordState state;
 		Directions direction;
+		class Animator* sword_anim;
+		class Collider* col;
 	};
 }

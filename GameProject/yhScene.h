@@ -22,6 +22,7 @@ namespace yh
 			mLayers[(int)type].AddGameObject(gameObj);
 		}
 
+
 		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 
 	private:

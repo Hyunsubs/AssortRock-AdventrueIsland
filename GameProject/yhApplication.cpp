@@ -4,6 +4,7 @@
 #include "yhTitle.h"
 #include "yhCamera.h"
 #include "yhSceneManager.h"
+#include "yhCollisionManager.h"
 
 yh::Application::Application() : mHwnd(NULL), 
 mHdc(NULL), 
@@ -51,6 +52,7 @@ void yh::Application::Initialize(HWND hwnd)
 	Input::Initialize();
 	Camera::Initialize();
 	 
+	CollisionManager::Initialize();
 	SceneManager::Initialize();
 
 	
@@ -68,6 +70,7 @@ void yh::Application::Update()
 	Input::Update();
 	Camera::Update();
 
+	CollisionManager::Update();
 	SceneManager::Update();
 }
 
@@ -83,6 +86,7 @@ void yh::Application::Render()
 	Time::Render(mBackHdc);
 
 	SceneManager::Render(mBackHdc);
+	CollisionManager::Render(mBackHdc);
 
 	BitBlt(mHdc, 0, 0, mWidth, mHeight
 		, mBackHdc, 0, 0, SRCCOPY);

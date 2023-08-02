@@ -5,6 +5,7 @@
 #include "yhCamera.h"
 #include "yhSceneManager.h"
 #include "yhCollisionManager.h"
+#include "yhSoundManager.h"
 
 yh::Application::Application() : mHwnd(NULL), 
 mHdc(NULL), 
@@ -50,6 +51,7 @@ void yh::Application::Initialize(HWND hwnd)
 
 	Time::Initialize();
 	Input::Initialize();
+	SoundManager::Initialize();
 	Camera::Initialize();
 	 
 	CollisionManager::Initialize();

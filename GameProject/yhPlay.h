@@ -3,10 +3,11 @@
 #include "yhSpriteRenderer.h"
 #include "yhLayer.h"
 #include "yhObject.h"
+#include "yhPlayerTemplate.h"
 
 namespace yh
 {
-	class Play : public Scene
+	class Play : public PlayerTemplate
 	{
 	public:
 		Play();
@@ -16,7 +17,7 @@ namespace yh
 		virtual void Update();
 		virtual void Render(HDC hdc);
 	private:
-		class PlayerSword* sword;
+		class Player* player;
 	};
 }
 

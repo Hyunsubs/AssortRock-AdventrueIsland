@@ -10,7 +10,7 @@
 #include "yhObject.h"
 #include "yhSpriteRenderer.h"
 #include "yhBackGroundAnimation.h"
-
+#include "yhSound.h"
 namespace yh
 {
 
@@ -40,9 +40,9 @@ namespace yh
 		Animator* left_at = tri_left->AddComponent<Animator>();
 		Animator* right_at = tri_right->AddComponent<Animator>();
 
-		up_at->CreateAnimationFolder(L"TriUpAnim",L"..\\Resources\\Image\\Title\\TriforceParts",Vector2::Zero,0.1f);
-		left_at->CreateAnimationFolder(L"TriLeftAnim", L"..\\Resources\\Image\\Title\\TriforceParts", Vector2::Zero, 0.1f);
-		right_at->CreateAnimationFolder(L"TriRightAnim", L"..\\Resources\\Image\\Title\\TriforceParts", Vector2::Zero, 0.1f);
+		up_at->CreateAnimationFolder(L"TriUpAnim",L"..\\Resources\\Image\\Title\\TriforceParts",Vector2::Zero,0.085f);
+		left_at->CreateAnimationFolder(L"TriLeftAnim", L"..\\Resources\\Image\\Title\\TriforceParts", Vector2::Zero, 0.085f);
+		right_at->CreateAnimationFolder(L"TriRightAnim", L"..\\Resources\\Image\\Title\\TriforceParts", Vector2::Zero, 0.085f);
 		up_at->SetScale(Vector2(2.0f, 2.0f));
 		left_at->SetScale(Vector2(2.0f, 2.0f));
 		right_at->SetScale(Vector2(2.0f, 2.0f));
@@ -50,6 +50,8 @@ namespace yh
 		left_at->PlayAnimation(L"TriLeftAnim", false);
 		right_at->PlayAnimation(L"TriRightAnim", false);
 		
+		Sound* sound = Resources::Load<Sound>(L"TitleSound",L"..\\Resources\\sound\\Title\\Title.wav");
+		sound->Play(false);
 
 	}
 
@@ -60,7 +62,7 @@ namespace yh
 		float time = m_change_time;
 		time += Time::DeltaTime();
 		m_change_time = time;
-		if (m_change_time >= 7.3f)
+		if (m_change_time >= 6.2f)
 		{
 			SceneManager::LoadScene(L"TitleScene");
 		}

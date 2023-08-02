@@ -67,27 +67,27 @@ namespace yh
 	void PlayerSword::OnCollisionEnter(Collider* other)
 	{
 		GreenKnight* knight = dynamic_cast<GreenKnight*>(other->GetOwner());
+		if (knight == nullptr)
+			return;
 		Transform* tr = knight->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 		switch (direction)
 		{
-		case yh::PlayerSword::Directions::Forward:
-			pos.y -= 10.0f;
+		case yh::Directions::Forward:
+			pos.y -= 40.0f;
 			tr->SetPosition(pos);
 			break;
-		case yh::PlayerSword::Directions::Backward:
-			pos.y += 10.0f;
+		case yh::Directions::Backward:
+			pos.y += 40.0f;
 			tr->SetPosition(pos);
 			break;
-		case yh::PlayerSword::Directions::Left:
-			pos.x -= 10.0f;
+		case yh::Directions::Left:
+			pos.x -= 40.0f;
 			tr->SetPosition(pos);
 			break;
-		case yh::PlayerSword::Directions::Right:
-			pos.x += 10.0f;
+		case yh::Directions::Right:
+			pos.x += 40.0f;
 			tr->SetPosition(pos);
-			break;
-		case yh::PlayerSword::Directions::None:
 			break;
 		default:
 			break;
@@ -121,26 +121,26 @@ namespace yh
 			state = SwordState::Move;
 			direction = Directions::Right;
 		}
-		if (Input::GetKey(eKeyCode::J))
+		if (Input::GetKey(eKeyCode::J) && !is_Throwing)
 		{
 			switch (direction)
 			{
-			case yh::PlayerSword::Directions::Forward:
+			case yh::Directions::Forward:
 				sword_anim->PlayAnimation(L"SwordAttackForward", false);
 				col->SetSize(Vector2(70.0f, 20.0f));
 				col->SetOffset(Vector2(0.0f,-30.0f));
 				break;
-			case yh::PlayerSword::Directions::Backward:
+			case yh::Directions::Backward:
 				sword_anim->PlayAnimation(L"SwordAttackBackward", false);
 				col->SetSize(Vector2(70.0f, 20.0f));
 				col->SetOffset(Vector2(0.0f, 30.0f));
 				break;
-			case yh::PlayerSword::Directions::Left:
+			case yh::Directions::Left:
 				sword_anim->PlayAnimation(L"SwordAttackLeft", false);
 				col->SetSize(Vector2(20.0f, 70.0f));
 				col->SetOffset(Vector2(-30.0f, 0.0f));
 				break;
-			case yh::PlayerSword::Directions::Right:
+			case yh::Directions::Right:
 				sword_anim->PlayAnimation(L"SwordAttackRight", false);
 				col->SetSize(Vector2(20.0f, 70.0f));
 				col->SetOffset(Vector2(30.0f, 0.0f));
@@ -159,22 +159,18 @@ namespace yh
 		Animator* anim = GetComponent<Animator>();
 		if (Input::GetKey(eKeyCode::W))
 		{
-			//pos.y -= 150.0f * Time::DeltaTime();
 			direction = Directions::Forward;
 		}
 		if (Input::GetKey(eKeyCode::A))
 		{
-			//pos.x -= 150.0f * Time::DeltaTime();
 			direction = Directions::Left;
 		}
 		if (Input::GetKey(eKeyCode::S))
 		{
-			//pos.y += 150.0f * Time::DeltaTime();
 			direction = Directions::Backward;
 		}
 		if (Input::GetKey(eKeyCode::D))
 		{
-			//pos.x += 150.0f * Time::DeltaTime();
 			direction = Directions::Right;
 		}
 		tr->SetPosition(pos);
@@ -210,7 +206,7 @@ namespace yh
 		Collider* col = GetComponent<Collider>();
 		if (anim->IsActiveAnimationComplete())
 		{
-			col->SetSize(Vector2(0.0f, 20.0f));
+			col->SetSize(Vector2(0.0f, 0.0f));
 			col->SetOffset(Vector2::Zero);
 			state = SwordState::Idle;
 		}

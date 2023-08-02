@@ -9,18 +9,15 @@ extern yh::Application application;
 
 namespace yh
 {
-	
-
 	Texture::Texture()
-		: mBitmap(NULL)
+		: mImage(nullptr)
+		, mBitmap(NULL)
 		, mHdc(NULL)
 		, mWidth(0)
 		, mHeight(0)
-		, mImage(nullptr)
 		, mType(eTextureType::None)
 		, mbAffectCamera(true)
 	{
-
 	}
 	Texture::~Texture()
 	{
@@ -30,7 +27,6 @@ namespace yh
 		DeleteObject(mBitmap);
 		mBitmap = NULL;
 	}
-
 	Texture* Texture::Create(const std::wstring& name, UINT width, UINT height)
 	{
 		Texture* image = Resources::Find<Texture>(name);
@@ -50,26 +46,25 @@ namespace yh
 		HBITMAP defaultBitmap = (HBITMAP)SelectObject(bitmapHdc, bitmap);
 		DeleteObject(defaultBitmap);
 
-		image->SetType(eTextureType::AlphaBmp);
 		image->SetName(name);
+		image->SetType(eTextureType::AlphaBmp);
 		Resources::Insert<Texture>(name, image);
-
 
 		return image;
 	}
-
 	HRESULT Texture::Load(const std::wstring& path)
 	{
-		//확장자 bmp일때와 png일때
+		//bmp 일때
+		//png 일때
 
-		std::wstring ext = path.substr(path.find_last_of(L".") + 1);
-
-
+		std::wstring ext
+			= path.substr(path.find_last_of(L".") + 1);
 		if (ext == L"bmp")
 		{
 			mType = eTextureType::Bmp;
-			mBitmap = (HBITMAP)LoadImageW(nullptr, path.c_str(), IMAGE_BITMAP, 0, 0,
-				LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+			mBitmap = (HBITMAP)LoadImageW(nullptr, path.c_str(), IMAGE_BITMAP, 0, 0
+				, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+
 
 			if (mBitmap == nullptr)
 				return S_FALSE;
@@ -86,25 +81,21 @@ namespace yh
 			HDC mainDC = application.GetHdc();
 			mHdc = CreateCompatibleDC(mainDC);
 
-			HBITMAP defaultBitmap = (HBITMAP)SelectObject(mHdc, mBitmap);
-			DeleteObject(defaultBitmap);
+			HBITMAP deafultBitmap = (HBITMAP)SelectObject(mHdc, mBitmap);
+			DeleteObject(deafultBitmap);
 		}
-
 		else if (ext == L"png")
 		{
 			mType = eTextureType::Png;
+			// image.png 파일을 이용하여 Texture 객체를 생성합니다.
 			mImage = Gdiplus::Image::FromFile(path.c_str());
-			
+
 			mWidth = mImage->GetWidth();
 			mHeight = mImage->GetHeight();
-
 		}
-		
 
 		return S_OK;
-
 	}
-
 	void Texture::Render(HDC hdc
 		, Vector2 pos
 		, Vector2 size
@@ -131,7 +122,6 @@ namespace yh
 				, leftTop.x, leftTop.y, rightBottom.x, rightBottom.y
 				, RGB(255, 0, 255));
 		}
-
 		else if (mType == eTextureType::AlphaBmp)
 		{
 			BLENDFUNCTION func = {};
@@ -143,9 +133,8 @@ namespace yh
 
 			if (alpha <= 0)
 				alpha = 0;
-			else if (alpha >= 255)
-				alpha = 255.0f;
-
+			if (alpha >= 255)
+				alpha = 255;
 			func.SourceConstantAlpha = alpha; // 0 ~ 255
 
 			AlphaBlend(hdc, (int)pos.x - (size.x * scale.x / 2.0f) + offset.x
@@ -157,9 +146,23 @@ namespace yh
 				, rightBottom.x, rightBottom.y
 				, func);
 		}
-
 		else if (mType == eTextureType::Png)
 		{
+			////create a new empty bitmap to hold rotated image
+			//Bitmap returnBitmap = new Bitmap(b.Width, b.Height);
+			////make a graphics object from the empty bitmap
+			//Graphics g = Graphics.FromImage(returnBitmap);
+			////move rotation point to center of image
+			//g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
+			////rotate
+			//g.RotateTransform(angle);
+			////move image back
+			//g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
+			////draw passed in image onto graphics object
+			//g.DrawImage(b, new Point(0, 0));
+			//return returnBitmap;
+
+
 			//// 내가 원하는 픽셀을 투명화 시킬떄
 			Gdiplus::ImageAttributes imageAtt = {};
 			//// 투명화 시킬 픽셀 색 범위
@@ -184,11 +187,15 @@ namespace yh
 				, nullptr);
 		}
 
-		Rectangle(hdc
-			, pos.x, pos.y
-			, pos.x + 10, pos.y + 10);
+		//Rectangle(hdc
+		//	, pos.x, pos.y
+		//	, pos.x + 10, pos.y + 10);
+	}
+	COLORREF Texture::GetTexturePixel(int x, int y)
+	{
+		COLORREF rgb = GetPixel(mHdc, x, y);
 
-
+		return rgb;
 	}
 
 }

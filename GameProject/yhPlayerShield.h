@@ -37,8 +37,14 @@ namespace yh
 		void Falling();
 		void Ui();
 
+		void SetDirection(Directions direct) { direction = direct; }
+
 	private:
 		ShieldState state;
-
+		Directions direction;
+		class Transform* tr;
+		class SpriteRenderer* sr;
+		class Texture* image;
+		class Animator* anim;
 	};
 }

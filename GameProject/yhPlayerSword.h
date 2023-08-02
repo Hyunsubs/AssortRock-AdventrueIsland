@@ -19,14 +19,7 @@ namespace yh
 			End,
 		};
 
-		enum class Directions
-		{
-			Forward,
-			Backward,
-			Left,
-			Right,
-			None,
-		};
+
 
 
 
@@ -50,9 +43,13 @@ namespace yh
 		void Falling();
 		void Ui();
 
+		void SetThrowing(bool input) { is_Throwing = input; }
+		void SetSwordState(SwordState input) { state = input; }
+
 	private:
 		SwordState state;
 		Directions direction;
+		bool is_Throwing;
 		class Animator* sword_anim;
 		class Collider* col;
 	};

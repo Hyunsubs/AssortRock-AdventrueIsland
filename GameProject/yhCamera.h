@@ -14,8 +14,15 @@ namespace yh
 		static void Update();
 
 		static Vector2 CalculatePosition(Vector2 pos) { return pos - mDistance; }
+		static Vector2 CalculateUIPosition(Vector2 pos) { return pos + mDistance; }
 		static void SetTarget(GameObject* target) { mTarget = target; }
-
+		static bool Is_Following() 
+		{
+			if (mTarget == nullptr) 
+				return false;
+			else 
+				return true;
+		}
 		static void ResetCamera();
 
 	private:

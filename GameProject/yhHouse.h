@@ -1,9 +1,10 @@
 #pragma once
-#include "yhScene.h"
+#include "yhPlayerTemplate.h"
+
 
 namespace yh
 {
-	class House : public Scene
+	class House : public PlayerTemplate
 	{
 	public:
 		House();
@@ -13,6 +14,7 @@ namespace yh
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 	private:
+		class Player* player;
 	};
 }
 

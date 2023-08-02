@@ -26,19 +26,19 @@ namespace yh
 	{
 		if (Input::GetKey(eKeyCode::Up))
 		{
-			mLookPosition.y -= (300.0f * Time::DeltaTime());
+			mLookPosition.y -= (150.0f * Time::DeltaTime());
 		}
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			mLookPosition.x -= (300.0f * Time::DeltaTime());
+			mLookPosition.x -= (150.0f * Time::DeltaTime());
 		}
 		if (Input::GetKey(eKeyCode::Down))
 		{
-			mLookPosition.y += (300.0f * Time::DeltaTime());
+			mLookPosition.y += (150.0f * Time::DeltaTime());
 		}
 		if (Input::GetKey(eKeyCode::Right))
 		{
-			mLookPosition.x += (300.0f * Time::DeltaTime());
+			mLookPosition.x += (150.0f * Time::DeltaTime());
 		}
 
 		if (mTarget)

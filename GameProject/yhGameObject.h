@@ -56,6 +56,7 @@ namespace yh
 		virtual void OnCollisionExit(class Collider* other);
 
 		eState GetState() { return mState; }
+		void SetState(eState input) { mState = input; }
 		void Pause() { mState = eState::Pause; }
 		
 	private:
@@ -63,12 +64,12 @@ namespace yh
 		eState mState;
 
 		void death() { mState = eState::Dead; }
-
+	};
 		static __forceinline void Destroy(GameObject* gameObject)
 		{
 			gameObject->death();
 		}
-	};
+	
 }
 
 

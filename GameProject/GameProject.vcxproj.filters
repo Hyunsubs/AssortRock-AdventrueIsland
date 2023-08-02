@@ -94,6 +94,12 @@
     <Filter Include="Tool">
       <UniqueIdentifier>{0072bd84-deb9-4dd7-a5b1-6753876146b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Sound">
+      <UniqueIdentifier>{c0660d9c-7559-47f7-b007-75f76697f38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI">
+      <UniqueIdentifier>{04d767b7-8f56-4124-8669-a14aae43e8a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -231,6 +237,45 @@
     <ClInclude Include="yhGreenKnight.h">
       <Filter>Contents\GameObject\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="yhSound.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="yhSoundManager.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="yhMana.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhWall.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhManaPoint.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhThrowing.h">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yhHpInterface.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhPlayerTemplate.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yhLifeUI.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhArrow.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhBomb.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhRupeeUI.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhCurItem.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -363,6 +408,45 @@
     </ClCompile>
     <ClCompile Include="yhGreenKnight.cpp">
       <Filter>Contents\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhSound.cpp">
+      <Filter>Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="yhSoundManager.cpp">
+      <Filter>Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="yhMana.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhWall.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhManaPoint.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhThrowing.cpp">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yhHpInterface.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhPlayerTemplate.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhLifeUI.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhArrow.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhBomb.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhRupeeUI.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhCurItem.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -46,7 +46,6 @@ namespace yh
 			mResources.insert(std::make_pair(name, resource));
 		}
 
-
 	private:
 		static std::map<std::wstring, Resource*> mResources;
 	};

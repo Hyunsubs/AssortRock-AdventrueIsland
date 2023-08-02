@@ -25,6 +25,7 @@ void yh::SceneChanger::Update()
 	if (Input::GetKey(eKeyCode::Z))
 	{
 		SceneManager::LoadScene(L"PlayScene");
+		Camera::ResetCamera();
 	}
 
 	else if (Input::GetKey(eKeyCode::X))
@@ -36,11 +37,13 @@ void yh::SceneChanger::Update()
 	else if (Input::GetKey(eKeyCode::C))
 	{
 		SceneManager::LoadScene(L"TitleScene");
+		Camera::ResetCamera();
 	}
 
 	else if (Input::GetKey(eKeyCode::V))
 	{
 		SceneManager::LoadScene(L"TitleAnimScene");
+		Camera::ResetCamera();
 	}
 
 

@@ -134,6 +134,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
         0, 0, 1600, 900, nullptr, nullptr, hInstance, nullptr);
 
+    HWND hWndTool = CreateWindowW(L"Tool", szTitle, WS_OVERLAPPEDWINDOW,
+        0, 0, 384, 400, nullptr, nullptr, hInstance, nullptr);
+
     // Gdiplus 초기화
 
     Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
@@ -145,8 +148,21 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         return FALSE;
     }
 
+    //main
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
+
+    /// tool
+    RECT rect = { 0, 0, 384, 400 };
+    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+    SetWindowPos(hWndTool
+        , nullptr, 1280, 720
+        , rect.right - rect.left
+        , rect.bottom - rect.top
+        , 0);
+    ShowWindow(hWndTool, nCmdShow);
+    UpdateWindow(hWndTool);
+
 
     return TRUE;
 }

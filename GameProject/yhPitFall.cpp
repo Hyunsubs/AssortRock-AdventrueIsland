@@ -3,11 +3,14 @@
 #include "yhAnimator.h"
 #include "yhCollider.h"
 #include "yhTransform.h"
+#include "yhSound.h"
+#include "yhResources.h"
 
 namespace yh
 {
 	PitFall::PitFall()
 	{
+
 	}
 	PitFall::~PitFall()
 	{
@@ -31,6 +34,8 @@ namespace yh
 		tr->SetPosition(GetComponent<Transform>()->GetPosition());
 		anim->PlayAnimation(L"LinkFalling", false);
 		player->SetState(Player::PlayerState::Falling);
+		Sound* FallSound = Resources::Load<Sound>(L"FallingLink", L"..\\Resources\\sound\\Falling\\LinkFalling.wav");
+		FallSound->Play(false);
 	}
 	void PitFall::OnCollisionStay(Collider* other)
 	{

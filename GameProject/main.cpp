@@ -4,13 +4,15 @@
 #include "framework.h"
 #include "GameProject.h"
 #include "yhApplication.h"
+#include "yhSceneManager.h"
 
 //
 #include "yhTexture.h"
 #include "yhResources.h"
 #include "yhInput.h"
 #include "yhTile.h"
-
+#include "yhPlayerTemplate.h"
+#include "CommonInclude.h"
 
 #define MAX_LOADSTRING 100
 
@@ -37,6 +39,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     //Gdiplus::GdiplusStartup
     // TODO: 여기에 코드를 입력합니다.
 
@@ -92,6 +95,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         //
     }
 
+    yh::SceneManager::Release();
+    yh::Resources::Release();
+
     Gdiplus::GdiplusShutdown(gdiplusToken);
 
     return (int)msg.wParam;
@@ -143,6 +149,47 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     application.Initialize(hWnd);
 
+    //status(플레이어 정보) 파일 초기화
+    std::ofstream ofs("..\\Resources\\SaveData\\status.txt", std::ios::out | std::ios::trunc);
+    if (ofs.fail())
+    {
+        std::cout << "Error!" << std::endl;
+    }
+    ofs << 0;
+    ofs << "\n";
+    ofs << 0;
+    ofs << "\n";
+    ofs << 0;
+    ofs << "\n";
+    ofs << 3;
+    ofs << "\n";
+
+    ofs.close();
+
+    //플레이어 위치 정보 초기화
+    std::ofstream ofs2("..\\Resources\\SaveData\\PlayerPosition.txt", std::ios::out | std::ios::trunc);
+    if (ofs2.fail())
+    {
+        std::cout << "Error!" << std::endl;
+    }
+    ofs2 << 0.0f;
+    ofs2 << "\n";
+    ofs2 << 0.0f;
+    ofs2 << "\n";
+    ofs2.close();
+
+
+    //플레이어 방향 정보 초기화
+
+    std::ofstream ofs3("..\\Resources\\SaveData\\PlayerDirection.txt", std::ios::out | std::ios::trunc);
+    if (ofs3.fail())
+    {
+        std::cout << "Error!" << std::endl;
+    }
+    ofs3 << (int)yh::Directions::Backward;
+    ofs3.close();
+
+
     if (!hWnd)
     {
         return FALSE;
@@ -163,6 +210,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     ShowWindow(hWndTool, nCmdShow);
     UpdateWindow(hWndTool);
 
+    
 
     return TRUE;
 }

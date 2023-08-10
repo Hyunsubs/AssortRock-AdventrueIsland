@@ -210,9 +210,6 @@
     <ClInclude Include="yhCollisionManager.h">
       <Filter>Engine\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="yhAsciiRender.h">
-      <Filter>Contents\GameObject\BackGround</Filter>
-    </ClInclude>
     <ClInclude Include="yhPlayerSword.h">
       <Filter>Contents\GameObject\Player</Filter>
     </ClInclude>
@@ -275,6 +272,39 @@
     </ClInclude>
     <ClInclude Include="yhCurItem.h">
       <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhNumber.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhBasicUITemplate.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhAsciiRender.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGrass.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhNearHouseScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yhInsideCastleFirst.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yhInsideCastleSecond.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yhMapChanger.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhStair.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhStep.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhInsideCastleThird.h">
+      <Filter>Contents\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -382,9 +412,6 @@
     <ClCompile Include="yhCollisionManager.cpp">
       <Filter>Engine\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="yhAsciiRender.cpp">
-      <Filter>Contents\GameObject\BackGround</Filter>
-    </ClCompile>
     <ClCompile Include="yhPlayerSword.cpp">
       <Filter>Contents\GameObject\Player</Filter>
     </ClCompile>
@@ -447,6 +474,39 @@
     </ClCompile>
     <ClCompile Include="yhCurItem.cpp">
       <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhNumber.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhBasicUITemplate.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhAsciiRender.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGrass.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhNearHouseScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhInsideCastleFirst.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhInsideCastleSecond.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhMapChanger.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhStair.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhStep.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhInsideCastleThird.cpp">
+      <Filter>Contents\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

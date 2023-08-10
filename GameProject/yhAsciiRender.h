@@ -1,10 +1,11 @@
 #pragma once
-#include "yhGameObject.h"
+#include "yhBasicUITemplate.h"
+
 
 namespace yh
 {
 	using namespace math;
-	class AsciiRender : public GameObject
+	class AsciiRender : public BasicUITemplate
 	{
 	public:
 		AsciiRender();
@@ -16,12 +17,20 @@ namespace yh
 
 		void SetString(std::string sent) { sentence = sent; }
 		void SetScreen(Vector2 pos) { RenderPosition = pos; }
+		void SetFontSize(Vector2 size) { font_scale = size; }
+
+		void PrintAsciis();
 
 	private:
 		std::string sentence;
 		Vector2 RenderPosition;
 		Vector2 font_scale;
-		int change_line;
+		std::vector<class SpriteRenderer> string_set;
+
+		class Texture* image;
+		class SpriteRenderer* sr;
+		class Transform* tr;
+		
 	};
 
 

@@ -4,6 +4,8 @@
 
 namespace yh
 {
+	using namespace math;
+
 	enum class MonsterState
 	{
 		Idle,
@@ -12,6 +14,7 @@ namespace yh
 		MoveReady,
 		Death,
 		Falling,
+		Chasing,
 		Ui,
 		End,
 	};
@@ -32,12 +35,24 @@ namespace yh
 		virtual void OnCollisionExit(class Collider* other);
 
 		void Idle();
-		void MoveReady();
 		void Move();
 		void Attack();
 		void Death();
 		void Falling();
 		void Ui();
+		void Chasing();
+
+		void SetChasing(bool input) { is_chasing = input; }
+		void SetPlayerPos(Vector2 pos) { player_pos = pos; }
+
+		void SetState(MonsterState input) { state = input; }
+
+		void CheckChasing();
+		void CheckPixel(class Texture* pixel_texture, Vector2 map_size);
+
+		class Texture* PixelTexture;
+		Vector2 map_size;
+
 
 	private:
 		class Animator* anim;
@@ -46,7 +61,10 @@ namespace yh
 		MonsterState state;
 		Directions direction;
 
+		Vector2 player_pos;
 		float moving_time;
+		bool is_Wall;
+		bool is_chasing;
 	};
 }
 

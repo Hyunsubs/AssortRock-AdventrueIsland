@@ -8,6 +8,8 @@
 #include <filesystem>
 #include <bitset>
 #include <assert.h>
+#include <fstream>
+#include <iostream>
 
 #include "framework.h"
 #include "yhMath.h"
@@ -31,12 +33,17 @@
 #define MAP_PATH L"..\\Resources\\Image\\Maps\\"
 #define MONSTER_PATH L"..\\Resources\\Image\\Monster\\"
 #define UI_PATH L"..\\Resources\\Image\\UI\\"
+#define TILE_PATH L"..\\Resources\\Image\\Tiles\\"
 
 namespace yh::enums
 {
 	enum class eLayerType
 	{
+		PixelCollider,
+		ForeBackground,
 		Background,
+		MapChanger,
+		Stair,
 		Obstacle,
 		PitFall,
 		Wall,
@@ -55,7 +62,11 @@ namespace yh::enums
 	enum class Directions
 	{
 		Forward,
+		UpRight,
+		UpLeft,
 		Backward,
+		DownRight,
+		DownLeft,
 		Left,
 		Right,
 		End,

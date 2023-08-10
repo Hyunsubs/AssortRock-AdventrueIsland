@@ -2,7 +2,8 @@
 #include "yhPlayer.h"
 #include "yhSpriteRenderer.h"
 
-yh::Scene::Scene()
+yh::Scene::Scene() :
+	is_loaded(false)
 {
 	mLayers.resize((int)eLayerType::End);
 }

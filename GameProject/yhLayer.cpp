@@ -6,6 +6,11 @@ yh::Layer::Layer()
 
 yh::Layer::~Layer()
 {
+	for (GameObject* obj : mGameObjects)
+	{
+		delete obj;
+		obj = nullptr;
+	}
 }
 
 void yh::Layer::Initialize()

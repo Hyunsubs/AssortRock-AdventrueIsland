@@ -42,6 +42,8 @@ namespace yh
 		int mp = player->GetMp();
 		if (mp > 6)
 			mp = 6;
+		if (mp <= 0)
+			mp = 0;
 		mp++;
 		player->SetMp(mp);
 		Destroy(this);

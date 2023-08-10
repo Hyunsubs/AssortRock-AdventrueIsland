@@ -7,6 +7,7 @@
 
 namespace yh
 {
+	using namespace math;
 	class Play : public PlayerTemplate
 	{
 	public:
@@ -16,8 +17,18 @@ namespace yh
 		virtual void Initialize();
 		virtual void Update();
 		virtual void Render(HDC hdc);
+
+	
+
 	private:
-		class Player* player;
+		class GreenKnight* knight;
+		class MapChanger* castle_to_house;
+		class MapChanger* inside_castle;
+		class MapChanger* inside_castle2;
+
+		Vector2 map_pos;
+		Vector2 map_scale;
+		Vector2 map_size;
 	};
 }
 

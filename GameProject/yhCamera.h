@@ -24,6 +24,9 @@ namespace yh
 				return true;
 		}
 		static void ResetCamera();
+		static void SetLookPosition(Vector2 input) { mLookPosition = input; }
+
+
 
 	private:
 		static Vector2 mResolution;

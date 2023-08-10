@@ -92,6 +92,9 @@ namespace yh
 		default:
 			break;
 		}
+		Animator* knight_anim = knight->GetComponent<Animator>();
+		knight_anim->PlayAnimation(L"GnDeath");
+		knight->SetState(MonsterState::Death);
 	}
 	void PlayerSword::OnCollisionStay(Collider* other)
 	{
@@ -207,7 +210,7 @@ namespace yh
 		if (anim->IsActiveAnimationComplete())
 		{
 			col->SetSize(Vector2(0.0f, 0.0f));
-			col->SetOffset(Vector2::Zero);
+			col->SetOffset(Vector2(3000.0f,3000.0f));
 			state = SwordState::Idle;
 		}
 		

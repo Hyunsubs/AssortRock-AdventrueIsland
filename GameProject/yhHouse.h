@@ -4,6 +4,7 @@
 
 namespace yh
 {
+
 	class House : public PlayerTemplate
 	{
 	public:
@@ -13,8 +14,10 @@ namespace yh
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
+
 	private:
-		class Player* player;
+		class MapChanger* nearhouse_map_changer;
+		class MapChanger* castle_map_changer;
 	};
 }
 

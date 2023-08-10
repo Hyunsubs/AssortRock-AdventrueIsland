@@ -22,6 +22,8 @@ namespace yh
 			return scene;
 		}
 
+		static void Release();
+
 		static Scene* LoadScene(const std::wstring& name);
 		static Scene* GetActiveScene() { return mActiveScenes; }
 	private:

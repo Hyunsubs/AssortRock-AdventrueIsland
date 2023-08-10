@@ -28,6 +28,8 @@ namespace yh
 	void Mana::Update()
 	{
 		GameObject::Update();
+		if (mp <= 0)
+			mp = 0;
 		image = Resources::Load<Texture>(L"ManaContainer"+std::to_wstring(mp), L"..\\Resources\\Image\\UI\\mana\\mana" + std::to_wstring(mp) + L".bmp");
 		sr->SetImage(image);
 	}

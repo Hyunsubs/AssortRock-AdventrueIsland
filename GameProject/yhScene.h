@@ -22,11 +22,15 @@ namespace yh
 			mLayers[(int)type].AddGameObject(gameObj);
 		}
 
+		void SetLoaded(bool input) { is_loaded = input; }
+		bool GetLoaded() { return is_loaded; }
+
 
 		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 
 	private:
 		std::vector<Layer> mLayers;
+		bool is_loaded;
 	};
 }
 

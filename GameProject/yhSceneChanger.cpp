@@ -6,6 +6,7 @@
 #include "yhSceneManager.h"
 #include "yhPlay.h"
 #include "yhCamera.h"
+#include "yhPlayerTemplate.h"
 
 yh::SceneChanger::SceneChanger()
 {
@@ -24,7 +25,7 @@ void yh::SceneChanger::Update()
 
 	if (Input::GetKey(eKeyCode::Z))
 	{
-		SceneManager::LoadScene(L"PlayScene");
+		SceneManager::LoadScene(L"CastleGardenScene");
 		Camera::ResetCamera();
 	}
 
@@ -46,6 +47,17 @@ void yh::SceneChanger::Update()
 		Camera::ResetCamera();
 	}
 
+	else if (Input::GetKey(eKeyCode::B))
+	{
+		SceneManager::LoadScene(L"NearHouseScene");
+		Camera::ResetCamera();
+	}
+
+	else if (Input::GetKey(eKeyCode::N))
+	{
+		SceneManager::LoadScene(L"InsideCastleFirst");
+		Camera::ResetCamera();
+	}
 
 }
 

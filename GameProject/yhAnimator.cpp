@@ -12,6 +12,11 @@ namespace yh
 	}
 	Animator::~Animator()
 	{
+		for (auto iter : mAnimations)
+		{
+			delete iter.second;
+			iter.second = nullptr;
+		}
 	}
 	void Animator::Initialize()
 	{
@@ -52,7 +57,7 @@ namespace yh
 		animation->SetAnimator(this);
 
 		mAnimations.insert(std::make_pair(name, animation));
-		Resources::Insert<Animation>(name, animation);
+		//Resources::Insert<Animation>(name, animation);
 
 		return animation;
 	}

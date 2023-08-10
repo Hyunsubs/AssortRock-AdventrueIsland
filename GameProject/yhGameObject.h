@@ -4,6 +4,7 @@
 
 namespace yh
 {
+	using namespace math;
 	class GameObject : public Entity
 	{
 	public:

@@ -13,6 +13,9 @@
 #include "yhMana.h"
 #include "yhHpInterface.h"
 #include "yhPlayerShield.h"
+#include "yhTexture.h"
+
+#define PLAYER_SPEED 150.0f
 
 namespace yh
 {
@@ -26,7 +29,10 @@ namespace yh
 		bomb(0),
 		arrow(0),
 		is_dead(false),
-		is_Wall(false)
+		is_Wall(false),
+		is_Bridge(false),
+		stair_time(2.0f),
+		is_Down(true)
 	{
 
 
@@ -85,9 +91,16 @@ namespace yh
 		at->CreateAnimationFolder(L"LinkThrowingLeftIdle", player_path + L"Link_Throwing\\Link_Throwing_Left_Idle");
 		at->CreateAnimationFolder(L"LinkThrowingRightIdle", player_path + L"Link_Throwing\\Link_Throwing_Right_Idle");
 
+		//링크 계단 아래 지나갈때 아무것도 없는 이미지
+		at->CreateAnimationFolder(L"LinkDownBridgeAnim", player_path + L"Link_DownBridge");
+
+		//떨어질때 컷신 용
+		at->CreateAnimationFolder(L"LinkFallingCutScene", player_path + L"Link_Falling_Cut");
+
 		//충돌판정용 Collider
 		Collider* col = AddComponent<Collider>();
 		col->SetSize(Vector2(40.0f, 30.0f));
+
 
 
 		//링크 효과음
@@ -111,14 +124,27 @@ namespace yh
 
 	void Player::Update()
 	{
-
 		GameObject::Update();
+		
+		if (rupee >= 255)
+			rupee = 255;
+		if (bomb >= 20)
+			bomb = 20;
+		if (arrow >= 20)
+			arrow = 20;
+		if (is_Bridge)
+			state = PlayerState::DownBridge;
+
+
+		CheckPixel(PixelTexture, map_size);
+
 		if (is_dead)
 			return;
 		Vector2 my_pos = GetComponent<Transform>()->GetPosition();
 		Transform* tr = sword->GetComponent<Transform>();
 		tr->SetPosition(my_pos);
 
+		DirectionSet();
 
 		switch (state)
 		{
@@ -140,6 +166,12 @@ namespace yh
 		case yh::Player::PlayerState::Carrying:
 			Carrying();
 			break;
+		case yh::Player::PlayerState::DownBridge:
+			DownBridge();
+			break;
+		case yh::Player::PlayerState::In_Stair:
+			In_Stair();
+			break;
 		case yh::Player::PlayerState::Map:
 			Map();
 			break;
@@ -148,6 +180,9 @@ namespace yh
 			break;
 		case yh::Player::PlayerState::Throwing:
 			Throwing();
+			break;
+		case yh::Player::PlayerState::Fall_Cut_Scene:
+			FallCutScene();
 			break;
 		case yh::Player::PlayerState::Hit:
 			Hit();
@@ -193,7 +228,6 @@ namespace yh
 	void Player::Idle()
 	{
 		Animator* anim = GetComponent<Animator>();
-		Animator* shield_anim = GetComponent<Animator>();
 		if (Input::GetKey(eKeyCode::W))
 		{
 			if (is_Throwing)
@@ -203,7 +237,6 @@ namespace yh
 			else
 			{
 				anim->PlayAnimation(L"LinkBackward", true);
-				shield_anim->PlayAnimation(L"ShieldBackwardAnim", false);
 			}
 			state = PlayerState::Move;
 			direction = Directions::Backward;
@@ -217,7 +250,6 @@ namespace yh
 			else
 			{
 				anim->PlayAnimation(L"LinkLeft", true);
-				shield_anim->PlayAnimation(L"ShieldLeftAnim", false);
 			}
 			state = PlayerState::Move;
 			direction = Directions::Left;
@@ -232,7 +264,6 @@ namespace yh
 			else
 			{
 				anim->PlayAnimation(L"LinkForward", true);
-				shield_anim->PlayAnimation(L"ShieldForwardAnim", false);
 			}
 
 			state = PlayerState::Move;
@@ -247,7 +278,6 @@ namespace yh
 			else
 			{
 				anim->PlayAnimation(L"LinkRight", true);
-				shield_anim->PlayAnimation(L"ShieldRightAnim", false);
 			}
 			state = PlayerState::Move;
 			direction = Directions::Right;
@@ -258,6 +288,14 @@ namespace yh
 			state = PlayerState::Attack;
 			AttackSound->Play(false);
 		}
+
+
+		if (Input::GetKey(eKeyCode::L))
+		{
+			rupee++;
+			mp--;
+		}
+
 
 		if (Input::GetKeyDown(eKeyCode::K))
 		{
@@ -274,30 +312,7 @@ namespace yh
 		Vector2 pos = tr->GetPosition();
 		Animator* anim = GetComponent<Animator>();
 
-		if (!is_Wall)
-		{
-			if (Input::GetKey(eKeyCode::W))
-			{
-				pos.y -= 150.0f * Time::DeltaTime();
-				direction = Directions::Forward;
-			}
-			if (Input::GetKey(eKeyCode::A))
-			{
-				pos.x -= 150.0f * Time::DeltaTime();
-				direction = Directions::Left;
-			}
-			if (Input::GetKey(eKeyCode::S))
-			{
-				pos.y += 150.0f * Time::DeltaTime();
-				direction = Directions::Backward;
-			}
-			if (Input::GetKey(eKeyCode::D))
-			{
-				pos.x += 150.0f * Time::DeltaTime();
-				direction = Directions::Right;
-			}
-			tr->SetPosition(pos);
-		}
+		MoveFunc();
 
 		if (Input::GetKeyUp(eKeyCode::W))
 		{
@@ -359,6 +374,37 @@ namespace yh
 
 	}
 
+	void Player::MoveFunc()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPosition();
+
+		if (!is_Wall)
+		{
+			if (Input::GetKey(eKeyCode::W))
+			{
+				pos.y -= PLAYER_SPEED * Time::DeltaTime();
+				direction = Directions::Forward;
+			}
+			if (Input::GetKey(eKeyCode::A))
+			{
+				pos.x -= PLAYER_SPEED * Time::DeltaTime();
+				direction = Directions::Right;
+			}
+			if (Input::GetKey(eKeyCode::S))
+			{
+				pos.y += PLAYER_SPEED * Time::DeltaTime();
+				direction = Directions::Backward;
+			}
+			if (Input::GetKey(eKeyCode::D))
+			{
+				pos.x += PLAYER_SPEED * Time::DeltaTime();
+				direction = Directions::Right;
+			}
+			tr->SetPosition(pos);
+		}
+	}
+
 	void Player::Attack()
 	{
 		Animator* anim = GetComponent<Animator>();
@@ -384,9 +430,6 @@ namespace yh
 			break;
 		}
 
-
-
-
 		state = PlayerState::Idle;
 
 
@@ -405,6 +448,7 @@ namespace yh
 
 	void Player::Map()
 	{
+		
 	}
 
 	void Player::Carrying()
@@ -425,9 +469,17 @@ namespace yh
 			shield = object::Instantiate<PlayerShield>(eLayerType::Shield, myPos);
 			switch (direction)
 			{
+			case yh::Directions::UpLeft:
+				direction = Directions::Forward;
+			case yh::Directions::UpRight:
+				direction = Directions::Forward;
 			case yh::Directions::Forward:
 				anim->PlayAnimation(L"LinkIdleUp");
 				break;
+			case yh::Directions::DownLeft:
+				direction = Directions::Backward;
+			case yh::Directions::DownRight:
+				direction = Directions::Backward;
 			case yh::Directions::Backward:
 				anim->PlayAnimation(L"LinkIdleDown");
 				break;
@@ -461,6 +513,22 @@ namespace yh
 				anim->PlayAnimation(L"LinkThrowingRightStart", false);
 				is_Throwing = true;
 				break;
+			case yh::Directions::DownRight:
+				anim->PlayAnimation(L"LinkThrowingBackwardStart", false);
+				is_Throwing = true;
+				break;
+			case yh::Directions::DownLeft:
+				anim->PlayAnimation(L"LinkThrowingBackwardStart", false);
+				is_Throwing = true;
+				break;
+			case yh::Directions::UpRight:
+				anim->PlayAnimation(L"LinkThrowingForwardStart", false);
+				is_Throwing = true;
+				break;
+				case yh::Directions::UpLeft:
+				anim->PlayAnimation(L"LinkThrowingForwardStart", false);
+				is_Throwing = true;
+				break;
 			default:
 				break;
 			}
@@ -489,6 +557,107 @@ namespace yh
 
 	void Player::Hit()
 	{
+	}
+
+	void Player::DownBridge()
+	{
+		if (is_Bridge)
+		{
+			at->PlayAnimation(L"LinkDownBridgeAnim", false);
+			MoveFunc();
+		}
+
+		else
+		{
+			state = PlayerState::Idle;
+		}
+	}
+
+	void Player::DirectionSet()
+	{
+		if (Input::GetKey(eKeyCode::W))
+		{
+			direction = Directions::Forward;
+		}
+		if (Input::GetKey(eKeyCode::A))
+		{
+			direction = Directions::Left;
+		}
+		if (Input::GetKey(eKeyCode::S))
+		{
+			direction = Directions::Backward;
+		}
+		if (Input::GetKey(eKeyCode::D))
+		{
+			direction = Directions::Right;
+		}
+		if (Input::GetKey(eKeyCode::D) && Input::GetKey(eKeyCode::W))
+		{
+			direction = Directions::UpRight;
+		}
+		if (Input::GetKey(eKeyCode::A) && Input::GetKey(eKeyCode::W))
+		{
+			direction = Directions::UpLeft;
+		}
+		if (Input::GetKey(eKeyCode::S) && Input::GetKey(eKeyCode::A))
+		{
+			direction = Directions::DownRight;
+		}
+		if (Input::GetKey(eKeyCode::S) && Input::GetKey(eKeyCode::D))
+		{
+			direction = Directions::DownLeft;
+		}
+
+
+	}
+
+	void Player::CheckPixel(Texture* pixel_texture, Vector2 map_size)
+	{
+		if (pixel_texture == nullptr)
+			return;
+		std::vector<COLORREF> rgbs;
+		Transform* my_tr = GetComponent<Transform>();
+		COLORREF down_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x, my_tr->GetPosition().y + map_size.y + 13);
+		COLORREF up_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x, my_tr->GetPosition().y + map_size.y - 13);
+		COLORREF left_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x - 13, my_tr->GetPosition().y + map_size.y);
+		COLORREF right_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x + 13, my_tr->GetPosition().y + map_size.y);
+
+		rgbs.push_back(down_color);
+		rgbs.push_back(up_color);
+		rgbs.push_back(left_color);
+		rgbs.push_back(right_color);
+
+		for (int i = 0; i < 4; ++i)
+		{
+			if (rgbs[i] == RGB(0, 0, 255))
+			{
+				Vector2 my_pos = my_tr->GetPosition();
+				switch (i)
+				{
+				case 0:
+					my_pos.y -= 3.0f /* Time::DeltaTime()*/;
+					break;
+				case 1:
+					my_pos.y += 3.0f /*Time::DeltaTime()*/;
+					break;
+				case 2:
+					my_pos.x += 3.0f /* Time::DeltaTime()*/;
+					break;
+				case 3:
+					my_pos.x -= 3.0f  /*Time::DeltaTime()*/;
+					break;
+				default:
+					break;
+				}
+				is_Wall = true;
+				my_tr->SetPosition(my_pos);
+			}
+
+			else
+			{
+				is_Wall = false;
+			}
+		}
 	}
 
 	void Player::Falling()
@@ -528,6 +697,64 @@ namespace yh
 
 		}
 
+	}
+
+	void Player::FallCutScene()
+	{
+		Transform* player_tr = GetComponent<Transform>();
+		Vector2 player_pos = player_tr->GetPosition();
+		while (player_pos.y >= 0.0f)
+		{
+			player_pos.y -= 100.0f * Time::DeltaTime();
+			player_tr->SetPosition(player_pos);
+		}
+		state = PlayerState::Idle;
+	}
+
+	void Player::In_Stair()
+	{
+		stair_time -= Time::DeltaTime();
+
+		Transform* player_tr = GetComponent<Transform>();
+		Vector2 player_pos = player_tr->GetPosition();
+		Animator* anim = GetComponent<Animator>();
+
+		if (stair_time <= 0.0f)
+		{
+			is_Down = !is_Down;
+			state = PlayerState::Idle;
+			stair_time = 2.0f;
+			switch (direction)
+			{
+			case yh::enums::Directions::Forward:
+				anim->PlayAnimation(L"LinkIdleUp", false);
+				break;
+			case yh::enums::Directions::Backward:
+				anim->PlayAnimation(L"LinkIdleDown", false);
+				break;
+			default:
+				break;
+			}
+		}
+
+		else
+		{
+			if (is_Down)
+			{
+				player_pos.y -= 50.0f * Time::DeltaTime();
+
+			}
+			if (!is_Down)
+			{
+				player_pos.y += 50.0f * Time::DeltaTime();
+
+			}
+
+
+
+			player_tr->SetPosition(player_pos);
+		}
+			
 	}
 
 	void Player::Ui()

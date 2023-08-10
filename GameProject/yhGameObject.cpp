@@ -1,7 +1,7 @@
 #include "yhGameObject.h"
 #include "yhTransform.h"
 #include "yhSpriteRenderer.h"
-
+#include "yhTexture.h"
 
 namespace yh
 {
@@ -13,6 +13,11 @@ namespace yh
 
 	GameObject::~GameObject()
 	{
+		for (Component* comp : mComponents)
+		{
+			delete comp;
+			comp = nullptr;
+		}
 	}
 
 	void GameObject::Initialize()
@@ -26,6 +31,8 @@ namespace yh
 			comp->Update();
 		}
 	}
+
+
 
 	void GameObject::Render(HDC hdc)
 	{

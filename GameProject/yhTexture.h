@@ -48,6 +48,7 @@ namespace yh
 		void SetHBitmap(HBITMAP bitmap) { mBitmap = bitmap; }
 		void SetHdc(HDC hdc) { mHdc = hdc; }
 
+
 	private:
 		eTextureType mType;
 		Gdiplus::Image* mImage;

@@ -148,6 +148,8 @@
     <ClInclude Include="yhCollisionManager.h" />
     <ClInclude Include="yhComponent.h" />
     <ClInclude Include="yhCurItem.h" />
+    <ClInclude Include="yhGetSwordScene.h" />
+    <ClInclude Include="yhGrandpa.h" />
     <ClInclude Include="yhGrass.h" />
     <ClInclude Include="yhGreenKnight.h" />
     <ClInclude Include="yhHouse.h" />
@@ -214,6 +216,8 @@
     <ClCompile Include="yhCollisionManager.cpp" />
     <ClCompile Include="yhComponent.cpp" />
     <ClCompile Include="yhCurItem.cpp" />
+    <ClCompile Include="yhGetSwordScene.cpp" />
+    <ClCompile Include="yhGrandpa.cpp" />
     <ClCompile Include="yhGrass.cpp" />
     <ClCompile Include="yhGreenKnight.cpp" />
     <ClCompile Include="yhHouse.cpp" />

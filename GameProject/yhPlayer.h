@@ -21,6 +21,7 @@ namespace yh
 			Fall_Cut_Scene,
 			Carrying,
 			Throwing,
+			Talking,
 			Ui,
 			End,
 		};
@@ -56,6 +57,7 @@ namespace yh
 		void DownBridge();
 		void FallCutScene();
 		void In_Stair();
+		void Talking();
 
 		PlayerState GetState() { return state; }
 		void SetState(PlayerState pstate) { state = pstate; }
@@ -99,6 +101,8 @@ namespace yh
 
 		void CheckPixel(class Texture* pixel_texture, Vector2 map_size);
 
+		class Grass* GetGrass() { return grass; }
+		
 
 		Vector2 map_size = Vector2::Zero;
 		class Texture* PixelTexture;
@@ -108,6 +112,7 @@ namespace yh
 		Directions direction;
 		std::vector<class HpInterface*> hp_container;
 
+		class Grass* grass;
 		class PlayerSword* sword;
 		class PlayerShield* shield;
 		class Mana* mana;

@@ -12,7 +12,10 @@
 #include "yhResources.h"
 #include "yhAnimator.h"
 #include "yhMapChanger.h"
-
+#include "yhAsciiRender.h"
+#include "yhInput.h"
+#include "yhGrandpa.h"
+#include "yhGrass.h"
 
 namespace yh
 {
@@ -63,8 +66,22 @@ namespace yh
 		castle_map_changer = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(48.0f, -514.0f));
 		GetPlayer()->PixelTexture = image;
 		GetPlayer()->map_size = map_size;
-		
-		
+
+		//풀 배치
+		Vector2 Grass_start = Vector2(-270.0f, 53.0f);
+		Vector2 Grass_border = Vector2(32.0f,32.0f);
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				Grass* grass = object::Instantiate<Grass>(eLayerType::Grass, Vector2(Grass_start.x + (Grass_border.x * j ), Grass_start.y + (Grass_border.y * i)));
+			}
+		}
+
+
+
+		//NPC 배치
+		Grandpa* grandpa = object::Instantiate<Grandpa>(eLayerType::NPC, Vector2(-100.0f, 100.0f));
 	}
 
 	void House::Update()
@@ -91,10 +108,9 @@ namespace yh
 		castle_map_changer->SetSceneName(L"CastleGardenScene");
 		castle_map_changer->SetColliderSize(Vector2(700.0f, 10.0f));
 		castle_map_changer->SetLoadPos(Vector2(850.0f, 1000.0f));
-
+		
 		Transform* player_tr = PlayerTemplate::GetPlayer()->GetComponent<Transform>();
 		Vector2 cur_pos = player_tr->GetPosition();
-
 
 	}
 

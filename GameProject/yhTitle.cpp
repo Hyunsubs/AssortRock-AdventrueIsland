@@ -11,6 +11,7 @@
 #include "yhAnimator.h"
 #include "yhFadeInBackground.h"
 #include "yhSwordBG.h"
+#include "yhInput.h"
 
 yh::Title::Title()
 {
@@ -26,7 +27,6 @@ void yh::Title::Initialize()
 	Texture* image = Resources::Load<Texture>(L"MainBG",L"..\\Resources\\Image\\Title\\title_bg.bmp");
 
 
-	SceneChanger* changer = object::Instantiate<SceneChanger>(eLayerType::Background);
 	FadeInBackground* main_bg = object::Instantiate<FadeInBackground>(eLayerType::Background);
 	main_bg->GetComponent<Transform>()->SetPosition(Vector2(256.0f, 256.0f));
 	SpriteRenderer* main_bgsr = main_bg->AddComponent<SpriteRenderer>();
@@ -67,6 +67,8 @@ void yh::Title::Initialize()
 void yh::Title::Update()
 {
 	Scene::Update();
+	if (Input::GetKeyDown(eKeyCode::E))
+		SceneManager::LoadScene(L"HouseScene");
 }
 
 void yh::Title::Render(HDC hdc)

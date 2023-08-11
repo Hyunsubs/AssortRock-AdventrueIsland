@@ -20,7 +20,6 @@ namespace yh
 		sword_anim->CreateAnimationFolder(L"SwordAttackLeft", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Left", Vector2(-15.0f, 10.0f), 0.01f);
 		sword_anim->CreateAnimationFolder(L"SwordAttackRight", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Right", Vector2(15.0f, 10.0f), 0.01f);
 		sword_anim->CreateAnimationFolder(L"SwordAttackBackward", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Backward", Vector2(0.0f, 15.0f), 0.01f);
-	
 		
 	}
 	PlayerSword::~PlayerSword()
@@ -124,7 +123,7 @@ namespace yh
 			state = SwordState::Move;
 			direction = Directions::Right;
 		}
-		if (Input::GetKey(eKeyCode::J) && !is_Throwing)
+		if (Input::GetKeyDown(eKeyCode::J) && !is_Throwing)
 		{
 			switch (direction)
 			{

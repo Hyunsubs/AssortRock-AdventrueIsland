@@ -105,6 +105,9 @@ namespace yh
 		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::PitFall, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MapChanger, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Stair, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::NPC, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Grass, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Grass, eLayerType::Sword, true);
 	}
 
 	void PlayerTemplate::Update(Vector2 size)
@@ -268,7 +271,7 @@ namespace yh
 	void PlayerTemplate::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		//프레임 표시
+		//플레이어 위치 표시
 		wchar_t szFloat[50] = {};
 		Vector2 Player_pos = player->GetComponent<Transform>()->GetPosition();
 		swprintf_s(szFloat, 50, L"PlayerPosition : x: %f , y: %f", Player_pos.x, Player_pos.y);

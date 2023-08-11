@@ -34,6 +34,8 @@
 #define MONSTER_PATH L"..\\Resources\\Image\\Monster\\"
 #define UI_PATH L"..\\Resources\\Image\\UI\\"
 #define TILE_PATH L"..\\Resources\\Image\\Tiles\\"
+#define NPC_PATH L"..\\Resources\\Image\\NPC\\"
+
 
 namespace yh::enums
 {
@@ -43,9 +45,12 @@ namespace yh::enums
 		ForeBackground,
 		Background,
 		MapChanger,
+		Asciis,
 		Stair,
+		Grass,
 		Obstacle,
 		PitFall,
+		NPC,
 		Wall,
 		Items,
 		Player,

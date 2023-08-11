@@ -100,6 +100,9 @@
     <Filter Include="Contents\GameObject\UI">
       <UniqueIdentifier>{04d767b7-8f56-4124-8669-a14aae43e8a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\NPC">
+      <UniqueIdentifier>{efa3762f-2b5f-421d-9a38-dc27983abbd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -306,6 +309,12 @@
     <ClInclude Include="yhInsideCastleThird.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="yhGrandpa.h">
+      <Filter>Contents\GameObject\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGetSwordScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -506,6 +515,12 @@
       <Filter>Contents\GameObject\Interaction</Filter>
     </ClCompile>
     <ClCompile Include="yhInsideCastleThird.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGrandpa.cpp">
+      <Filter>Contents\GameObject\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGetSwordScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
   </ItemGroup>

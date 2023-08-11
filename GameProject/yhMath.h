@@ -89,6 +89,7 @@ namespace yh::math
             return *this;
         }
 
+
         Vector2& operator -=(const Vector2& other)
         {
             x -= other.x;

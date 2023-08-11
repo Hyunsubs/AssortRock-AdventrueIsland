@@ -99,36 +99,30 @@ namespace yh
 		{
 			Transform* tr = player->GetComponent<Transform>();
 			int player_hp = player->GetHp();
+			if (player_hp <= 0)
+				return;
 			player_hp--;
 			player->SetHp(player_hp);
 			player->SetState(Player::PlayerState::Hit);
-
-			Vector2 cur_pos = tr->GetPosition();
-			Vector2 my_pos = GetComponent<Transform>()->GetPosition();
+			Animator* player_anim = player->GetComponent<Animator>();
 			switch (player->GetDirection())
 			{
 			case Directions::Forward:
-				cur_pos.y += 50.0f;
-				my_pos.y -= 50.0f;
+				player_anim->PlayAnimation(L"LinkHitForward",false);
 				break;
 			case Directions::Backward:
-				cur_pos.y -= 50.0f;
-				my_pos.y += 50.0f;
+				player_anim->PlayAnimation(L"LinkHitBackward",false);
 				break;
 			case Directions::Left:
-				cur_pos.x += 50.0f;
-				my_pos.x -= 50.0f;
+				player_anim->PlayAnimation(L"LinkHitLeft",false);
 				break;
 			case Directions::Right:
-				cur_pos.x -= 50.0f;
-				my_pos.x += 50.0f;
+				player_anim->PlayAnimation(L"LinkHitRight",false);
 				break;
 			default:
 				break;
 			}
-			tr->SetPosition(cur_pos);
-			GetComponent<Transform>()->SetPosition(my_pos);
-			player->SetState(Player::PlayerState::Idle);
+			
 		}
 
 

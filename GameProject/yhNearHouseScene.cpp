@@ -6,7 +6,9 @@
 
 namespace yh
 {
-	NearHouseScene::NearHouseScene()
+	NearHouseScene::NearHouseScene() :
+		  house_changer(nullptr)
+		, get_sword(nullptr)
 	{
 	}
 
@@ -38,7 +40,7 @@ namespace yh
 		GetPlayer()->map_size = map_size;
 
 		house_changer = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(510.0f, 313.0f));
-
+		get_sword = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(-216.0f, -484.0f));
 		
 		
 	}
@@ -54,6 +56,10 @@ namespace yh
 		house_changer->SetColliderSize(Vector2(10.0f, 100.0f));
 		house_changer->SetLoadPos(Vector2(-500.0f, 300.0f));
 		house_changer->SetSceneName(L"HouseScene");
+
+		get_sword->SetColliderSize(Vector2(100.0f,10.0f));
+		get_sword->SetLoadPos(Vector2(14.0f,235.0f));
+		get_sword->SetSceneName(L"GetSwordScene");
 
 		PlayerTemplate::LoadPosition();
 		Load("..\\Resources\\SaveData\\status.txt");

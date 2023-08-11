@@ -46,6 +46,8 @@ namespace yh
 		void SetThrowing(bool input) { is_Throwing = input; }
 		void SetSwordState(SwordState input) { state = input; }
 
+		SwordState GetSwordState() { return state; }
+
 	private:
 		SwordState state;
 		Directions direction;

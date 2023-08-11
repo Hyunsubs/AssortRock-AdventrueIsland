@@ -7,6 +7,7 @@
 #include "yhInsideCastleFirst.h"
 #include "yhInsideCastleSecond.h"
 #include "yhInsideCastleThird.h"
+#include "yhGetSwordScene.h"
 
 namespace yh
 {
@@ -15,16 +16,17 @@ namespace yh
 
 	void yh::SceneManager::Initialize()
 	{
-		SceneManager::CreateScene<Title>(L"TitleScene");
-		SceneManager::CreateScene<Play>(L"CastleGardenScene");
-		SceneManager::CreateScene<House>(L"HouseScene");
 		SceneManager::CreateScene<TitleAnimation>(L"TitleAnimScene");
+		SceneManager::CreateScene<Title>(L"TitleScene");
+		SceneManager::CreateScene<House>(L"HouseScene");
 		SceneManager::CreateScene<NearHouseScene>(L"NearHouseScene");
+		SceneManager::CreateScene<Play>(L"CastleGardenScene");
 		SceneManager::CreateScene<InsideCastleFirst>(L"InsideCastleFirstScene");
 		SceneManager::CreateScene<InsideCastleSecond>(L"InsideCastleSecondScene");
 		SceneManager::CreateScene<InsideCastleThird>(L"InsideCastleThirdScene");
+		SceneManager::CreateScene<GetSwordScene>(L"GetSwordScene");
 
-		LoadScene(L"HouseScene");
+		LoadScene(L"TitleAnimScene");
 	}
 
 	void yh::SceneManager::Update()

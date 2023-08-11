@@ -14,8 +14,11 @@
 #include "yhHpInterface.h"
 #include "yhPlayerShield.h"
 #include "yhTexture.h"
+#include "yhGrass.h"
 
-#define PLAYER_SPEED 150.0f
+
+
+#define PLAYER_SPEED 200.0f
 
 namespace yh
 {
@@ -32,15 +35,18 @@ namespace yh
 		is_Wall(false),
 		is_Bridge(false),
 		stair_time(2.0f),
-		is_Down(true)
+		is_Down(true),
+		grass(nullptr)
 	{
-
-
+		//플레이어 위치 정보
 		Vector2 myPos = GetComponent<Transform>()->GetPosition();
+
 		//검 인스턴스화
 		sword = object::Instantiate<PlayerSword>(eLayerType::Sword, myPos);
-		shield = object::Instantiate<PlayerShield>(eLayerType::Shield,myPos);
-		
+
+		//풀 인스턴스화 후 일단 pause
+		grass = object::Instantiate<Grass>(eLayerType::Player, myPos);
+		grass->SetState(GameObject::eState::Pause);
 
 		//플레이어 애니메이션 세팅 이동관련
 		std::wstring player_path = PLAYER_PATH;
@@ -97,6 +103,13 @@ namespace yh
 		//떨어질때 컷신 용
 		at->CreateAnimationFolder(L"LinkFallingCutScene", player_path + L"Link_Falling_Cut");
 
+		//링크 맞았을때
+		at->CreateAnimationFolder(L"LinkHitForward", player_path + L"Link_Hit\\Forward", Vector2::Zero, 0.3f);
+		at->CreateAnimationFolder(L"LinkHitBackward", player_path + L"Link_Hit\\Backward", Vector2::Zero, 0.3f);
+		at->CreateAnimationFolder(L"LinkHitLeft", player_path + L"Link_Hit\\Left", Vector2::Zero, 0.3f);
+		at->CreateAnimationFolder(L"LinkHitRight", player_path + L"Link_Hit\\Right", Vector2::Zero, 0.3f);
+
+
 		//충돌판정용 Collider
 		Collider* col = AddComponent<Collider>();
 		col->SetSize(Vector2(40.0f, 30.0f));
@@ -125,7 +138,7 @@ namespace yh
 	void Player::Update()
 	{
 		GameObject::Update();
-		
+		sword->SetThrowing(is_Throwing);
 		if (rupee >= 255)
 			rupee = 255;
 		if (bomb >= 20)
@@ -143,6 +156,8 @@ namespace yh
 		Vector2 my_pos = GetComponent<Transform>()->GetPosition();
 		Transform* tr = sword->GetComponent<Transform>();
 		tr->SetPosition(my_pos);
+		tr = grass->GetComponent<Transform>();
+		tr->SetPosition(Vector2(my_pos.x, my_pos.y - 32.0f));
 
 		DirectionSet();
 
@@ -192,7 +207,7 @@ namespace yh
 			break;
 		}
 
-		shield->SetDirection(direction);
+		//shield->SetDirection(direction);
 		
 		
 
@@ -442,7 +457,7 @@ namespace yh
 
 	void Player::Death()
 	{
-		sword->SetSwordState(PlayerSword::SwordState::Death);
+		Destroy(sword);
 		at->PlayAnimation(L"LinkDeath", false);
 	}
 
@@ -461,10 +476,20 @@ namespace yh
 	void Player::Throwing()
 	{
 		Animator* anim = GetComponent<Animator>();
+		Transform* grass_tr = grass->GetComponent<Transform>();
 		is_Throwing = !is_Throwing;
-
 		if (!is_Throwing)
 		{
+			Transform* player_tr = GetComponent<Transform>();
+			Vector2 my_pos = player_tr->GetPosition();
+			if (grass->GetState() == eState::Active)
+			{
+				grass->SetState(eState::Pause);
+				Grass* new_grass = object::Instantiate<Grass>(eLayerType::Grass, Vector2(my_pos.x, my_pos.y - 32.0f));
+				new_grass->SetDirection(GetDirection());
+				new_grass->SetGrassState(grass_state::Flying);
+			}
+
 			Vector2 myPos = GetComponent<Transform>()->GetPosition();
 			shield = object::Instantiate<PlayerShield>(eLayerType::Shield, myPos);
 			switch (direction)
@@ -495,6 +520,8 @@ namespace yh
 		}
 		else
 		{
+
+
 			switch (direction)
 			{
 			case yh::Directions::Forward:
@@ -557,6 +584,34 @@ namespace yh
 
 	void Player::Hit()
 	{
+		Animator* anim = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		Vector2 my_pos = tr->GetPosition();
+		if (!(anim->IsActiveAnimationComplete()))
+		{
+			switch (direction)
+			{
+			case yh::enums::Directions::Forward:
+				my_pos.y += 200.0f * Time::DeltaTime();
+				break;
+			case yh::enums::Directions::Backward:
+				my_pos.y -= 200.0f * Time::DeltaTime();
+				break;
+			case yh::enums::Directions::Left:
+				my_pos.x += 200.0f * Time::DeltaTime();
+				break;
+			case yh::enums::Directions::Right:
+				my_pos.x -= 200.0f * Time::DeltaTime();
+				break;
+			default:
+				break;
+			}
+			tr->SetPosition(my_pos);
+		}
+		else if (anim->IsActiveAnimationComplete())
+		{
+			state = PlayerState::Idle;
+		}
 	}
 
 	void Player::DownBridge()
@@ -755,6 +810,10 @@ namespace yh
 			player_tr->SetPosition(player_pos);
 		}
 			
+	}
+
+	void Player::Talking()
+	{
 	}
 
 	void Player::Ui()

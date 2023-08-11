@@ -21,7 +21,7 @@ namespace yh
 		Vector2 map_size;
 
 		class MapChanger* house_changer;
-		class MapChanger* sword_forest;
+		class MapChanger* get_sword;
 
 	};
 }

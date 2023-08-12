@@ -15,7 +15,7 @@
 #include "yhPlayerShield.h"
 #include "yhTexture.h"
 #include "yhGrass.h"
-
+#include "yhInventory.h"
 
 
 #define PLAYER_SPEED 200.0f
@@ -36,7 +36,8 @@ namespace yh
 		is_Bridge(false),
 		stair_time(2.0f),
 		is_Down(true),
-		grass(nullptr)
+		grass(nullptr),
+		inven(nullptr)
 	{
 		//플레이어 위치 정보
 		Vector2 myPos = GetComponent<Transform>()->GetPosition();
@@ -47,6 +48,9 @@ namespace yh
 		//풀 인스턴스화 후 일단 pause
 		grass = object::Instantiate<Grass>(eLayerType::Player, myPos);
 		grass->SetState(GameObject::eState::Pause);
+
+		//인벤토리 인스턴스화
+		inven = object::Instantiate<Inventory>(eLayerType::UI);
 
 		//플레이어 애니메이션 세팅 이동관련
 		std::wstring player_path = PLAYER_PATH;
@@ -158,7 +162,6 @@ namespace yh
 		tr->SetPosition(my_pos);
 		tr = grass->GetComponent<Transform>();
 		tr->SetPosition(Vector2(my_pos.x, my_pos.y - 32.0f));
-
 		DirectionSet();
 
 		switch (state)
@@ -201,6 +204,9 @@ namespace yh
 			break;
 		case yh::Player::PlayerState::Hit:
 			Hit();
+			break;
+		case yh::Player::PlayerState::Inventory:
+			Inventory_State();
 			break;
 		case yh::Player::PlayerState::Ui:
 			Ui();
@@ -305,10 +311,13 @@ namespace yh
 		}
 
 
-		if (Input::GetKey(eKeyCode::L))
+		if (Input::GetKeyDown(eKeyCode::L))
 		{
-			rupee++;
-			mp--;
+			Transform* player_tr = GetComponent<Transform>();
+			Transform* inven_tr = inven->GetComponent<Transform>();
+			Vector2 cur_pos = player_tr->GetPosition();
+			inven_tr->SetPosition(Vector2(cur_pos.x, cur_pos.y - 512.0f));
+			state = PlayerState::Inventory;
 		}
 
 
@@ -423,35 +432,28 @@ namespace yh
 	void Player::Attack()
 	{
 		Animator* anim = GetComponent<Animator>();
+
 		switch (direction)
 		{
 		case yh::Directions::Forward:
 			anim->PlayAnimation(L"LinkAttackForward", false);
-			direction = Directions::Forward;
 			break;
 		case yh::Directions::Backward:
 			anim->PlayAnimation(L"LinkAttackBackward", false);
-			direction = Directions::Backward;
 			break;
 		case yh::Directions::Left:
 			anim->PlayAnimation(L"LinkAttackLeft", false);
-			direction = Directions::Left;
 			break;
 		case yh::Directions::Right:
 			anim->PlayAnimation(L"LinkAttackRight", false);
-			direction = Directions::Right;
 			break;
 		default:
 			break;
 		}
 
+
 		state = PlayerState::Idle;
 
-
-		if (Input::GetKeyDown(eKeyCode::J))
-		{
-			state = PlayerState::Charge;
-		}
 		
 	}
 
@@ -569,10 +571,8 @@ namespace yh
 	void Player::Charge()
 	{
 		Animator* anim = GetComponent<Animator>();
-		if (Input::GetKeyDown(eKeyCode::J))
-		{
-			anim->PlayAnimation(L"LinkChargeAttackBackward", false);
-		}
+
+		anim->PlayAnimation(L"LinkChargeAttackBackward", false);
 
 		if (Input::GetKeyUp(eKeyCode::J))
 		{
@@ -818,6 +818,30 @@ namespace yh
 
 	void Player::Ui()
 	{
+	}
+
+	void Player::Inventory_State()
+	{
+		Transform* inven_tr = inven->GetComponent<Transform>();
+		Transform* player_tr = GetComponent<Transform>();
+		Vector2 player_pos = player_tr->GetPosition();
+		Vector2 cur_pos = inven_tr->GetPosition();
+		
+		inven->SetState(GameObject::eState::Active);
+
+		if (cur_pos.y <= player_pos.y)
+		{
+			cur_pos.y += 800.0f * Time::DeltaTime();
+			inven_tr->SetPosition(cur_pos);
+		}
+		
+		if (Input::GetKeyDown(eKeyCode::L))
+		{
+			inven->SetState(GameObject::eState::Pause);
+			inven_tr->SetPosition(Vector2(player_pos.x, player_pos.y - 512.0f));
+			state = PlayerState::Idle;
+		}
+
 	}
 
 	

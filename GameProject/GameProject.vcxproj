@@ -143,6 +143,7 @@
     <ClInclude Include="yhBackGroundAnimation.h" />
     <ClInclude Include="yhBasicUITemplate.h" />
     <ClInclude Include="yhBomb.h" />
+    <ClInclude Include="yhBoomerang.h" />
     <ClInclude Include="yhCamera.h" />
     <ClInclude Include="yhCollider.h" />
     <ClInclude Include="yhCollisionManager.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="yhInsideCastleFirst.h" />
     <ClInclude Include="yhInsideCastleSecond.h" />
     <ClInclude Include="yhInsideCastleThird.h" />
+    <ClInclude Include="yhInventory.h" />
     <ClInclude Include="yhLifeUI.h" />
     <ClInclude Include="yhMana.h" />
     <ClInclude Include="yhManaPoint.h" />
@@ -211,6 +213,7 @@
     <ClCompile Include="yhBackGroundAnimation.cpp" />
     <ClCompile Include="yhBasicUITemplate.cpp" />
     <ClCompile Include="yhBomb.cpp" />
+    <ClCompile Include="yhBoomerang.cpp" />
     <ClCompile Include="yhCamera.cpp" />
     <ClCompile Include="yhCollider.cpp" />
     <ClCompile Include="yhCollisionManager.cpp" />
@@ -228,6 +231,7 @@
     <ClCompile Include="yhInsideCastleFirst.cpp" />
     <ClCompile Include="yhInsideCastleSecond.cpp" />
     <ClCompile Include="yhInsideCastleThird.cpp" />
+    <ClCompile Include="yhInventory.cpp" />
     <ClCompile Include="yhLifeUI.cpp" />
     <ClCompile Include="yhMana.cpp" />
     <ClCompile Include="yhManaPoint.cpp" />

@@ -315,6 +315,12 @@
     <ClInclude Include="yhGetSwordScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="yhInventory.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yhBoomerang.h">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -522,6 +528,12 @@
     </ClCompile>
     <ClCompile Include="yhGetSwordScene.cpp">
       <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhInventory.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yhBoomerang.cpp">
+      <Filter>Contents\GameObject\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

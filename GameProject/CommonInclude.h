@@ -28,7 +28,7 @@
 #define TILE_HEIGHT 16
 
 #define PLAYER_PATH L"..\\Resources\\Image\\Player\\"
-#define ITEMS_PATH  L"..\\Resources\\Image\\Items\\"
+#define PLAYING_ITEMS_PATH  L"..\\Resources\\Image\\Items_Playing\\"
 #define INTERACTION_PATH L"..\\Resources\\Image\\Interaction\\"
 #define MAP_PATH L"..\\Resources\\Image\\Maps\\"
 #define MONSTER_PATH L"..\\Resources\\Image\\Monster\\"

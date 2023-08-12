@@ -20,6 +20,7 @@ namespace yh
 			Falling,
 			Fall_Cut_Scene,
 			Carrying,
+			Inventory,
 			Throwing,
 			Talking,
 			Ui,
@@ -50,6 +51,7 @@ namespace yh
 		void Map();
 		void Falling();
 		void Ui();
+		void Inventory_State();
 		void Carrying();
 		void Throwing();
 		void Charge();
@@ -119,7 +121,7 @@ namespace yh
 		class Sound* AttackSound;
 		class Animator* at;
 		class Sound* Alert;
-		
+		class Inventory* inven;
 
 		//링크 상태
 		bool is_dead;

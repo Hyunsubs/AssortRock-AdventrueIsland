@@ -5,12 +5,14 @@
 #include "yhTime.h"
 #include "yhCollider.h"
 #include "yhGreenKnight.h"
+#include "yhMonsterTemplate.h"
 
 namespace yh
 {
 	PlayerSword::PlayerSword() :
 		state(PlayerSword::SwordState::Idle),
-		direction(Directions::Backward)
+		direction(Directions::Backward),
+		get_sword(false)
 	{
 		//검 애니메이션 세팅
 		sword_anim = AddComponent<Animator>();
@@ -66,34 +68,67 @@ namespace yh
 	void PlayerSword::OnCollisionEnter(Collider* other)
 	{
 		GreenKnight* knight = dynamic_cast<GreenKnight*>(other->GetOwner());
-		if (knight == nullptr)
-			return;
-		Transform* tr = knight->GetComponent<Transform>();
-		Vector2 pos = tr->GetPosition();
-		switch (direction)
+		if (knight != nullptr)
 		{
-		case yh::Directions::Forward:
-			pos.y -= 40.0f;
-			tr->SetPosition(pos);
-			break;
-		case yh::Directions::Backward:
-			pos.y += 40.0f;
-			tr->SetPosition(pos);
-			break;
-		case yh::Directions::Left:
-			pos.x -= 40.0f;
-			tr->SetPosition(pos);
-			break;
-		case yh::Directions::Right:
-			pos.x += 40.0f;
-			tr->SetPosition(pos);
-			break;
-		default:
-			break;
+			Transform* tr = knight->GetComponent<Transform>();
+			Vector2 pos = tr->GetPosition();
+			switch (direction)
+			{
+			case yh::Directions::Forward:
+				pos.y -= 40.0f;
+				tr->SetPosition(pos);
+				break;
+			case yh::Directions::Backward:
+				pos.y += 40.0f;
+				tr->SetPosition(pos);
+				break;
+			case yh::Directions::Left:
+				pos.x -= 40.0f;
+				tr->SetPosition(pos);
+				break;
+			case yh::Directions::Right:
+				pos.x += 40.0f;
+				tr->SetPosition(pos);
+				break;
+			default:
+				break;
+			}
+			int hp = knight->GetHp();
+			hp -= 1;
+			knight->SetHp(hp);
 		}
-		Animator* knight_anim = knight->GetComponent<Animator>();
-		knight_anim->PlayAnimation(L"GnDeath");
-		knight->SetState(MonsterState::Death);
+
+		MonsterTemplate* mt = dynamic_cast<MonsterTemplate*>(other->GetOwner());
+		if (mt != nullptr)
+		{
+			Transform* tr = mt->GetComponent<Transform>();
+			Vector2 pos = tr->GetPosition();
+			switch (direction)
+			{
+			case yh::Directions::Forward:
+				pos.y -= 40.0f;
+				tr->SetPosition(pos);
+				break;
+			case yh::Directions::Backward:
+				pos.y += 40.0f;
+				tr->SetPosition(pos);
+				break;
+			case yh::Directions::Left:
+				pos.x -= 40.0f;
+				tr->SetPosition(pos);
+				break;
+			case yh::Directions::Right:
+				pos.x += 40.0f;
+				tr->SetPosition(pos);
+				break;
+			default:
+				break;
+			}
+			int hp = mt->GetHp();
+			hp -= 1;
+			mt->SetHp(hp);
+		}
+
 	}
 	void PlayerSword::OnCollisionStay(Collider* other)
 	{
@@ -123,7 +158,7 @@ namespace yh
 			state = SwordState::Move;
 			direction = Directions::Right;
 		}
-		if (Input::GetKeyDown(eKeyCode::J) && !is_Throwing)
+		if (Input::GetKeyDown(eKeyCode::J) && !is_Throwing && get_sword)
 		{
 			switch (direction)
 			{

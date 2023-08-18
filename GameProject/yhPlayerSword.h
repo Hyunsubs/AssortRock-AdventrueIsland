@@ -46,12 +46,17 @@ namespace yh
 		void SetThrowing(bool input) { is_Throwing = input; }
 		void SetSwordState(SwordState input) { state = input; }
 
+		bool GetSword() { return get_sword; }
+		void Set_GetSword(bool input) { get_sword = input; }
+
+
 		SwordState GetSwordState() { return state; }
 
 	private:
 		SwordState state;
 		Directions direction;
 		bool is_Throwing;
+		bool get_sword;
 		class Animator* sword_anim;
 		class Collider* col;
 	};

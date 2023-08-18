@@ -15,10 +15,13 @@
 #include "yhPlayerShield.h"
 #include "yhTexture.h"
 #include "yhGrass.h"
+#include "yhPlayerGrass.h"
 #include "yhInventory.h"
+#include "yhBoomerang.h"
+#include "yhClutch.h"
 
 
-#define PLAYER_SPEED 200.0f
+#define PLAYER_SPEED 150.0f
 
 namespace yh
 {
@@ -34,20 +37,30 @@ namespace yh
 		is_dead(false),
 		is_Wall(false),
 		is_Bridge(false),
+		is_Throwing(false),
 		stair_time(2.0f),
 		is_Down(true),
 		grass(nullptr),
-		inven(nullptr)
+		inven(nullptr),
+		cur_item(0),
+		is_sword(false),
+		step_time(0.5f),
+		tr(nullptr),
+		invincible_time(0.5f)
 	{
+		tr = GetComponent<Transform>();
 		//플레이어 위치 정보
-		Vector2 myPos = GetComponent<Transform>()->GetPosition();
-
+		Vector2 myPos = tr->GetPosition();
 		//검 인스턴스화
 		sword = object::Instantiate<PlayerSword>(eLayerType::Sword, myPos);
 
 		//풀 인스턴스화 후 일단 pause
-		grass = object::Instantiate<Grass>(eLayerType::Player, myPos);
+		grass = object::Instantiate<PlayerGrass>(eLayerType::Player, myPos);
 		grass->SetState(GameObject::eState::Pause);
+
+		//공격 아이템
+		boomerang = object::Instantiate<Boomerang>(eLayerType::Projectile, myPos);
+		clutch = object::Instantiate<Clutch>(eLayerType::Clutch, myPos);
 
 		//인벤토리 인스턴스화
 		inven = object::Instantiate<Inventory>(eLayerType::UI);
@@ -113,10 +126,13 @@ namespace yh
 		at->CreateAnimationFolder(L"LinkHitLeft", player_path + L"Link_Hit\\Left", Vector2::Zero, 0.3f);
 		at->CreateAnimationFolder(L"LinkHitRight", player_path + L"Link_Hit\\Right", Vector2::Zero, 0.3f);
 
+		//링크 아이템 얻었을때
+		at->CreateAnimationFolder(L"LinkGetItem", player_path + L"Link_Get", Vector2::Zero, 0.5f);
+
 
 		//충돌판정용 Collider
 		Collider* col = AddComponent<Collider>();
-		col->SetSize(Vector2(40.0f, 30.0f));
+		col->SetSize(Vector2(25.0f, 30.0f));
 
 
 
@@ -141,7 +157,10 @@ namespace yh
 
 	void Player::Update()
 	{
+		Vector2 myPos = tr->GetPosition();
+
 		GameObject::Update();
+		sword->Set_GetSword(is_sword);
 		sword->SetThrowing(is_Throwing);
 		if (rupee >= 255)
 			rupee = 255;
@@ -158,11 +177,21 @@ namespace yh
 		if (is_dead)
 			return;
 		Vector2 my_pos = GetComponent<Transform>()->GetPosition();
-		Transform* tr = sword->GetComponent<Transform>();
-		tr->SetPosition(my_pos);
-		tr = grass->GetComponent<Transform>();
-		tr->SetPosition(Vector2(my_pos.x, my_pos.y - 32.0f));
+		Transform* other_tr = sword->GetComponent<Transform>();
+		other_tr->SetPosition(my_pos);
+		other_tr = grass->GetComponent<Transform>();
+		other_tr->SetPosition(Vector2(my_pos.x, my_pos.y - 32.0f));
 		DirectionSet();
+
+		boomerang->SetPlayerPos(my_pos);
+		if (boomerang->GetState() != eState::Active)
+		{
+			other_tr = boomerang->GetComponent<Transform>();
+			other_tr->SetPosition(my_pos);
+		}
+		other_tr = clutch->GetComponent<Transform>();
+		other_tr->SetPosition(my_pos);
+
 
 		switch (state)
 		{
@@ -202,19 +231,23 @@ namespace yh
 		case yh::Player::PlayerState::Fall_Cut_Scene:
 			FallCutScene();
 			break;
+		case yh::Player::PlayerState::ClutchState:
+			ClutchState();
+			break;
 		case yh::Player::PlayerState::Hit:
 			Hit();
 			break;
 		case yh::Player::PlayerState::Inventory:
 			Inventory_State();
 			break;
+		case yh::Player::PlayerState::Step:
+			Step();
+			break;
 		case yh::Player::PlayerState::Ui:
 			Ui();
 			break;
 		}
 
-		//shield->SetDirection(direction);
-		
 		
 
 		if (hp <= 0)
@@ -304,7 +337,7 @@ namespace yh
 			direction = Directions::Right;
 		}
 
-		if (Input::GetKeyDown(eKeyCode::J) && !is_Throwing)
+		if (Input::GetKeyDown(eKeyCode::J) && !is_Throwing && is_sword)
 		{
 			state = PlayerState::Attack;
 			AttackSound->Play(false);
@@ -324,15 +357,28 @@ namespace yh
 		if (Input::GetKeyDown(eKeyCode::K))
 		{
 			state = PlayerState::Throwing;
-				
 		}
 
+		if (Input::GetKeyDown(eKeyCode::O) && boomerang->GetState() != eState::Active)
+		{
+			Vector2 my_pos = tr->GetPosition();
+			boomerang->SetDirection(direction);
+			boomerang->SetState(eState::Active);
+			boomerang->SetBoomerangState(Boomerang::BoomerangState::Move);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::U))
+		{
+			clutch->SetDirection(direction);
+			clutch->SetClutchState(MainClutchState::Move);
+			state = PlayerState::ClutchState;
+			
+		}
 
 	}
 
 	void Player::Move()
 	{
-		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 		Animator* anim = GetComponent<Animator>();
 
@@ -400,7 +446,6 @@ namespace yh
 
 	void Player::MoveFunc()
 	{
-		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 
 		if (!is_Wall)
@@ -690,16 +735,16 @@ namespace yh
 				switch (i)
 				{
 				case 0:
-					my_pos.y -= 3.0f /* Time::DeltaTime()*/;
+					my_pos.y -= 3.0f;
 					break;
 				case 1:
-					my_pos.y += 3.0f /*Time::DeltaTime()*/;
+					my_pos.y += 3.0f;
 					break;
 				case 2:
-					my_pos.x += 3.0f /* Time::DeltaTime()*/;
+					my_pos.x += 3.0f;
 					break;
 				case 3:
-					my_pos.x -= 3.0f  /*Time::DeltaTime()*/;
+					my_pos.x -= 3.0f;
 					break;
 				default:
 					break;
@@ -812,8 +857,48 @@ namespace yh
 			
 	}
 
+	void Player::Step()
+	{
+		if (step_time <= 0.0f)
+		{
+			state = PlayerState::Idle;
+			step_time = 0.8f;
+		}
+		else
+		{
+			step_time -= Time::DeltaTime();
+			Vector2 my_pos = tr->GetPosition();
+			switch (direction)
+			{
+			case yh::enums::Directions::Forward:
+			case yh::enums::Directions::UpRight:
+			case yh::enums::Directions::UpLeft:
+				my_pos.y -= 300.0f * Time::DeltaTime();
+				break;
+			case yh::enums::Directions::Backward:
+			case yh::enums::Directions::DownRight:
+			case yh::enums::Directions::DownLeft:
+				my_pos.y += 300.0f * Time::DeltaTime();
+				break;
+			case yh::enums::Directions::End:
+				break;
+			default:
+				break;
+			}
+			tr->SetPosition(my_pos);
+		}
+	}
+
 	void Player::Talking()
 	{
+	}
+
+	void Player::ClutchState()
+	{
+		if (clutch->GetClutchState() == MainClutchState::Pause)
+		{
+			state = PlayerState::Idle;
+		}
 	}
 
 	void Player::Ui()

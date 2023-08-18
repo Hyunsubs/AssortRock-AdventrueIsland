@@ -20,9 +20,15 @@ namespace yh
 		Vector2 map_scale;
 		Vector2 map_size;
 
+		std::vector<class Step*> steps;
+		std::vector<class Stair*> stairs;
+
 
 		class MapChanger* to_castle_garden;
 		class MapChanger* to_castle_second;
 		class MapChanger* to_castle_third;
+
+		class GreenKnight* gn_first;
+		class GreenKnight* gn_second;
 	};
 }

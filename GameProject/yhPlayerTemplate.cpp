@@ -54,8 +54,6 @@ namespace yh
 	}
 	void PlayerTemplate::Initialize()
 	{
-		//화면 변경가능한 씬체인저
-		object::Instantiate<SceneChanger>(eLayerType::Background);
 		//플레이어 세팅
 		player = object::Instantiate<Player>(eLayerType::Player, Vector2(0.0f, 0.0f));
 		//마나 UI
@@ -108,6 +106,8 @@ namespace yh
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::NPC, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Grass, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Grass, eLayerType::Sword, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Grass, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Step, true);
 	}
 
 	void PlayerTemplate::Update(Vector2 size)
@@ -250,18 +250,6 @@ namespace yh
 		else
 			Camera::SetTarget(nullptr);
 
-		if (Input::GetKey(eKeyCode::R))
-		{
-			HpInterface* hp = object::Instantiate<HpInterface>(eLayerType::UI);
-			hp_container.push_back(hp);
-			int max_hp = player->GetMaxHp();
-			max_hp++;
-			int cur_hp = player->GetHp();
-			cur_hp++;
-
-			player->SetMaxHp(max_hp);
-			player->SetHp(cur_hp);
-		}
 
 	}
 
@@ -304,6 +292,8 @@ namespace yh
 		ofs << "\n";
 		ofs << std::to_string(player->GetHp());
 		ofs << "\n";
+		ofs << std::to_string(player->GetIsSword());
+		ofs << "\n";
 		
 		ofs.close();
 		
@@ -338,7 +328,7 @@ namespace yh
 
 		std::string line;
 		int i = 0;
-		while (i <= 3)
+		while (i <= 4)
 		{
 			getline(ifs, line);
 			switch (i)
@@ -354,6 +344,8 @@ namespace yh
 				break;
 			case 3:
 				player->SetHp(std::stoi(line));
+			case 4:
+				player->SetIsSword((bool)(std::stoi(line)));
 			default:
 				break;
 			}

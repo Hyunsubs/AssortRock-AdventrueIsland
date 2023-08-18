@@ -1,24 +1,10 @@
 #pragma once
-#include "yhGameObject.h"
+#include "yhMonsterTemplate.h"
 
 
 namespace yh
 {
 	using namespace math;
-
-	enum class MonsterState
-	{
-		Idle,
-		Move,
-		Attack,
-		MoveReady,
-		Death,
-		Falling,
-		Chasing,
-		Ui,
-		End,
-	};
-
 
 	class GreenKnight : public GameObject
 	{
@@ -34,21 +20,25 @@ namespace yh
 		virtual void OnCollisionStay(class Collider* other);
 		virtual void OnCollisionExit(class Collider* other);
 
-		void Idle();
-		void Move();
-		void Attack();
-		void Death();
-		void Falling();
-		void Ui();
-		void Chasing();
+		virtual void Idle();
+		virtual void Move();
+		virtual void Attack();
+		virtual void Death();
+		virtual void Falling();
+		virtual void Ui();
+		virtual void Chasing();
+
 
 		void SetChasing(bool input) { is_chasing = input; }
 		void SetPlayerPos(Vector2 pos) { player_pos = pos; }
 
 		void SetState(MonsterState input) { state = input; }
 
+		int GetHp() { return hp; }
+		void SetHp(int input) { hp = input; }
+
 		void CheckChasing();
-		void CheckPixel(class Texture* pixel_texture, Vector2 map_size);
+		virtual void CheckPixel(class Texture* pixel_texture, Vector2 map_size);
 
 		class Texture* PixelTexture;
 		Vector2 map_size;
@@ -65,6 +55,8 @@ namespace yh
 		float moving_time;
 		bool is_Wall;
 		bool is_chasing;
+	
+		int hp;
 	};
 }
 

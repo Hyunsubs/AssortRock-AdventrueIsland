@@ -8,6 +8,7 @@
 #include "yhInsideCastleSecond.h"
 #include "yhInsideCastleThird.h"
 #include "yhGetSwordScene.h"
+#include "yhArrghusScene.h"
 
 namespace yh
 {
@@ -25,6 +26,7 @@ namespace yh
 		SceneManager::CreateScene<InsideCastleSecond>(L"InsideCastleSecondScene");
 		SceneManager::CreateScene<InsideCastleThird>(L"InsideCastleThirdScene");
 		SceneManager::CreateScene<GetSwordScene>(L"GetSwordScene");
+		SceneManager::CreateScene<ArrghusScene>(L"ArrghusScene");
 
 		LoadScene(L"TitleAnimScene");
 	}

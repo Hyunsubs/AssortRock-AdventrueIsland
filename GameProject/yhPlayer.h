@@ -18,11 +18,13 @@ namespace yh
 			DownBridge,
 			In_Stair,
 			Falling,
+			ClutchState,
 			Fall_Cut_Scene,
 			Carrying,
 			Inventory,
 			Throwing,
 			Talking,
+			Step,
 			Ui,
 			End,
 		};
@@ -59,7 +61,9 @@ namespace yh
 		void DownBridge();
 		void FallCutScene();
 		void In_Stair();
+		void Step();
 		void Talking();
+		void ClutchState();
 
 		PlayerState GetState() { return state; }
 		void SetState(PlayerState pstate) { state = pstate; }
@@ -99,12 +103,15 @@ namespace yh
 		void SetBridge(bool input) { is_Bridge = input; }
 
 		bool GetIsDown() { return is_Down; }
-		void SetIsDown(bool input) {}
+		void SetIsDown(bool input) { is_Down = input; }
 
 		void CheckPixel(class Texture* pixel_texture, Vector2 map_size);
 
-		class Grass* GetGrass() { return grass; }
+		class PlayerGrass* GetGrass() { return grass; }
 		
+
+		bool GetIsSword() { return is_sword; }
+		void SetIsSword(bool input) { is_sword = input; }
 
 		Vector2 map_size = Vector2::Zero;
 		class Texture* PixelTexture;
@@ -113,8 +120,9 @@ namespace yh
 		PlayerState state;
 		Directions direction;
 		std::vector<class HpInterface*> hp_container;
+		
 
-		class Grass* grass;
+		class PlayerGrass* grass;
 		class PlayerSword* sword;
 		class PlayerShield* shield;
 		class Mana* mana;
@@ -122,6 +130,10 @@ namespace yh
 		class Animator* at;
 		class Sound* Alert;
 		class Inventory* inven;
+		class Transform* tr;
+		class Boomerang* boomerang;
+		class Clutch* clutch;
+
 
 		//링크 상태
 		bool is_dead;
@@ -137,13 +149,19 @@ namespace yh
 		int rupee;
 		int bomb;
 		int arrow;
+		int cur_item;
 
-		//차지공격 시전 시간
-		int charge_time;
+		//아이템 획득 여부
+		bool is_sword;
 
 
 		//계단 올라가는 시간
 		float stair_time;
+		//바닥 떨어지는 시간
+		float step_time;
+
+		//무적 피격시간
+		float invincible_time;
 	};
 }
 

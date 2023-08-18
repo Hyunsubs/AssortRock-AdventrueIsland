@@ -19,6 +19,7 @@ namespace yh
 		class MapChanger* nearhouse_map_changer;
 		class MapChanger* castle_map_changer;
 		class AsciiRender* asciirender;
+		class Arrghus* boss;
 	};
 }
 

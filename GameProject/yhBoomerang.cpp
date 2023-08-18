@@ -11,19 +11,19 @@ namespace yh
 {
 	Boomerang::Boomerang() :
 		  col(nullptr)
-		, direction(Directions::Backward)
+		, direction(Directions::End)
 		, state(BoomerangState::Idle)
-		, is_Throwing(false)
 		, boomerang_anim(nullptr)
 		, flying_time(FLYING_TIME)
 	{
-		std::wstring playing_item_path = PLAYING_ITEMS_PATH;
+		this->SetState(eState::Pause);
+		wstring playing_item_path = PLAYING_ITEMS_PATH;
 		col = AddComponent<Collider>();
 		boomerang_anim = AddComponent<Animator>();
 		tr = GetComponent<Transform>();
 		boomerang_anim->CreateAnimationFolder(L"BoomerangAnim", playing_item_path + L"Boomerang", Vector2::Zero, 0.05f);
-
-
+		boomerang_anim->SetScale(Vector2::Double);
+		boomerang_anim->PlayAnimation(L"BoomerangAnim", true);
 	}
 	Boomerang::~Boomerang()
 	{
@@ -34,6 +34,25 @@ namespace yh
 	void Boomerang::Update()
 	{
 		GameObject::Update();
+
+		switch (state)
+		{
+		case yh::Boomerang::BoomerangState::Idle:
+			Idle();
+			break;
+		case yh::Boomerang::BoomerangState::Move:
+			Move();
+			break;
+		case yh::Boomerang::BoomerangState::MoveBack:
+			MoveBack(player_pos);
+			break;
+		case yh::Boomerang::BoomerangState::Death:
+			Death();
+			break;
+		default:
+			break;
+		}
+
 	}
 	void Boomerang::Render(HDC hdc)
 	{
@@ -50,58 +69,78 @@ namespace yh
 	}
 
 
+
 	void Boomerang::Idle()
 	{
-		if (Input::GetKeyDown(eKeyCode::N))
-		{
-			state = BoomerangState::Move;
-		}
+		
 	}
-
 
 	void Boomerang::Move()
 	{
 		Vector2 cur_pos = tr->GetPosition();
 		flying_time -= Time::DeltaTime();
+
+
 		switch (direction)
 		{
 		case yh::enums::Directions::Forward:
-			cur_pos.y -= 100.0f * Time::DeltaTime();
+			cur_pos.y -= 200.0f * Time::DeltaTime();
 			break;
 		case yh::enums::Directions::UpRight:
-			cur_pos.x += 100.0f * Time::DeltaTime();
-			cur_pos.y -= 100.0f * Time::DeltaTime();
+			cur_pos.x += 200.0f * Time::DeltaTime();
+			cur_pos.y -= 200.0f * Time::DeltaTime();
 			break;
 		case yh::enums::Directions::UpLeft:
-			cur_pos.x -= 100.0f * Time::DeltaTime();
-			cur_pos.y -= 100.0f * Time::DeltaTime();
+			cur_pos.x -= 200.0f * Time::DeltaTime();
+			cur_pos.y -= 200.0f * Time::DeltaTime();
 			break;
 		case yh::enums::Directions::Backward:
-			cur_pos.y += 100.0f * Time::DeltaTime();
+			cur_pos.y += 200.0f * Time::DeltaTime();
 			break;
 		case yh::enums::Directions::DownRight:
-			cur_pos.y += 100.0f * Time::DeltaTime();
-			cur_pos.x += 100.0f * Time::DeltaTime();
+			cur_pos.y += 200.0f * Time::DeltaTime();
+			cur_pos.x += 200.0f * Time::DeltaTime();
 			break;
 		case yh::enums::Directions::DownLeft:
-			cur_pos.y += 100.0f * Time::DeltaTime();
-			cur_pos.x -= 100.0f * Time::DeltaTime();
+			cur_pos.y += 200.0f * Time::DeltaTime();
+			cur_pos.x -= 200.0f * Time::DeltaTime();
 			break;
 		case yh::enums::Directions::Left:
-			cur_pos.x -= 100.0f * Time::DeltaTime();
+			cur_pos.x -= 200.0f * Time::DeltaTime();
 			break;
 		case yh::enums::Directions::Right:
-			cur_pos.x += 100.0f * Time::DeltaTime();
+			cur_pos.x += 200.0f * Time::DeltaTime();
 			break;
 		case yh::enums::Directions::End:
 			break;
 		default:
 			break;
 		}
+		tr->SetPosition(cur_pos);
+
+		if (flying_time <= 0.0f)
+		{
+			flying_time = 1.5f;
+			state = BoomerangState::MoveBack;
+		}
 	}
 
 	void Boomerang::MoveBack(Vector2 player_pos)
 	{
+		Vector2 cur_pos = tr->GetPosition();
+		if (cur_pos.x > player_pos.x)
+			cur_pos.x -= 200.0f * Time::DeltaTime();
+		else
+			cur_pos.x += 200.0f * Time::DeltaTime();
+		if (cur_pos.y > player_pos.y)
+			cur_pos.y -= 200.0f * Time::DeltaTime();
+		else
+			cur_pos.y += 200.0f * Time::DeltaTime();
+		tr->SetPosition(cur_pos);
+		if (abs(cur_pos.x - player_pos.x) <= 5.0f && abs(cur_pos.y - player_pos.y) <= 5.0f)
+		{
+			state = BoomerangState::Death;
+		}
 
 	}
 
@@ -109,7 +148,8 @@ namespace yh
 
 	void Boomerang::Death()
 	{
-		Destroy(this);
+		SetState(eState::Pause);
+		state = BoomerangState::Idle;
 	}
 
 

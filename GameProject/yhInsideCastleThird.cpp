@@ -28,7 +28,7 @@ namespace yh
 
 		BackGround* bg = object::Instantiate<BackGround>(eLayerType::Background, map_pos);
 		std::wstring map_path = MAP_PATH;
-		Texture* image = Resources::Load<Texture>(L"CastleThird", map_path + L"InsideCastle3.bmp");
+		Texture* image = Resources::Load<Texture>(L"CastleThirdImage", map_path + L"InsideCastle3.bmp");
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
 		bgsr->SetImage(image);
 		bgsr->SetScale(map_scale);
@@ -36,6 +36,10 @@ namespace yh
 
 		PlayerTemplate::SetMapPos(map_pos);
 		PlayerTemplate::SetMapScale(map_scale);
+
+		//계단 배치
+		Stair* stair = object::Instantiate<Stair>(eLayerType::Stair, Vector2(1.0f, 193.0f));
+
 
 		//맵 전환
 		to_castle_first = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(146.0f,24.0f));

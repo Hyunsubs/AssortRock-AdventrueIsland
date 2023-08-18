@@ -12,6 +12,7 @@ namespace yh::math
         static Vector2 One;
         static Vector2 Right;
         static Vector2 Up;
+        static Vector2 Double;
 
         float x;
         float y;

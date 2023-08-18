@@ -14,7 +14,7 @@
 #include "yhMapChanger.h"
 #include "yhAsciiRender.h"
 #include "yhInput.h"
-
+#include "yhGroundSword.h"
 
 namespace yh
 {
@@ -44,6 +44,8 @@ namespace yh
 		PlayerTemplate::SetMapPos(map_pos);
 		PlayerTemplate::SetMapScale(map_scale);
 
+
+		GroundSword* gs = object::Instantiate<GroundSword>(eLayerType::Items, Vector2(-16.0f,28.0f));
 		
 		//픽셀 충돌 설정
 		image = Resources::Load<Texture>(L"GetSwordScenePixelImage", map_path + L"sword_get_scene_pixel.bmp");
@@ -56,6 +58,10 @@ namespace yh
 
 	void GetSwordScene::Update()
 	{
+		if (GetPlayer()->GetIsSword())
+		{
+			Save("..\\Resources\\SaveData\\status.txt");
+		}
 		to_near_house->SetSceneName(L"NearHouseScene");
 		if (!GetLoaded())
 		{

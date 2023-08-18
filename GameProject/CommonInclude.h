@@ -35,7 +35,8 @@
 #define UI_PATH L"..\\Resources\\Image\\UI\\"
 #define TILE_PATH L"..\\Resources\\Image\\Tiles\\"
 #define NPC_PATH L"..\\Resources\\Image\\NPC\\"
-
+#define BOSS_PATH L"..\\Resources\\Image\\Boss\\"
+using namespace std;
 
 namespace yh::enums
 {
@@ -47,6 +48,7 @@ namespace yh::enums
 		MapChanger,
 		Asciis,
 		Stair,
+		Step,
 		Grass,
 		Obstacle,
 		PitFall,
@@ -56,12 +58,30 @@ namespace yh::enums
 		Player,
 		Tile,
 		Sword,
+		Projectile,
+		Clutch,
 		Shield,
 		Monster,
+		Boss,
 		Effect,
 		UI,
 		End,
 
+	};
+
+	enum class MonsterState
+	{
+		Idle,
+		Move,
+		MoveReady,
+		Attack,
+		KnockBack,
+		Death,
+		Falling,
+		Chasing,
+		Freeze,
+		Ui,
+		End,
 	};
 
 	enum class Directions

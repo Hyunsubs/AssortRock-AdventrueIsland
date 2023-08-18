@@ -103,6 +103,9 @@
     <Filter Include="Contents\GameObject\NPC">
       <UniqueIdentifier>{efa3762f-2b5f-421d-9a38-dc27983abbd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\BossMonster">
+      <UniqueIdentifier>{00440ee3-172c-472e-8823-3f0cf75e9dfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -321,6 +324,39 @@
     <ClInclude Include="yhBoomerang.h">
       <Filter>Contents\GameObject\Player</Filter>
     </ClInclude>
+    <ClInclude Include="yhMonsterTemplate.h">
+      <Filter>Contents\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yhBlueKnight.h">
+      <Filter>Contents\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGroundSword.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhEmptyGrass.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhArrowProjectile.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhPlayerGrass.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhArrghus.h">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="yhClutch.h">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yhArrghusScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yhClutchParts.h">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yhArrghusPiece.h">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -534,6 +570,39 @@
     </ClCompile>
     <ClCompile Include="yhBoomerang.cpp">
       <Filter>Contents\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yhMonsterTemplate.cpp">
+      <Filter>Contents\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhBlueKnight.cpp">
+      <Filter>Contents\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGroundSword.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhEmptyGrass.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhArrowProjectile.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhPlayerGrass.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhArrghus.cpp">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhClutch.cpp">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yhArrghusScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhClutchParts.cpp">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yhArrghusPiece.cpp">
+      <Filter>Contents\GameObject\BossMonster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

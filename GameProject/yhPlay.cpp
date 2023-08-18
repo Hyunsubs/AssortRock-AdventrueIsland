@@ -26,6 +26,7 @@
 #include "yhWall.h"
 #include "yhHpInterface.h"
 #include "yhMapChanger.h"
+#include "yhGrass.h"
 
 
 yh::Play::Play()
@@ -82,6 +83,16 @@ void yh::Play::Initialize()
 	GetPlayer()->map_size = map_size;
 	knight->PixelTexture = image;
 	knight->map_size = map_size;
+
+	Vector2 grass_start = Vector2(308.0f, 338.0f);
+	Vector2 grass_border = Vector2(32.0f, 32.0f);
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			Grass* grass = object::Instantiate<Grass>(eLayerType::Grass, Vector2(grass_start.x + (grass_border.x * j), grass_start.y + (grass_border.y * i)));
+		}
+	}
 
 	//맵 이동 배치
 	castle_to_house = object::Instantiate<MapChanger>(eLayerType::MapChanger,Vector2(850.0f, 1060.0f));

@@ -15,6 +15,7 @@ namespace yh
 		, tr(nullptr)
 		, is_chasing(false)
 		, is_Wall(false)
+		, hp(2)
 
 	{
 		std::wstring monster_path = MONSTER_PATH;
@@ -62,6 +63,13 @@ namespace yh
 	{
 		GameObject::Update();
 		CheckPixel(PixelTexture, map_size);
+
+		if (hp <= 0 && state != MonsterState::Death)
+		{
+			anim->PlayAnimation(L"GnDeath", false);
+			state = MonsterState::Death;
+		}
+			
 		switch (state)
 		{
 		case yh::MonsterState::Idle:
@@ -95,7 +103,10 @@ namespace yh
 	{
 		//검과 닿으면 dynamic_cast 에서 에러남
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
-		if (player != nullptr)
+		if (player == nullptr)
+			return;
+
+		if (player != nullptr && state != MonsterState::Death)
 		{
 			Transform* tr = player->GetComponent<Transform>();
 			int player_hp = player->GetHp();

@@ -27,6 +27,7 @@ namespace yh
 	}
 	AsciiRender::~AsciiRender()
 	{
+
 	}
 
 	void AsciiRender::Initialize()

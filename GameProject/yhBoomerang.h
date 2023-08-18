@@ -36,15 +36,17 @@ namespace yh
 		void MoveBack(Vector2 player_pos);
 		void Death();
 
-		void SetThrowing(bool input) { is_Throwing = input; }
-		void SetSwordState(BoomerangState input) { state = input; }
+		void SetDirection(Directions direct) { direction = direct; }
+		
+		void SetBoomerangState(BoomerangState input) { state = input; }
+		BoomerangState GetBoomerangState() { return state; }
 
-		BoomerangState GetSwordState() { return state; }
+		void SetPlayerPos(Vector2 pos) { player_pos = pos; }
 
 	private:
 		BoomerangState state;
 		Directions direction;
-		bool is_Throwing;
+		Vector2 player_pos;
 		float flying_time;
 
 		class Animator* boomerang_anim;

@@ -16,6 +16,9 @@
 #include "yhInput.h"
 #include "yhGrandpa.h"
 #include "yhGrass.h"
+#include "yhGreenKnight.h"
+#include "yhBlueKnight.h"
+#include "yhArrghus.h"
 
 namespace yh
 {
@@ -70,25 +73,60 @@ namespace yh
 		//풀 배치
 		Vector2 Grass_start = Vector2(-270.0f, 53.0f);
 		Vector2 Grass_border = Vector2(32.0f,32.0f);
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 3; i++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int j = 0; j < 4; j++)
 			{
 				Grass* grass = object::Instantiate<Grass>(eLayerType::Grass, Vector2(Grass_start.x + (Grass_border.x * j ), Grass_start.y + (Grass_border.y * i)));
 			}
 		}
 
+		Grass_start = Vector2(-436.0f, 43.0f);
+		Grass_border = Vector2(32.0f, 32.0f);
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				Grass* grass = object::Instantiate<Grass>(eLayerType::Grass, Vector2(Grass_start.x + (Grass_border.x * j), Grass_start.y + (Grass_border.y * i)));
+			}
+		}
+
+		Grass_start = Vector2(-78.0f, 439.0f);
+		Grass_border = Vector2(32.0f, 32.0f);
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				Grass* grass = object::Instantiate<Grass>(eLayerType::Grass, Vector2(Grass_start.x + (Grass_border.x * j), Grass_start.y + (Grass_border.y * i)));
+			}
+		}
+
+		//몬스터 배치
+		Vector2 Monster_start = Vector2(100.0f, 300.0f);
+		Vector2 Monster_border = Vector2(150.0f, 0.0f);
+		for (int i = 0; i < 2; i++)
+		{
+			GreenKnight* gn = object::Instantiate<GreenKnight>(eLayerType::Monster, Vector2(Monster_start.x + (Monster_border.x * i), Monster_start.y + (Monster_border.y * i)));
+			gn->PixelTexture = image;
+			gn->map_size = map_size;
+		}
+
+		BlueKnight* bn = object::Instantiate<BlueKnight>(eLayerType::Monster, Vector2(300.0f, 300.0f));
+		bn->PixelTexture = image;
+		bn->map_size = map_size;
 
 
 		//NPC 배치
 		Grandpa* grandpa = object::Instantiate<Grandpa>(eLayerType::NPC, Vector2(-100.0f, 100.0f));
+
+		
 	}
 
 	void House::Update()
 	{
 
 		Vector2 map_size = Vector2(512.0f, 512.0f);
-
+		
 		if (!GetLoaded())
 		{
 			PlayerTemplate::Load("..\\Resources\\SaveData\\status.txt");
@@ -111,6 +149,7 @@ namespace yh
 		
 		Transform* player_tr = PlayerTemplate::GetPlayer()->GetComponent<Transform>();
 		Vector2 cur_pos = player_tr->GetPosition();
+
 
 	}
 

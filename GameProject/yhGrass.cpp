@@ -9,6 +9,11 @@
 #include "yhAnimator.h"
 #include "yhTime.h"
 #include "yhPlayerSword.h"
+#include "yhMonsterTemplate.h"
+#include "yhGreenKnight.h"
+#include "yhEmptyGrass.h"
+#include "yhObject.h"
+#include "yhPlayerGrass.h"
 
 namespace yh
 {
@@ -36,7 +41,7 @@ namespace yh
 		std::wstring tile_path = TILE_PATH;
 		std::wstring inter_path = INTERACTION_PATH;
 		name = L"Grass";
-		path = tile_path + L"grass_tile.png";
+		path = tile_path + L"new_grass_tile.bmp";
 
 		tr = GetComponent<Transform>();
 		sr = AddComponent<SpriteRenderer>();
@@ -81,9 +86,31 @@ namespace yh
 
 	void Grass::OnCollisionEnter(Collider* other)
 	{
+		Vector2 cur_pos = tr->GetPosition();
 		PlayerSword* player_sword = dynamic_cast<PlayerSword*>(other->GetOwner());
 		if (player_sword != nullptr && player_sword->GetSwordState() == PlayerSword::SwordState::Attack && !is_destyoed)
 		{
+			is_destyoed = true;
+			state = grass_state::Destroyed;
+			object::Instantiate<EmptyGrass>(eLayerType::Background, cur_pos);
+		}
+		
+		MonsterTemplate* monster = dynamic_cast<MonsterTemplate*>(other->GetOwner());
+		if (state == grass_state::Flying && monster != nullptr)
+		{
+			int monster_hp = monster->GetHp();
+			monster_hp -= 1;
+			monster->SetHp(monster_hp);
+			is_destyoed = true;
+			state = grass_state::Destroyed;
+		}
+
+		GreenKnight* gn = dynamic_cast<GreenKnight*>(other->GetOwner());
+		if (gn != nullptr)
+		{
+			int gn_hp = gn->GetHp();
+			gn_hp -= 1;
+			gn->SetHp(gn_hp);
 			is_destyoed = true;
 			state = grass_state::Destroyed;
 		}
@@ -99,8 +126,10 @@ namespace yh
 
 			if (Input::GetKeyDown(eKeyCode::K) && !(player->GetThrowing()) && (player->GetGrass()->GetState() == GameObject::eState::Pause))
 			{
+				Vector2 cur_pos = tr->GetPosition();
 				player->GetGrass()->SetState(GameObject::eState::Active);
 				Destroy(this);
+				object::Instantiate<EmptyGrass>(eLayerType::Background,cur_pos);
 			}
 
 		}

@@ -31,24 +31,28 @@ namespace yh
 	void Step::OnCollisionEnter(Collider* other)
 	{
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
-		Transform* player_tr = player->GetComponent<Transform>();
-		Vector2 player_pos = player_tr->GetPosition();
 		if (player == nullptr)
 			return;
+		Transform* player_tr = player->GetComponent<Transform>();
+		Vector2 player_pos = player_tr->GetPosition();
 		if (player->GetIsDown() == false)
 		{
-			player_pos.y += 100.0f;
 			player->SetIsDown(true);
+			player->SetState(Player::PlayerState::Step);
 		}
-
-		player_tr->SetPosition(player_pos);
 
 	}
 	void Step::OnCollisionStay(Collider* other)
 	{
+
+
+
 	}
 	void Step::OnCollisionExit(Collider* other)
 	{
+
+
+
 	}
 
 	void Step::SetColSize(Vector2 input)

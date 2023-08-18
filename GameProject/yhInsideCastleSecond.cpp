@@ -6,10 +6,13 @@
 #include "yhBackGround.h"
 #include "yhAnimator.h"
 #include "yhStair.h"
+#include "yhStep.h"
+#include "yhMapChanger.h"
 
 namespace yh
 {
-	InsideCastleSecond::InsideCastleSecond()
+	InsideCastleSecond::InsideCastleSecond() :
+		to_first_castle(nullptr)
 	{
 	}
 	InsideCastleSecond::~InsideCastleSecond()
@@ -44,6 +47,13 @@ namespace yh
 
 		//계단 배치
 		Stair* stair = object::Instantiate<Stair>(eLayerType::Stair, Vector2(125.0f, -214.0f));
+
+		//발판
+		Step* first_step = object::Instantiate<Step>(eLayerType::Step, Vector2(123.0f, 184.0f));
+		first_step->SetColSize(Vector2(30.0f, 10.0f));
+
+		Step* second_step = object::Instantiate<Step>(eLayerType::Step, Vector2(-197.0f, 247.0f));
+		second_step->SetColSize(Vector2(30.0f, 10.0f));
 
 	}
 	void InsideCastleSecond::Update()
@@ -84,6 +94,16 @@ namespace yh
 			PlayerTemplate::GetPlayer()->PixelTexture = up_pixel_image;
 		}
 
+
+
+		//맵 변경
+		to_first_castle = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(-346.0f, 34.0f));
+		to_first_castle->SetSceneName(L"InsideCastleFirstScene");
+		to_first_castle->SetLoadPos(Vector2(369.85f, 50.0f));
+
+		to_first_boss = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(-196.0f, 466.0f));
+		to_first_boss->SetSceneName(L"ArrghusScene");
+		to_first_boss->SetLoadPos(Vector2(0.0f, 0.0f));
 
 		PlayerTemplate::SavePosition();
 		PlayerTemplate::Save("..\\Resources\\SaveData\\status.txt");

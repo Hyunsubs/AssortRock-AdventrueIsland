@@ -20,5 +20,7 @@ namespace yh
 		Vector2 map_scale;
 		Vector2 map_size;
 
+		class MapChanger* to_first_castle;
+		class MapChanger* to_first_boss;
 	};
 }

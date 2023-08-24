@@ -7,7 +7,7 @@
 #include "yhTime.h"
 #include "yhInput.h"
 #include "yhMonsterTemplate.h"
-
+#include "yhArrghus.h"
 
 namespace yh
 {
@@ -17,23 +17,25 @@ namespace yh
 		, clutches({})
 		, execute_time(0.5f)
 		, state(MainClutchState::Pause)
+		, is_executed(false)
 	{
 		tr = GetComponent<Transform>();
-		ClutchParts* clutch_start = object::Instantiate<ClutchParts>(eLayerType::Sword);
+		col = AddComponent<Collider>();
+		ClutchParts* clutch_start = object::Instantiate<ClutchParts>(eLayerType::Clutch);
 		clutch_start->SetDirection(direction);
 		clutch_start->SetTypes(ClutchTypes::Start);
-		clutch_start->SetState(eState::Pause);
+		clutch_start->SetState(eState::Dead);
 		clutches.push_back(clutch_start);
 		for (int i = 0; i < 8; i++)
 		{
-			ClutchParts* clutch_middle = object::Instantiate<ClutchParts>(eLayerType::Sword);
+			ClutchParts* clutch_middle = object::Instantiate<ClutchParts>(eLayerType::Clutch);
 			clutch_middle->SetTypes(ClutchTypes::Middle);
-			clutch_middle->SetState(eState::Pause);
+			clutch_middle->SetState(eState::Dead);
 			clutches.push_back(clutch_middle);
 		}
-		ClutchParts* clutch_end = object::Instantiate<ClutchParts>(eLayerType::Sword);
+		ClutchParts* clutch_end = object::Instantiate<ClutchParts>(eLayerType::Clutch);
 		clutch_end->SetTypes(ClutchTypes::End);
-		clutch_end->SetState(eState::Pause);
+		clutch_end->SetState(eState::Dead);
 		clutches.push_back(clutch_end);
 		SetState(eState::Active);
 	}
@@ -49,6 +51,7 @@ namespace yh
 	void Clutch::Update()
 	{
 		GameObject::Update();
+		
 		switch (state)
 		{
 		case yh::MainClutchState::Pause:
@@ -73,34 +76,17 @@ namespace yh
 
 	void Clutch::OnCollisionEnter(Collider* other)
 	{
-		MonsterTemplate* monster = dynamic_cast<MonsterTemplate*>(other->GetOwner());
-		if (monster != nullptr)
-		{
-			monster->SetClutch(true);
-			Transform* clutch_tr = clutches[9]->GetComponent<Transform>();
-			Transform* monster_tr = monster->GetComponent<Transform>();
-			monster_tr->SetPosition(clutch_tr->GetPosition());
-		}
+
 	}
 
 	void Clutch::OnCollisionStay(Collider* other)
 	{
-		MonsterTemplate* monster = dynamic_cast<MonsterTemplate*>(other->GetOwner());
-		if (monster != nullptr)
-		{
-			Transform* clutch_tr = clutches[9]->GetComponent<Transform>();
-			Transform* monster_tr = monster->GetComponent<Transform>();
-			monster_tr->SetPosition(clutch_tr->GetPosition());
-		}
+
 	}
 
 	void Clutch::OnCollisionExit(Collider* other)
 	{
-		MonsterTemplate* monster = dynamic_cast<MonsterTemplate*>(other->GetOwner());
-		if (monster != nullptr)
-		{
-			monster->SetClutch(false);
-		}
+
 	}
 
 	void Clutch::Pause()
@@ -109,12 +95,58 @@ namespace yh
 		{
 			Transform* clutch_tr = clutches[i]->GetComponent<Transform>();
 			clutch_tr->SetPosition(tr->GetPosition());
-			clutches[i]->SetState(eState::Pause);
+			clutches[i]->SetState(eState::Dead);
 		}
 	}
 
 	void Clutch::Move()
 	{
+		clutches[9]->SetActivated(true);
+		if (!is_executed)
+		{
+			is_executed = true;
+			for (int i = 0; i < 10; i++)
+			{
+				clutches[i] = object::Instantiate<ClutchParts>(eLayerType::Clutch, tr->GetPosition());
+				if (i == 0)
+				{
+					clutches[i]->SetTypes(ClutchTypes::Start);
+				}
+				else if (i == 9)
+				{
+					clutches[i]->SetTypes(ClutchTypes::End);
+				}
+				else
+				{
+					clutches[i]->SetTypes(ClutchTypes::Middle);
+				}
+				clutches[i]->SetDirection(direction);
+				clutches[i]->SetState(eState::Active);
+				Transform* clutch_tr = clutches[i]->GetComponent<Transform>();
+				Vector2 cur_pos = clutch_tr->GetPosition();
+				switch (direction)
+				{
+				case yh::enums::Directions::Forward:
+					cur_pos.y -= 20.0f;
+					break;
+				case yh::enums::Directions::Backward:
+					cur_pos.y += 20.0f;
+					break;
+				case yh::enums::Directions::Left:
+					cur_pos.x -= 20.0f;
+					break;
+				case yh::enums::Directions::Right:
+					cur_pos.x += 20.0f;
+					break;
+				case yh::enums::Directions::End:
+					break;
+				default:
+					break;
+				}
+				clutch_tr->SetPosition(cur_pos);
+			}
+		}
+
 		for (int i = 0; i < 10; i++)
 		{
 			clutches[i]->SetDirection(direction);
@@ -140,12 +172,15 @@ namespace yh
 			default:
 				break;
 			}
+
 			clutch_tr->SetPosition(cur_pos);
+			
 		}
 
 		execute_time -= Time::DeltaTime();
 		if (execute_time <= 0.0f)
 		{
+			is_executed = false;
 			state = MainClutchState::MoveBack;
 			execute_time = 0.5f;
 		}
@@ -154,13 +189,6 @@ namespace yh
 
 	void Clutch::MoveBack()
 	{
-		execute_time -= Time::DeltaTime();
-		if (execute_time <= 0.0f)
-		{
-			state = MainClutchState::Pause;
-			execute_time = 0.5f;
-		}
-
 		for (int i = 0; i < 10; i++)
 		{
 			Transform* clutch_tr = clutches[i]->GetComponent<Transform>();
@@ -168,16 +196,16 @@ namespace yh
 			switch (direction)
 			{
 			case yh::enums::Directions::Forward:
-				cur_pos.y += (30.0f * i) * Time::DeltaTime();
+				cur_pos.y += (25.0f * i) * Time::DeltaTime();
 				break;
 			case yh::enums::Directions::Backward:
-				cur_pos.y -= (30.0f * i) * Time::DeltaTime();
+				cur_pos.y -= (25.0f * i) * Time::DeltaTime();
 				break;
 			case yh::enums::Directions::Left:
-				cur_pos.x += (30.0f * i) * Time::DeltaTime();
+				cur_pos.x += (25.0f * i) * Time::DeltaTime();
 				break;
 			case yh::enums::Directions::Right:
-				cur_pos.x -= (30.0f * i) * Time::DeltaTime();
+				cur_pos.x -= (25.0f * i) * Time::DeltaTime();
 				break;
 			case yh::enums::Directions::End:
 				break;
@@ -186,6 +214,16 @@ namespace yh
 			}
 			clutch_tr->SetPosition(cur_pos);
 		}
+
+		execute_time -= Time::DeltaTime();
+		if (execute_time <= 0.0f)
+		{
+			is_executed = false;
+			state = MainClutchState::Pause;
+			execute_time = 0.5f;
+			clutches[9]->SetActivated(false);
+		}
+
 	}
 
 }

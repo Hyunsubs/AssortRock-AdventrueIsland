@@ -25,12 +25,17 @@ namespace yh
 		boomerang_anim->SetScale(Vector2::Double);
 		boomerang_anim->PlayAnimation(L"BoomerangAnim", true);
 	}
+
 	Boomerang::~Boomerang()
 	{
 	}
+
+
 	void Boomerang::Initialize()
 	{
 	}
+
+
 	void Boomerang::Update()
 	{
 		GameObject::Update();
@@ -120,7 +125,7 @@ namespace yh
 
 		if (flying_time <= 0.0f)
 		{
-			flying_time = 1.5f;
+			flying_time = FLYING_TIME;
 			state = BoomerangState::MoveBack;
 		}
 	}

@@ -86,7 +86,7 @@ namespace yh
 		arrow_second_digit = object::Instantiate<Number>(eLayerType::UI);
 
 		//체력UI 인스턴스화 후 벡터에 추가
-		for (int i = 0; i < player->GetMaxHp(); i++)
+		for (int i = 0; i < 8; i++)
 		{
 			HpInterface* hp = object::Instantiate<HpInterface>(eLayerType::UI);
 			hp_container.push_back(hp);
@@ -108,6 +108,11 @@ namespace yh
 		CollisionManager::CollisionLayerCheck(eLayerType::Grass, eLayerType::Sword, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Grass, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Step, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Boss, eLayerType::Clutch, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Clutch, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Boss, eLayerType::Player, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Chicken, eLayerType::Player, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Chicken, eLayerType::Sword, true);
 	}
 
 	void PlayerTemplate::Update(Vector2 size)
@@ -294,6 +299,8 @@ namespace yh
 		ofs << "\n";
 		ofs << std::to_string(player->GetIsSword());
 		ofs << "\n";
+		ofs << std::to_string(player->GetMaxHp());
+		ofs << "\n";
 		
 		ofs.close();
 		
@@ -328,7 +335,7 @@ namespace yh
 
 		std::string line;
 		int i = 0;
-		while (i <= 4)
+		while (i <= 6)
 		{
 			getline(ifs, line);
 			switch (i)
@@ -346,6 +353,8 @@ namespace yh
 				player->SetHp(std::stoi(line));
 			case 4:
 				player->SetIsSword((bool)(std::stoi(line)));
+			case 5:
+				player->SetMaxHp(std::stoi(line));
 			default:
 				break;
 			}

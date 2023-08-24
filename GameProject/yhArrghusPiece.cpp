@@ -7,6 +7,7 @@
 #include "yhTime.h"
 #include "yhClutchParts.h"
 #include "yhCollider.h"
+#include "yhPlayer.h"
 
 namespace yh
 {
@@ -27,9 +28,9 @@ namespace yh
 		anim = AddComponent<Animator>();
 		col = AddComponent<Collider>();
 
-		anim->CreateAnimationFolder(L"PieceIdle", boss_path + L"Arrghus\\FirstPhase\\Pieces", Vector2::Zero, 0.3f);
-		anim->CreateAnimationFolder(L"CaughtPiece", boss_path + L"Arrghus\\FirstPhase\\Caught_Pieces", Vector2::Zero, 0.3f);
-		anim->CreateAnimationFolder(L"PieceDead", boss_path + L"Arrghus\\FirstPhase\\Piece_Dead", Vector2::Zero, 0.3f);
+		anim->CreateAnimationFolder(L"PieceIdle", boss_path + L"Arrghus\\FirstPhase\\Pieces", Vector2::Zero, 0.2f);
+		anim->CreateAnimationFolder(L"CaughtPiece", boss_path + L"Arrghus\\FirstPhase\\Caught_Pieces", Vector2::Zero, 0.2f);
+		anim->CreateAnimationFolder(L"PieceDead", boss_path + L"Arrghus\\FirstPhase\\Piece_Dead", Vector2::Zero, 0.1f);
 		anim->SetScale(Vector2::Double);
 
 		anim->PlayAnimation(L"PieceIdle", true);
@@ -83,14 +84,54 @@ namespace yh
 	}
 	void ArrghusPiece::OnCollisionEnter(Collider* other)
 	{
+		if (state == PieceState::Dead)
+			return;
 		ClutchParts* clutch = dynamic_cast<ClutchParts*>(other->GetOwner());
-		if (clutch != nullptr)
+		if (clutch != nullptr && clutch->GetClutchType() == ClutchTypes::End)
 		{
 			state = PieceState::Grapped;
+			anim->PlayAnimation(L"CaughtPiece", true);
+		}
+
+		Player* player = dynamic_cast<Player*>(other->GetOwner());
+		if (player != nullptr && state != PieceState::Dead && !(player->GetIsHit()))
+		{
+			Transform* tr = player->GetComponent<Transform>();
+			int player_hp = player->GetHp();
+			if (player_hp <= 0)
+				return;
+			player_hp--;
+			player->SetHp(player_hp);
+			player->SetState(Player::PlayerState::Hit);
+			Animator* player_anim = player->GetComponent<Animator>();
+			switch (player->GetDirection())
+			{
+			case Directions::Forward:
+				player_anim->PlayAnimation(L"LinkHitForward", false);
+				break;
+			case Directions::Backward:
+				player_anim->PlayAnimation(L"LinkHitBackward", false);
+				break;
+			case Directions::Left:
+				player_anim->PlayAnimation(L"LinkHitLeft", false);
+				break;
+			case Directions::Right:
+				player_anim->PlayAnimation(L"LinkHitRight", false);
+				break;
+			default:
+				break;
+			}
+
 		}
 	}
 	void ArrghusPiece::OnCollisionStay(Collider* other)
 	{
+		ClutchParts* clutch = dynamic_cast<ClutchParts*>(other->GetOwner());
+		if (clutch != nullptr && clutch->GetClutchType() == ClutchTypes::End)
+		{
+			state = PieceState::Grapped;
+			anim->PlayAnimation(L"CaughtPiece", true);
+		}
 	}
 	void ArrghusPiece::OnCollisionExit(Collider* other)
 	{
@@ -110,7 +151,7 @@ namespace yh
 
 	void ArrghusPiece::Grapped()
 	{
-		anim->PlayAnimation(L"CaughtPiece", true);
+		
 	}
 
 	void ArrghusPiece::Dead()

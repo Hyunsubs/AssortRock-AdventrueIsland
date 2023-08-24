@@ -45,6 +45,10 @@ namespace yh
 
 		std::vector<class ClutchParts*> clutches;
 		class Transform* tr;
+		class Collider* col;
+
+		bool is_executed;
+		
 	};
 }
 

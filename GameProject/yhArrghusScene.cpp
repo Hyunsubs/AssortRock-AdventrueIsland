@@ -44,7 +44,11 @@ namespace yh
 
 		boss = object::Instantiate<Arrghus>(eLayerType::Boss,Vector2(0.0f,-100.0f));
 		
+		boss->PixelTexture = image;
+		boss->map_size = map_size;
 
+		CollisionManager::CollisionLayerCheck(eLayerType::Boss,eLayerType::Sword,true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Boss, eLayerType::Clutch, true);
 	}
 	void ArrghusScene::Update()
 	{
@@ -64,6 +68,19 @@ namespace yh
 
 		Transform* player_tr = GetPlayer()->GetComponent<Transform>();
 		boss->SetPlayerPos(player_tr->GetPosition());
+
+		if (boss->GetState() == GameObject::eState::Dead)
+		{
+			wstring tile_path = TILE_PATH;
+			to_ganon = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(3.0f,-51.0f));
+			SpriteRenderer* sr = to_ganon->AddComponent<SpriteRenderer>();
+			Texture* image = Resources::Load<Texture>(L"BlackTileImage",tile_path + L"black_tile.bmp");
+			sr->SetImage(image);
+			sr->SetScale(Vector2::Double);
+			to_ganon->SetLoadPos(Vector2::Zero);
+			to_ganon->SetSceneName(L"GanonScene");
+			to_ganon->SetColliderSize(Vector2(20.0f, 20.0f));	
+		}
 	}
 	void ArrghusScene::Render(HDC hdc)
 	{

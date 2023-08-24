@@ -6,6 +6,9 @@
 #include "yhMonsterTemplate.h"
 #include "yhGreenKnight.h"
 #include "yhCollider.h"
+#include "yhArrghus.h"
+#include "yhArrghusPiece.h"
+
 
 namespace yh
 {
@@ -15,6 +18,8 @@ namespace yh
 		, sr(nullptr)
 		, direction(Directions::End)
 		, col(nullptr)
+		, is_captured(false)
+		, is_activated(false)
 	{
 		tr = GetComponent<Transform>();
 		sr = AddComponent<SpriteRenderer>();
@@ -89,53 +94,72 @@ namespace yh
 
 	void ClutchParts::OnCollisionEnter(Collider* other)
 	{
+		
+		ArrghusPiece* piece = dynamic_cast<ArrghusPiece*>(other->GetOwner());
+		if (piece != nullptr && type == ClutchTypes::End && is_activated && piece->GetPieceState() != PieceState::Dead)
+		{
+			Transform* clutch_tr = GetComponent<Transform>();
+			Transform* monster_tr = piece->GetComponent<Transform>();
+			monster_tr->SetPosition(clutch_tr->GetPosition());
+		}
+
+		Arrghus* arrghus = dynamic_cast<Arrghus*>(other->GetOwner());
+		if (arrghus != nullptr)
+		{
+			return;
+		}
+		GreenKnight* gn = dynamic_cast<GreenKnight*>(other->GetOwner());
+		if (type == ClutchTypes::End && gn != nullptr && is_activated)
+		{
+			Transform* clutch_tr = GetComponent<Transform>();
+			Transform* monster_tr = gn->GetComponent<Transform>();
+			monster_tr->SetPosition(clutch_tr->GetPosition());
+		}
+
 		MonsterTemplate* monster = dynamic_cast<MonsterTemplate*>(other->GetOwner());
-		if (type == ClutchTypes::End && monster != nullptr)
+		if (type == ClutchTypes::End && monster != nullptr && is_activated)
 		{
 			monster->SetClutch(true);
 			Transform* clutch_tr = GetComponent<Transform>();
 			Transform* monster_tr = monster->GetComponent<Transform>();
 			monster_tr->SetPosition(clutch_tr->GetPosition());
 		}
+
+		
 	}
 	void ClutchParts::OnCollisionStay(Collider* other)
 	{
+		ArrghusPiece* piece = dynamic_cast<ArrghusPiece*>(other->GetOwner());
+		if (piece != nullptr && type == ClutchTypes::End && is_activated && piece->GetPieceState() != PieceState::Dead)
+		{
+			Transform* clutch_tr = GetComponent<Transform>();
+			Transform* monster_tr = piece->GetComponent<Transform>();
+			monster_tr->SetPosition(clutch_tr->GetPosition());
+		}
+
+		Arrghus* arrghus = dynamic_cast<Arrghus*>(other->GetOwner());
+		if (arrghus != nullptr)
+		{
+			return;
+		}
 		MonsterTemplate* monster = dynamic_cast<MonsterTemplate*>(other->GetOwner());
-		if (type == ClutchTypes::End && monster != nullptr)
+		if (type == ClutchTypes::End && monster != nullptr && is_activated && monster->GetMonsterState() != MonsterState::Death)
 		{
 			monster->SetClutch(true);
 			Transform* clutch_tr = GetComponent<Transform>();
 			Transform* monster_tr = monster->GetComponent<Transform>();
+			monster_tr->SetPosition(clutch_tr->GetPosition());
+		}
+		GreenKnight* gn = dynamic_cast<GreenKnight*>(other->GetOwner());
+		if (type == ClutchTypes::End && gn != nullptr && is_activated && gn->GetMonsterState() != MonsterState::Death)
+		{
+			Transform* clutch_tr = GetComponent<Transform>();
+			Transform* monster_tr = gn->GetComponent<Transform>();
 			monster_tr->SetPosition(clutch_tr->GetPosition());
 		}
 	}
 	void ClutchParts::OnCollisionExit(Collider* other)
 	{
-		MonsterTemplate* monster = dynamic_cast<MonsterTemplate*>(other->GetOwner());
-		if (type == ClutchTypes::End && monster != nullptr)
-		{
-			Transform* clutch_tr = GetComponent<Transform>();
-			Transform* monster_tr = monster->GetComponent<Transform>();
-			Vector2 clutch_pos = clutch_tr->GetPosition();
-			switch (direction)
-			{
-			case yh::enums::Directions::Forward:
-				clutch_pos.y -= 30.0f;
-				break;
-			case yh::enums::Directions::Backward:
-				clutch_pos.y += 30.0f;
-				break;
-			case yh::enums::Directions::Left:
-				clutch_pos.x -= 30.0f;
-				break;
-			case yh::enums::Directions::Right:
-				clutch_pos.x += 30.0f;
-				break;
-			default:
-				break;
-			}
-			monster_tr->SetPosition(clutch_pos);
-			monster->SetClutch(true);
-		}
+		
 	}
 }

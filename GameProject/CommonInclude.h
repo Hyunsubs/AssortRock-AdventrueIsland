@@ -31,11 +31,14 @@
 #define PLAYING_ITEMS_PATH  L"..\\Resources\\Image\\Items_Playing\\"
 #define INTERACTION_PATH L"..\\Resources\\Image\\Interaction\\"
 #define MAP_PATH L"..\\Resources\\Image\\Maps\\"
+#define GROUND_ITEM_PATH L"..\\Resources\\Image\\Ground_Items\\"
 #define MONSTER_PATH L"..\\Resources\\Image\\Monster\\"
 #define UI_PATH L"..\\Resources\\Image\\UI\\"
 #define TILE_PATH L"..\\Resources\\Image\\Tiles\\"
 #define NPC_PATH L"..\\Resources\\Image\\NPC\\"
 #define BOSS_PATH L"..\\Resources\\Image\\Boss\\"
+
+#define SOUND_PATH L"..\\Resources\\sound\\"
 using namespace std;
 
 namespace yh::enums
@@ -46,7 +49,6 @@ namespace yh::enums
 		ForeBackground,
 		Background,
 		MapChanger,
-		Asciis,
 		Stair,
 		Step,
 		Grass,
@@ -54,17 +56,19 @@ namespace yh::enums
 		PitFall,
 		NPC,
 		Wall,
-		Items,
 		Player,
 		Tile,
 		Sword,
 		Projectile,
 		Clutch,
 		Shield,
+		Items,
 		Monster,
+		Chicken,
 		Boss,
 		Effect,
 		UI,
+		Asciis,
 		End,
 
 	};

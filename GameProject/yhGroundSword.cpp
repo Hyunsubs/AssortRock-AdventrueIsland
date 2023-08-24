@@ -31,8 +31,8 @@ namespace yh
 		sr->SetScale(Vector2(2.0f, 2.0f));
 
 		Vector2 sword_tr = tr->GetPosition();
-		ar = object::Instantiate<AsciiRender>(eLayerType::Asciis,Vector2(sword_tr.x, sword_tr.y + 200.0f));
-		ar->SetString("YOU GOt A SWORD\nPRESS J TO ATTACK");
+		ar = object::Instantiate<AsciiRender>(eLayerType::Asciis,Vector2(sword_tr.x, sword_tr.y + 170.0f));
+		ar->SetString("YOU GOT A SWORD\nPRESS J TO ATTACK");
 		ar->PrintAsciis();
 		ar->Destroy();
 	}

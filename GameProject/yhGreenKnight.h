@@ -33,6 +33,7 @@ namespace yh
 		void SetPlayerPos(Vector2 pos) { player_pos = pos; }
 
 		void SetState(MonsterState input) { state = input; }
+		MonsterState GetMonsterState() { return state; }
 
 		int GetHp() { return hp; }
 		void SetHp(int input) { hp = input; }

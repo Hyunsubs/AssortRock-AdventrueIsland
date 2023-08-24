@@ -23,6 +23,9 @@ namespace yh
 		class MapChanger* house_changer;
 		class MapChanger* get_sword;
 
+		vector<class Grass*> grass_manager;
+		bool heart_found;
+
 	};
 }
 

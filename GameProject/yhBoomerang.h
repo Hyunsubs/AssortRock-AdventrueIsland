@@ -1,7 +1,7 @@
 #pragma once
 #include "yhGameObject.h"
 
-#define FLYING_TIME 1.0f
+#define FLYING_TIME 0.5f
 
 
 namespace yh

@@ -19,10 +19,14 @@
 #include "yhGreenKnight.h"
 #include "yhBlueKnight.h"
 #include "yhArrghus.h"
+#include "yhHeartContainer.h"
+#include "yhChicken.h"
 
 namespace yh
 {
-	House::House()
+	House::House() :
+		  grass_manager({})
+		, heart_found(false)
 	{
 	}
 	House::~House()
@@ -78,6 +82,7 @@ namespace yh
 			for (int j = 0; j < 4; j++)
 			{
 				Grass* grass = object::Instantiate<Grass>(eLayerType::Grass, Vector2(Grass_start.x + (Grass_border.x * j ), Grass_start.y + (Grass_border.y * i)));
+				grass_manager.push_back(grass);
 			}
 		}
 
@@ -119,7 +124,11 @@ namespace yh
 		//NPC 배치
 		Grandpa* grandpa = object::Instantiate<Grandpa>(eLayerType::NPC, Vector2(-100.0f, 100.0f));
 
-		
+
+		//치킨
+		chic = object::Instantiate<Chicken>(eLayerType::Chicken, Vector2(10.0f, 10.0f));
+		chic->PixelTexture = image;
+		chic->map_size = map_size;
 	}
 
 	void House::Update()
@@ -150,7 +159,15 @@ namespace yh
 		Transform* player_tr = PlayerTemplate::GetPlayer()->GetComponent<Transform>();
 		Vector2 cur_pos = player_tr->GetPosition();
 
-
+		
+		if (grass_manager[8]->GetState() == GameObject::eState::Dead && heart_found == false)
+		{
+			Transform* grass_tr = grass_manager[8]->GetComponent<Transform>();
+			Vector2 grass_pos = grass_tr->GetPosition();
+			object::Instantiate<HeartContainer>(eLayerType::Items,grass_pos);
+			heart_found = true;
+		}
+		chic->SetPlayerPos(GetPlayer()->GetComponent<Transform>()->GetPosition());
 	}
 
 	void House::Render(HDC hdc)

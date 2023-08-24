@@ -109,6 +109,7 @@ namespace yh
 
 		class PlayerGrass* GetGrass() { return grass; }
 		
+		bool GetIsHit() { return is_hit; }
 
 		bool GetIsSword() { return is_sword; }
 		void SetIsSword(bool input) { is_sword = input; }
@@ -153,7 +154,7 @@ namespace yh
 
 		//아이템 획득 여부
 		bool is_sword;
-
+		bool is_hit;
 
 		//계단 올라가는 시간
 		float stair_time;

@@ -19,6 +19,7 @@ namespace yh
 		, knock_back_time(0.5f)
 		, clutch_time(0.5f)
 	{
+	
 	}
 
 	MonsterTemplate::~MonsterTemplate()
@@ -33,14 +34,8 @@ namespace yh
 	void MonsterTemplate::Update()
 	{
 		CheckPixel(PixelTexture, map_size);
-		if (got_clutch)
-		{
+		GameObject::Update();
 
-		}
-		else
-		{
-			GameObject::Update();
-		}
 	}
 
 	void MonsterTemplate::Render(HDC hdc)
@@ -52,24 +47,16 @@ namespace yh
 
 	void MonsterTemplate::OnCollisionEnter(Collider* other)
 	{
+		if (state == MonsterState::End)
+			return;
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
-		if (got_clutch)
-		{
-			clutch_time -= Time::DeltaTime();
-			if (clutch_time <= 0.0f)
-			{
-				clutch_time = 0.5f;
-				got_clutch = false;
-			}
-		}
 
-		if (player != nullptr && state != MonsterState::Death && !got_clutch)
+		if (player != nullptr && state != MonsterState::Death && !(player->GetIsHit()))
 		{
-			Transform* tr = player->GetComponent<Transform>();
 			int player_hp = player->GetHp();
 			if (player_hp <= 0)
 				return;
-			//player_hp--;
+			player_hp--;
 			player->SetHp(player_hp);
 			player->SetState(Player::PlayerState::Hit);
 			Animator* player_anim = player->GetComponent<Animator>();

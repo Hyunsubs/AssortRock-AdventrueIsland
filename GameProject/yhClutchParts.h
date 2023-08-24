@@ -32,7 +32,9 @@ namespace yh
 		void SetDirection(Directions direct) { direction = direct; }
 		void SetTypes(ClutchTypes input) { type = input; }
 
+		void SetActivated(bool input) { is_activated = input; }
 
+		ClutchTypes GetClutchType() { return type; }
 	private:
 		Directions direction;
 		ClutchTypes type;
@@ -43,6 +45,8 @@ namespace yh
 		class SpriteRenderer* sr;
 		class Collider* col;
 
+		bool is_captured;
+		bool is_activated;
 	};
 }
 

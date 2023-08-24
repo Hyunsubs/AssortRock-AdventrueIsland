@@ -165,6 +165,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     ofs << "\n";
     ofs << 0;
     ofs << "\n";
+    ofs << 3;
+    ofs << "\n";
 
     ofs.close();
 

@@ -3,12 +3,16 @@
 #include "yhBackGround.h"
 #include "yhPlayer.h"
 #include "yhMapChanger.h"
+#include "yhGrass.h"
+#include "yhHeartContainer.h"
 
 namespace yh
 {
 	NearHouseScene::NearHouseScene() :
 		  house_changer(nullptr)
 		, get_sword(nullptr)
+		, heart_found(false)
+		, grass_manager({})
 	{
 	}
 
@@ -42,6 +46,16 @@ namespace yh
 		house_changer = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(510.0f, 313.0f));
 		get_sword = object::Instantiate<MapChanger>(eLayerType::MapChanger, Vector2(-216.0f, -484.0f));
 		
+		Vector2 Grass_start = Vector2(-271.0f, 270.0f);
+		Vector2 Grass_border = Vector2(32.0f, 32.0f);
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 7; j++)
+			{
+				Grass* grass = object::Instantiate<Grass>(eLayerType::Grass, Vector2(Grass_start.x + (Grass_border.x * j), Grass_start.y + (Grass_border.y * i)));
+				grass_manager.push_back(grass);
+			}
+		}
 		
 	}
 	void NearHouseScene::Update()
@@ -62,10 +76,17 @@ namespace yh
 		get_sword->SetSceneName(L"GetSwordScene");
 
 		PlayerTemplate::LoadPosition();
-		Load("..\\Resources\\SaveData\\status.txt");
 		PlayerTemplate::Update(map_size);
 		PlayerTemplate::SavePosition();
 		Save("..\\Resources\\SaveData\\status.txt");
+
+		if (!heart_found && grass_manager[7]->GetState() == GameObject::eState::Dead)
+		{
+			Transform* grass_tr = grass_manager[7]->GetComponent<Transform>();
+			Vector2 grass_pos = grass_tr->GetPosition();
+			object::Instantiate<HeartContainer>(eLayerType::Items, grass_pos);
+			heart_found = true;
+		}
 
 	}
 

@@ -6,6 +6,10 @@
 #include "yhCollider.h"
 #include "yhGreenKnight.h"
 #include "yhMonsterTemplate.h"
+#include "yhArrghusPiece.h"
+#include "yhArrghus.h"
+#include "yhGanon.h"
+#include "yhChicken.h"
 
 namespace yh
 {
@@ -67,6 +71,11 @@ namespace yh
 	}
 	void PlayerSword::OnCollisionEnter(Collider* other)
 	{
+		Chicken* chic = dynamic_cast<Chicken*>(other->GetOwner());
+		if (chic != nullptr)
+		{
+
+		}
 		GreenKnight* knight = dynamic_cast<GreenKnight*>(other->GetOwner());
 		if (knight != nullptr)
 		{
@@ -96,6 +105,19 @@ namespace yh
 			int hp = knight->GetHp();
 			hp -= 1;
 			knight->SetHp(hp);
+			return;
+		}
+
+		ArrghusPiece* ap = dynamic_cast<ArrghusPiece*>(other->GetOwner());
+		if (ap != nullptr)
+		{
+			if (ap->GetPieceState() == PieceState::Grapped)
+			{
+				int hp = ap->GetHp();
+				hp--;
+				ap->SetHp(hp);
+			}
+			return;
 		}
 
 		MonsterTemplate* mt = dynamic_cast<MonsterTemplate*>(other->GetOwner());
@@ -127,6 +149,37 @@ namespace yh
 			int hp = mt->GetHp();
 			hp -= 1;
 			mt->SetHp(hp);
+			return;
+		}
+
+		Arrghus* arrghus = dynamic_cast<Arrghus*>(other->GetOwner());
+		if (arrghus != nullptr)
+		{
+			if (arrghus->GetCurPhase() == Phase::Second)
+			{
+				int hp = arrghus->GetHp();
+				hp--;
+				arrghus->SetHp(hp);
+				return;
+			}
+		}
+
+		Ganon* ganon = dynamic_cast<Ganon*>(other->GetOwner());
+		if (ganon != nullptr)
+		{
+			if (ganon->GetCurPhase() == CurrentPhase::First)
+			{
+				int first_hp = ganon->GetFirstHp();
+				first_hp--;
+				ganon->SetFirstHp(first_hp);
+			}
+			else if (ganon->GetCurPhase() == CurrentPhase::Second)
+			{
+				int second_hp = ganon->GetSecondHp();
+				second_hp--;
+				ganon->SetSecondHp(second_hp);
+			}
+			return;
 		}
 
 	}

@@ -40,6 +40,8 @@ namespace yh
 		int GetHp() { return hp; }
 		void SetHp(int input) { hp = input; }
 
+		MonsterState GetMonsterState() { return state; }
+
 
 		class Texture* PixelTexture;
 		Vector2 map_size;

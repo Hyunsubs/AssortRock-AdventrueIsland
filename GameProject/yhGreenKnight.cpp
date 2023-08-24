@@ -101,12 +101,11 @@ namespace yh
 	}
 	void GreenKnight::OnCollisionEnter(Collider* other)
 	{
-		//검과 닿으면 dynamic_cast 에서 에러남
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
 		if (player == nullptr)
 			return;
 
-		if (player != nullptr && state != MonsterState::Death)
+		if (player != nullptr && state != MonsterState::Death && !(player->GetIsHit()))
 		{
 			Transform* tr = player->GetComponent<Transform>();
 			int player_hp = player->GetHp();

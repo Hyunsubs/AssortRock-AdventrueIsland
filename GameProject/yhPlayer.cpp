@@ -170,6 +170,19 @@ namespace yh
 			arrow = 20;
 		if (is_Bridge)
 			state = PlayerState::DownBridge;
+		if (max_hp >= 8)
+			max_hp = 8;
+
+		if (is_hit)
+		{
+			invincible_time -= Time::DeltaTime();
+		}
+
+		if (invincible_time <= 0.0f)
+		{
+			invincible_time = 0.5f;
+			is_hit = false;
+		}
 
 
 		CheckPixel(PixelTexture, map_size);
@@ -351,6 +364,11 @@ namespace yh
 			Vector2 cur_pos = player_tr->GetPosition();
 			inven_tr->SetPosition(Vector2(cur_pos.x, cur_pos.y - 512.0f));
 			state = PlayerState::Inventory;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::M))
+		{
+			hp = max_hp;
 		}
 
 
@@ -632,6 +650,7 @@ namespace yh
 		Animator* anim = GetComponent<Animator>();
 		Transform* tr = GetComponent<Transform>();
 		Vector2 my_pos = tr->GetPosition();
+		is_hit = true;
 		if (!(anim->IsActiveAnimationComplete()))
 		{
 			switch (direction)
@@ -717,10 +736,10 @@ namespace yh
 			return;
 		std::vector<COLORREF> rgbs;
 		Transform* my_tr = GetComponent<Transform>();
-		COLORREF down_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x, my_tr->GetPosition().y + map_size.y + 13);
-		COLORREF up_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x, my_tr->GetPosition().y + map_size.y - 13);
-		COLORREF left_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x - 13, my_tr->GetPosition().y + map_size.y);
-		COLORREF right_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x + 13, my_tr->GetPosition().y + map_size.y);
+		COLORREF down_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x, my_tr->GetPosition().y + map_size.y + 16);
+		COLORREF up_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x, my_tr->GetPosition().y + map_size.y - 16);
+		COLORREF left_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x - 16, my_tr->GetPosition().y + map_size.y);
+		COLORREF right_color = pixel_texture->GetTexturePixel(my_tr->GetPosition().x + map_size.x + 16, my_tr->GetPosition().y + map_size.y);
 
 		rgbs.push_back(down_color);
 		rgbs.push_back(up_color);

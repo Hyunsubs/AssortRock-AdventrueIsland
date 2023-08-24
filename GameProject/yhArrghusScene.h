@@ -17,6 +17,7 @@ namespace yh
 
 	private:
 		class Arrghus* boss;
+		class MapChanger* to_ganon;
 
 		Vector2 map_pos;
 		Vector2 map_scale;

@@ -86,6 +86,7 @@ namespace yh
 	void BlueKnight::OnCollisionEnter(Collider* other)
 	{
 		MonsterTemplate::OnCollisionEnter(other);
+		
 	}
 	void BlueKnight::OnCollisionStay(Collider* other)
 	{

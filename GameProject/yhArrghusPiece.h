@@ -40,6 +40,8 @@ namespace yh
 		void Grapped();
 		void Dead();
 
+		PieceState GetPieceState() { return state; }
+
 	private:
 		PieceState state;
 		bool is_seperated;

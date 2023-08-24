@@ -357,6 +357,30 @@
     <ClInclude Include="yhArrghusPiece.h">
       <Filter>Contents\GameObject\BossMonster</Filter>
     </ClInclude>
+    <ClInclude Include="yhHeartContainer.h">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="yhChicken.h">
+      <Filter>Contents\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yhArrghusShadow.h">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGanonScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGanon.h">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGanonFireBats.h">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="yhGanonTrident.h">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="yhBatsFlame.h">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -602,6 +626,30 @@
       <Filter>Contents\GameObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="yhArrghusPiece.cpp">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhHeartContainer.cpp">
+      <Filter>Contents\GameObject\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="yhChicken.cpp">
+      <Filter>Contents\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhArrghusShadow.cpp">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGanonScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGanon.cpp">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGanonFireBats.cpp">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhGanonTrident.cpp">
+      <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhBatsFlame.cpp">
       <Filter>Contents\GameObject\BossMonster</Filter>
     </ClCompile>
   </ItemGroup>

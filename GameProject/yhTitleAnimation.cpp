@@ -11,6 +11,8 @@
 #include "yhSpriteRenderer.h"
 #include "yhBackGroundAnimation.h"
 #include "yhSound.h"
+#include "yhBgmManager.h"
+
 namespace yh
 {
 
@@ -24,6 +26,8 @@ namespace yh
 
 	void TitleAnimation::Initialize()
 	{
+		BgmManager::Init();
+
 		SceneChanger* changer = object::Instantiate<SceneChanger>(eLayerType::Background);
 		BackGroundAnimation* tri_up = object::Instantiate<BackGroundAnimation>(eLayerType::Background);
 		BackGroundAnimation* tri_left = object::Instantiate<BackGroundAnimation>(eLayerType::Background);

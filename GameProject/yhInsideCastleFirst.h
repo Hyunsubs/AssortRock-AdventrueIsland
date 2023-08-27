@@ -30,5 +30,7 @@ namespace yh
 
 		class GreenKnight* gn_first;
 		class GreenKnight* gn_second;
+
+		bool sound_played;
 	};
 }

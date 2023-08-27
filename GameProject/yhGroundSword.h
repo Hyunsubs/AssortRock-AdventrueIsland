@@ -25,7 +25,8 @@ namespace yh
 		class AsciiRender* ar;
 		class Collider* col;
 
-
+		class Sound* get_sound;
+		bool sound_played;
 	};
 }
 

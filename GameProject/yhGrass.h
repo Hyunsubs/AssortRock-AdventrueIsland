@@ -51,6 +51,11 @@ namespace yh
 		class Collider* col;
 		class SpriteRenderer* sr;
 		class Animator* anim;
+		class Sound* destroy_sound;
+		class Sound* grab_sound;
+		
+		bool grab_sound_played;
+		bool destroy_sound_played;
 
 	};
 }

@@ -116,6 +116,7 @@ void yh::Play::Update()
 	inside_castle->SetColliderSize(Vector2(16.0f, 16.0f));
 	inside_castle->SetLoadPos(Vector2(0.0f, -0.0f));
 	inside_castle->SetSceneName(L"InsideCastleFirstScene");
+	inside_castle->play_sound = true;
 
 	inside_castle2->SetColliderSize(Vector2(10.0f,10.0f));
 	inside_castle2->SetLoadPos(Vector2(0.0f,408.0f));

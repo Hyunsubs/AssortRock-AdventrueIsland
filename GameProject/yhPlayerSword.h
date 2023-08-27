@@ -59,5 +59,6 @@ namespace yh
 		bool get_sword;
 		class Animator* sword_anim;
 		class Collider* col;
+		class Sound* hit_sound;
 	};
 }

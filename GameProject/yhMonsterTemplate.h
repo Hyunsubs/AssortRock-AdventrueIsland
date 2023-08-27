@@ -55,6 +55,7 @@ namespace yh
 		MonsterState state;
 		Directions direction;
 
+
 		//체력, 벽 체크 변수
 		int hp;
 		bool is_Wall;

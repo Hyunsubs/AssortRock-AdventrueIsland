@@ -25,6 +25,9 @@ namespace yh
 	private:
 		class Transform* tr;
 		class Collider* col;
+		class Sound* up_sound;
+		class Sound* down_sound;
+		bool sound_played;
 	};
 }
 

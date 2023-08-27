@@ -23,7 +23,9 @@ namespace yh
 		class Texture* image;
 		class Collider* col;
 		class AsciiRender* ar;
+		class Sound* get_sound;
 
+		bool sound_played;
 
 	};
 }

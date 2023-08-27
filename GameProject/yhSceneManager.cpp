@@ -10,14 +10,20 @@
 #include "yhGetSwordScene.h"
 #include "yhArrghusScene.h"
 #include "yhGanonScene.h"
+#include "yhResources.h"
+#include "yhSound.h"
+#include "yhEndingScene.h"
 
 namespace yh
 {
+	wstring sound_path = SOUND_PATH;
 	std::map<std::wstring, Scene*> SceneManager::mScenes = {};
 	Scene* SceneManager::mActiveScenes = nullptr;
 
 	void yh::SceneManager::Initialize()
 	{
+		
+
 		SceneManager::CreateScene<TitleAnimation>(L"TitleAnimScene");
 		SceneManager::CreateScene<Title>(L"TitleScene");
 		SceneManager::CreateScene<House>(L"HouseScene");
@@ -29,6 +35,7 @@ namespace yh
 		SceneManager::CreateScene<GetSwordScene>(L"GetSwordScene");
 		SceneManager::CreateScene<ArrghusScene>(L"ArrghusScene");
 		SceneManager::CreateScene<GanonScene>(L"GanonScene");
+		SceneManager::CreateScene<EndingScene>(L"EndingScene");
 
 		LoadScene(L"TitleAnimScene");
 	}
@@ -36,6 +43,7 @@ namespace yh
 	void yh::SceneManager::Update()
 	{
 		mActiveScenes->Update();
+		/*SetSound();*/
 	}
 
 	void yh::SceneManager::Render(HDC hdc)
@@ -43,7 +51,7 @@ namespace yh
 		mActiveScenes->Render(hdc);
 	}
 
-	void SceneManager::Release()
+	void yh::SceneManager::Release()
 	{
 		for (auto iter : mScenes)
 		{
@@ -51,6 +59,9 @@ namespace yh
 			iter.second = nullptr;
 		}
 	}
+
+
+
 
 	Scene* SceneManager::LoadScene(const std::wstring& name)
 	{

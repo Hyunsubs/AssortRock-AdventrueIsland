@@ -12,6 +12,8 @@
 #include "yhPlayerSword.h"
 #include "yhArrghusShadow.h"
 #include "yhHeartContainer.h"
+#include "yhResources.h"
+#include "yhSound.h"
 
 namespace yh
 {
@@ -36,7 +38,10 @@ namespace yh
 		, second_smashing_time(1.0f)
 	{
 		wstring boss_path = BOSS_PATH;
-		
+		wstring sound_path = SOUND_PATH;
+
+		die_sound = Resources::Load<Sound>(L"DieSound", sound_path + L"boss_dies.wav");
+
 		piece_pos_arr[0] = Vector2(20.0f, 30.0f);
 		piece_pos_arr[1] = Vector2(-20.0f, -30.0f);
 		piece_pos_arr[2] = Vector2(10.0f, 10.0f);
@@ -69,6 +74,7 @@ namespace yh
 		anim->PlayAnimation(L"FirstPhaseMoving", true);
 		
 
+
 		for (int i = 0; i < PIECE_AMOUNT; i++)
 		{
 			ArrghusPiece* piece = object::Instantiate<ArrghusPiece>(eLayerType::Boss,tr->GetPosition() + piece_pos_arr[i]);
@@ -93,6 +99,7 @@ namespace yh
 		if (hp <= 0 && second_phase != ArrghusSecondPhase::Dead)
 		{
 			anim->PlayAnimation(L"ArrghusDeadAnim",false);
+			die_sound->Play(false);
 			second_phase = ArrghusSecondPhase::Dead;
 		}
 

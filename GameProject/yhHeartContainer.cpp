@@ -10,6 +10,7 @@
 #include "yhAsciiRender.h"
 #include "yhAnimator.h"
 #include "yhInput.h"
+#include "yhSound.h"
 
 namespace yh
 {
@@ -18,6 +19,8 @@ namespace yh
 		, col(nullptr)
 		, sr(nullptr)
 		, tr(nullptr)
+		, sound_played(false)
+		, get_sound(nullptr)
 
 	{
 		wstring ground_item_path = GROUND_ITEM_PATH;
@@ -28,6 +31,9 @@ namespace yh
 		sr->SetImage(image);
 		sr->SetScale(Vector2::Double);
 		col->SetSize(Vector2(20.0f,20.0f));
+
+		wstring sound_path = SOUND_PATH;
+		get_sound = Resources::Load<Sound>(L"ItemGetSound", sound_path + L"item_get.wav");
 
 		Vector2 container_tr = tr->GetPosition();
 		ar = object::Instantiate<AsciiRender>(eLayerType::Asciis, Camera::CalculateUIPosition(Vector2(-30.0f, 170.0f)));
@@ -54,6 +60,12 @@ namespace yh
 	}
 	void HeartContainer::OnCollisionStay(Collider* other)
 	{
+		if (!sound_played)
+		{
+			get_sound->Play(false);
+			sound_played = true;
+		}
+
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
 		if (player != nullptr)
 		{

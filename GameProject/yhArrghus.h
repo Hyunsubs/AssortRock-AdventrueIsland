@@ -103,6 +103,7 @@ namespace yh
 		//2페이즈 그림자
 		class ArrghusShadow* arrghus_shadow;
 
+		class Sound* die_sound;
 	};
 }
 

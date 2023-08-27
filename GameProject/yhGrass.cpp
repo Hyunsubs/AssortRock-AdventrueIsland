@@ -14,6 +14,7 @@
 #include "yhEmptyGrass.h"
 #include "yhObject.h"
 #include "yhPlayerGrass.h"
+#include "yhSound.h"
 
 namespace yh
 {
@@ -26,6 +27,10 @@ namespace yh
 		, state(grass_state::Idle)
 		, direct(Directions::Forward)
 		, is_destyoed(false)
+		, grab_sound(nullptr)
+		, destroy_sound_played(false)
+		, grab_sound_played(false)
+		, destroy_sound(nullptr)
 	{
 
 	}
@@ -38,8 +43,9 @@ namespace yh
 
 	void Grass::Initialize()
 	{
-		std::wstring tile_path = TILE_PATH;
-		std::wstring inter_path = INTERACTION_PATH;
+		wstring tile_path = TILE_PATH;
+		wstring inter_path = INTERACTION_PATH;
+		wstring sound_path = SOUND_PATH;
 		name = L"Grass";
 		path = tile_path + L"new_grass_tile.bmp";
 
@@ -54,6 +60,9 @@ namespace yh
 		sr->SetImage(image);
 		sr->SetScale(Vector2(2.0f, 2.0f));
 		col->SetSize(Vector2(28.0f, 28.0f));
+
+		grab_sound = Resources::Load<Sound>(L"ThrowingSound", sound_path + L"throw.wav");
+		destroy_sound = Resources::Load<Sound>(L"GrassDestroyedSound", sound_path + L"grass_destroyed.wav");
 	}
 
 	void Grass::Update()
@@ -130,6 +139,7 @@ namespace yh
 				player->GetGrass()->SetState(GameObject::eState::Active);
 				Destroy(this);
 				object::Instantiate<EmptyGrass>(eLayerType::Background,cur_pos);
+				grab_sound->Play(false);
 			}
 
 		}
@@ -184,6 +194,7 @@ namespace yh
 		sr->SetImage(image);
 		anim->SetScale(Vector2(2.0f, 2.0f));
 		anim->PlayAnimation(L"GrassThrownAnim",false);
+		destroy_sound->Play(false);
 		state = grass_state::Death;
 	}
 

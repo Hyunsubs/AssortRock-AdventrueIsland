@@ -12,10 +12,12 @@
 #include "yhCamera.h"
 #include "yhArrghus.h"
 #include "yhCollisionManager.h"
+#include "yhBgmManager.h"
 
 namespace yh
 {
-	ArrghusScene::ArrghusScene()
+	ArrghusScene::ArrghusScene() :
+		  sound_played(false)
 	{
 	}
 	ArrghusScene::~ArrghusScene()
@@ -42,16 +44,29 @@ namespace yh
 		GetPlayer()->PixelTexture = image;
 		GetPlayer()->map_size = map_size;
 
-		boss = object::Instantiate<Arrghus>(eLayerType::Boss,Vector2(0.0f,-100.0f));
+		boss = object::Instantiate<Arrghus>(eLayerType::Boss,Vector2(0.0f,-250.0f));
 		
-		boss->PixelTexture = image;
-		boss->map_size = map_size;
+
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Boss,eLayerType::Sword,true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Boss, eLayerType::Clutch, true);
 	}
 	void ArrghusScene::Update()
 	{
+		if (!sound_played)
+		{
+			BgmManager::PlayIndexSound(BgmTypes::Boss,false);
+			sound_played = true;
+		}
+
+		
+		if (boss->GetCurPhase() == Phase::Second)
+		{
+			std::wstring map_path = MAP_PATH;
+			Texture* image = Resources::Load<Texture>(L"ArrghusScenePixelImage", map_path + L"boss_map_pixel.bmp");
+			boss->PixelTexture = image;
+			boss->map_size = map_size;
+		}
 
 		if (!GetLoaded())
 		{

@@ -5,10 +5,14 @@
 #include "yhCamera.h"
 #include "yhGanon.h"
 #include "yhInput.h"
+#include "yhTime.h"
+#include "yhZelda.h"
+#include "yhAnimator.h"
 
 namespace yh
 {
-	GanonScene::GanonScene()
+	GanonScene::GanonScene() :
+		  cur_alpha(1.0f)
 	{
 	}
 	GanonScene::~GanonScene()
@@ -26,7 +30,7 @@ namespace yh
 		PlayerTemplate::SetMapScale(map_scale);
 
 		BackGround* bg = object::Instantiate<BackGround>(eLayerType::Background, Vector2(0.0f, 0.0f));
-		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
+		bgsr = bg->AddComponent<SpriteRenderer>();
 		Texture* image = Resources::Load<Texture>(L"GanonSceneImage", map_path + L"ganon_map.bmp");
 		bgsr->SetImage(image);
 		bgsr->SetScale(map_scale);
@@ -40,6 +44,8 @@ namespace yh
 		first_talking = false;
 		second_talking = false;
 
+		zelda = object::Instantiate<Zelda>(eLayerType::NPC, Vector2(0.0f, 0.0f));
+		zelda->SetState(GameObject::eState::Pause);
 	}
 	void GanonScene::Update()
 	{
@@ -63,6 +69,8 @@ namespace yh
 		{
 			boss->GetPlayer(GetPlayer());
 			GetPlayer()->SetState(Player::PlayerState::Talking);
+			Animator* player_anim = GetPlayer()->GetComponent<Animator>();
+			player_anim->PlayAnimation(L"LinkIdleUp", false);
 			first_talking = true;
 		}
 
@@ -74,12 +82,20 @@ namespace yh
 			second_talking = true;
 		}
 
-		if (Input::GetKeyDown(eKeyCode::Z))
+
+		if (boss->GetState() == GameObject::eState::Dead)
 		{
-			int hp = boss->GetFirstHp();
-			hp--;
-			boss->SetFirstHp(hp);
+			cur_alpha -= 0.1f * Time::DeltaTime();
+			bgsr->SetAlpha(cur_alpha);
+			
 		}
+
+		if (cur_alpha <= 0.0f)
+		{
+			SceneManager::LoadScene(L"EndingScene");
+			
+		}
+
 	}
 	void GanonScene::Render(HDC hdc)
 	{

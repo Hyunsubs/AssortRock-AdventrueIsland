@@ -84,6 +84,8 @@ namespace yh
 	}
 	void ArrghusPiece::OnCollisionEnter(Collider* other)
 	{
+		if (other == nullptr)
+			return;
 		if (state == PieceState::Dead)
 			return;
 		ClutchParts* clutch = dynamic_cast<ClutchParts*>(other->GetOwner());

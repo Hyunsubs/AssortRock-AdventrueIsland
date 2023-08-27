@@ -3,6 +3,8 @@
 #include "yhSceneManager.h"
 #include "yhCollider.h"
 #include "yhPlayer.h"
+#include "yhSound.h"
+#include "yhResources.h"
 
 namespace yh
 {
@@ -11,9 +13,13 @@ namespace yh
 		, tr(nullptr)
 		, scene_name(L"")
 		, load_pos(Vector2::Zero)
+		, play_sound(false)
 	{
 		col = AddComponent<Collider>();
 		tr = GetComponent<Transform>();
+
+		wstring sound_path = SOUND_PATH;
+		puzzle_sound = Resources::Load<Sound>(L"PuzzleSolved",sound_path + L"puzzle_solved.wav");
 	}
 
 	MapChanger::~MapChanger()
@@ -38,6 +44,10 @@ namespace yh
 	{
 		Player* cur_player = dynamic_cast<Player*>(other->GetOwner());
 		Directions direct = cur_player->GetDirection();
+		if (play_sound)
+		{
+			puzzle_sound->Play(false);
+		}
 
 		std::ofstream ofs("..\\Resources\\SaveData\\PlayerDirection.txt", std::ios::out | std::ios::trunc);
 		if (ofs.fail())

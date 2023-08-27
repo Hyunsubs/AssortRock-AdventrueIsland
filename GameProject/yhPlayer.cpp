@@ -263,11 +263,11 @@ namespace yh
 
 		
 
-		if (hp <= 0)
+		/*if (hp <= 0)
 		{
 			Death();
 			is_dead = true;
-		}
+		}*/
 
 		
 	}

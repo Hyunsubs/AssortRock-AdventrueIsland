@@ -29,7 +29,7 @@ namespace yh
 
 
 	private:
-
+		class Sound* death_sound;
 		Directions direct;
 
 		MonsterState state;

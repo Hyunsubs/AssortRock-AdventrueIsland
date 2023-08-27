@@ -9,6 +9,7 @@
 #include "yhCollider.h"
 #include "yhAnimator.h"
 #include "yhInput.h"
+#include "yhSound.h"
 
 namespace yh
 {
@@ -18,6 +19,7 @@ namespace yh
 		, sr(nullptr)
 		, tr(nullptr)
 		, col(nullptr)
+		, sound_played(false)
 	{
 		tr = GetComponent<Transform>();
 		sr = AddComponent<SpriteRenderer>();
@@ -35,6 +37,9 @@ namespace yh
 		ar->SetString("YOU GOT A SWORD\nPRESS J TO ATTACK");
 		ar->PrintAsciis();
 		ar->Destroy();
+
+		wstring sound_path = SOUND_PATH;
+		get_sound = Resources::Load<Sound>(L"GetItemSound", sound_path + L"item_get.wav");
 	}
 	GroundSword::~GroundSword()
 	{
@@ -64,6 +69,12 @@ namespace yh
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
 		if (player != nullptr)
 		{
+			if (!sound_played)
+			{
+				sound_played = true;
+				get_sound->Play(false);
+			}
+
 			Animator* player_anim = player->GetComponent<Animator>();
 			player_anim->PlayAnimation(L"LinkGetItem", false);
 			player->SetState(Player::PlayerState::Talking);

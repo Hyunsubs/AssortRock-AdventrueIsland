@@ -9,6 +9,7 @@
 #include "yhStep.h"
 #include "yhMapChanger.h"
 #include "yhGreenKnight.h"
+#include "yhBgmManager.h"
 
 namespace yh
 {
@@ -16,6 +17,7 @@ namespace yh
 	InsideCastleFirst::InsideCastleFirst() :
 		  stairs({})
 		, steps({})
+		, sound_played(false)
 	{
 	}
 
@@ -78,6 +80,11 @@ namespace yh
 
 	void InsideCastleFirst::Update()
 	{
+		if (!sound_played)
+		{
+			BgmManager::PlayIndexSound(BgmTypes::Castle,true);
+			sound_played = true;
+		}
 		std::wstring map_path = MAP_PATH;
 		Texture * image;
 		if (!(GetPlayer()->GetIsDown()))

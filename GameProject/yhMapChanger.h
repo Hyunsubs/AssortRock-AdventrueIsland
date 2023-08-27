@@ -24,12 +24,17 @@ namespace yh
 		void SetLoadPos(Vector2 pos) { load_pos = pos; }
 		void SaveLoadPos(Vector2 pos);
 
+		bool play_sound;
+
 	private:
 		std::wstring scene_name;
 		Vector2 load_pos;
 
 		class Transform* tr;
 		class Collider* col;
+
+		
+		class Sound* puzzle_sound;
 
 	};
 }

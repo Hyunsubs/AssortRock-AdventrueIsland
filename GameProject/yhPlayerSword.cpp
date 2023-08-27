@@ -10,6 +10,8 @@
 #include "yhArrghus.h"
 #include "yhGanon.h"
 #include "yhChicken.h"
+#include "yhResources.h"
+#include "yhSound.h"
 
 namespace yh
 {
@@ -27,6 +29,8 @@ namespace yh
 		sword_anim->CreateAnimationFolder(L"SwordAttackRight", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Right", Vector2(15.0f, 10.0f), 0.01f);
 		sword_anim->CreateAnimationFolder(L"SwordAttackBackward", L"..\\Resources\\Image\\Player\\Link_Sword\\Sword_Attack_Backward", Vector2(0.0f, 15.0f), 0.01f);
 		
+		wstring sound_path = SOUND_PATH;
+		hit_sound = Resources::Load<Sound>(L"BossHitSound", sound_path + L"boss_hit.wav");
 	}
 	PlayerSword::~PlayerSword()
 	{
@@ -111,6 +115,7 @@ namespace yh
 		ArrghusPiece* ap = dynamic_cast<ArrghusPiece*>(other->GetOwner());
 		if (ap != nullptr)
 		{
+			hit_sound->Play(false);
 			if (ap->GetPieceState() == PieceState::Grapped)
 			{
 				int hp = ap->GetHp();
@@ -155,6 +160,7 @@ namespace yh
 		Arrghus* arrghus = dynamic_cast<Arrghus*>(other->GetOwner());
 		if (arrghus != nullptr)
 		{
+			hit_sound->Play(false);
 			if (arrghus->GetCurPhase() == Phase::Second)
 			{
 				int hp = arrghus->GetHp();
@@ -167,6 +173,7 @@ namespace yh
 		Ganon* ganon = dynamic_cast<Ganon*>(other->GetOwner());
 		if (ganon != nullptr)
 		{
+			hit_sound->Play(false);
 			if (ganon->GetCurPhase() == CurrentPhase::First)
 			{
 				int first_hp = ganon->GetFirstHp();

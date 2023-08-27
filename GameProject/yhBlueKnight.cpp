@@ -8,6 +8,7 @@
 #include "yhPlayer.h"
 #include "yhObject.h"
 #include "yhArrowProjectile.h"
+#include "yhSound.h"
 
 namespace yh
 {
@@ -40,6 +41,9 @@ namespace yh
 		anim->SetScale(Vector2::Double);
 		SetHp(2);
 
+		wstring sound_path = SOUND_PATH;
+		death_sound = Resources::Load<Sound>(L"DeadSound", sound_path + L"break.wav");
+
 	}
 	BlueKnight::~BlueKnight()
 	{
@@ -55,6 +59,7 @@ namespace yh
 		if (hp <= 0 && state != MonsterState::Death)
 		{
 			anim->PlayAnimation(L"BnDeath", false);
+			death_sound->Play(false);
 			state = MonsterState::Death;
 		}
 

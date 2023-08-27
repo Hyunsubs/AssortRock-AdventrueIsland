@@ -13,6 +13,7 @@
 #include "yhTime.h"
 #include "yhPlayer.h"
 #include "yhGanonFireBats.h"
+#include "yhSound.h"
 
 namespace yh
 {
@@ -57,6 +58,11 @@ namespace yh
 		anim->PlayAnimation(L"GanonPreparing", false);
 		col->SetSize(Vector2(60.0f, 70.0f));
 
+		wstring sound_path = SOUND_PATH;
+
+		talking_sound = Resources::Load<Sound>(L"GanonTalking", sound_path + L"ganon_talking.wav");
+		fight_sound = Resources::Load<Sound>(L"GanonFight", sound_path + L"ganon_fight.wav");
+		die_sound = Resources::Load<Sound>(L"GanonDied", sound_path + L"ganon_died.wav");
 
 		//가논 랜덤위치
 		FirstPhasePos[0] = Vector2(-155.0f, 60.0f);
@@ -113,6 +119,8 @@ namespace yh
 		{
 			cur_phase = CurrentPhase::Third;
 			third_phase = ThirdPhase::Death;
+			fight_sound->Stop(true);
+			die_sound->Play(false);
 			anim->PlayAnimation(L"GanonDeadAnim", false);
 			third_on = true;
 		}
@@ -307,6 +315,12 @@ namespace yh
 	}
 	void Ganon::FirstTalking()
 	{
+		if (!talking_sound_played)
+		{
+			talking_sound->Play(false);
+			talking_sound_played = true;
+		}
+
 		Transform* text_tr = first_dialogue[idx]->GetComponent<Transform>();
 		text_tr->SetPosition(Camera::CalculateUIPosition(Vector2(256.0f, 400.0f)));
 
@@ -325,6 +339,8 @@ namespace yh
 				player->SetState(Player::PlayerState::Idle);
 				cur_phase = CurrentPhase::First;
 				first_phase = FirstPhase::Throwing;
+				talking_sound->Stop(true);
+				fight_sound->Play(true);
 			}
 		}
 	}

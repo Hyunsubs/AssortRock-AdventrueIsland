@@ -21,7 +21,13 @@ namespace yh
 		Vector2 map_size;
 
 		class Ganon* boss;
+		class Zelda* zelda;
 		bool first_talking;
 		bool second_talking;
+
+		class SpriteRenderer* bgsr;
+		class Sound* end_sound;
+
+		float cur_alpha;
 	};
 }

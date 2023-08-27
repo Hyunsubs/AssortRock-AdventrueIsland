@@ -21,12 +21,15 @@
 #include "yhArrghus.h"
 #include "yhHeartContainer.h"
 #include "yhChicken.h"
+#include "yhSound.h"
+#include "yhBgmManager.h"
 
 namespace yh
 {
 	House::House() :
 		  grass_manager({})
 		, heart_found(false)
+		, sound_played(false)
 	{
 	}
 	House::~House()
@@ -129,10 +132,19 @@ namespace yh
 		chic = object::Instantiate<Chicken>(eLayerType::Chicken, Vector2(10.0f, 10.0f));
 		chic->PixelTexture = image;
 		chic->map_size = map_size;
+		
+		wstring sound_path = SOUND_PATH;
+
+
 	}
 
 	void House::Update()
 	{
+		if (!sound_played)
+		{
+			BgmManager::PlayIndexSound(BgmTypes::Main,true);
+			sound_played = true;
+		}
 
 		Vector2 map_size = Vector2(512.0f, 512.0f);
 		

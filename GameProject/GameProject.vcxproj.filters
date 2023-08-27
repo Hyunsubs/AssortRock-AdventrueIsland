@@ -106,6 +106,9 @@
     <Filter Include="Contents\GameObject\BossMonster">
       <UniqueIdentifier>{00440ee3-172c-472e-8823-3f0cf75e9dfb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Sound">
+      <UniqueIdentifier>{74df6684-4c5d-4e18-bab6-39f925863f1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -381,6 +384,15 @@
     <ClInclude Include="yhBatsFlame.h">
       <Filter>Contents\GameObject\BossMonster</Filter>
     </ClInclude>
+    <ClInclude Include="yhBgmManager.h">
+      <Filter>Contents\GameObject\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="yhZelda.h">
+      <Filter>Contents\GameObject\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="yhEndingScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameProject.ico">
@@ -651,6 +663,15 @@
     </ClCompile>
     <ClCompile Include="yhBatsFlame.cpp">
       <Filter>Contents\GameObject\BossMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="yhBgmManager.cpp">
+      <Filter>Contents\GameObject\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="yhZelda.cpp">
+      <Filter>Contents\GameObject\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="yhEndingScene.cpp">
+      <Filter>Contents\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -22,6 +22,8 @@ namespace yh
 		Vector2 map_pos;
 		Vector2 map_scale;
 		Vector2 map_size;
+
+		bool sound_played;
 	};
 }
 

@@ -120,6 +120,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -148,6 +151,7 @@
     <ClInclude Include="yhBackGroundAnimation.h" />
     <ClInclude Include="yhBasicUITemplate.h" />
     <ClInclude Include="yhBatsFlame.h" />
+    <ClInclude Include="yhBgmManager.h" />
     <ClInclude Include="yhBlueKnight.h" />
     <ClInclude Include="yhBomb.h" />
     <ClInclude Include="yhBoomerang.h" />
@@ -160,6 +164,7 @@
     <ClInclude Include="yhComponent.h" />
     <ClInclude Include="yhCurItem.h" />
     <ClInclude Include="yhEmptyGrass.h" />
+    <ClInclude Include="yhEndingScene.h" />
     <ClInclude Include="yhGanon.h" />
     <ClInclude Include="yhGanonFireBats.h" />
     <ClInclude Include="yhGanonScene.h" />
@@ -220,6 +225,7 @@
     <ClInclude Include="yhToolScene.h" />
     <ClInclude Include="yhTransform.h" />
     <ClInclude Include="yhWall.h" />
+    <ClInclude Include="yhZelda.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -237,6 +243,7 @@
     <ClCompile Include="yhBackGroundAnimation.cpp" />
     <ClCompile Include="yhBasicUITemplate.cpp" />
     <ClCompile Include="yhBatsFlame.cpp" />
+    <ClCompile Include="yhBgmManager.cpp" />
     <ClCompile Include="yhBlueKnight.cpp" />
     <ClCompile Include="yhBomb.cpp" />
     <ClCompile Include="yhBoomerang.cpp" />
@@ -249,6 +256,7 @@
     <ClCompile Include="yhComponent.cpp" />
     <ClCompile Include="yhCurItem.cpp" />
     <ClCompile Include="yhEmptyGrass.cpp" />
+    <ClCompile Include="yhEndingScene.cpp" />
     <ClCompile Include="yhGanon.cpp" />
     <ClCompile Include="yhGanonFireBats.cpp" />
     <ClCompile Include="yhGanonScene.cpp" />
@@ -308,6 +316,7 @@
     <ClCompile Include="yhToolScene.cpp" />
     <ClCompile Include="yhTransform.cpp" />
     <ClCompile Include="yhWall.cpp" />
+    <ClCompile Include="yhZelda.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameProject.rc" />

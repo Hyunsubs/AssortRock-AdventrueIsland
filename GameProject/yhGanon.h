@@ -129,6 +129,12 @@ namespace yh
 
 		float make_bats;
 		int max_bats;
+
+		class Sound* talking_sound;
+		class Sound* fight_sound;
+		class Sound* die_sound;
+
+		bool talking_sound_played;
 	};
 }
 

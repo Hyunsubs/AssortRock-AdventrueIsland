@@ -166,6 +166,8 @@ namespace yh
 
 	void Chicken::OnCollisionEnter(Collider* other)
 	{
+		if (other == nullptr)
+			return;
 		PlayerSword* sword = dynamic_cast<PlayerSword*>(other->GetOwner());
 		if (sword != nullptr)
 		{

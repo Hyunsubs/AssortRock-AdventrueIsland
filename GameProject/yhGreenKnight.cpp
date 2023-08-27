@@ -5,6 +5,8 @@
 #include "yhCollider.h"
 #include "yhPlayer.h"
 #include "yhTime.h"
+#include "yhSound.h"
+#include "yhResources.h"
 
 namespace yh
 {
@@ -16,6 +18,7 @@ namespace yh
 		, is_chasing(false)
 		, is_Wall(false)
 		, hp(2)
+		, death_sound(nullptr)
 
 	{
 		std::wstring monster_path = MONSTER_PATH;
@@ -51,6 +54,9 @@ namespace yh
 		anim->CreateAnimationFolder(L"GnDeath", monster_path + L"GreenKnight\\Dead",Vector2::Zero, 0.3f);
 
 		anim->PlayAnimation(L"GnMovingBack", false);
+
+		wstring sound_path = SOUND_PATH;
+		death_sound = Resources::Load<Sound>(L"DeadSound", sound_path + L"break.wav");
 	}
 	GreenKnight::~GreenKnight()
 	{
@@ -67,6 +73,7 @@ namespace yh
 		if (hp <= 0 && state != MonsterState::Death)
 		{
 			anim->PlayAnimation(L"GnDeath", false);
+			death_sound->Play(false);
 			state = MonsterState::Death;
 		}
 			
@@ -239,7 +246,10 @@ namespace yh
 	void GreenKnight::Death()
 	{
 		if (anim->IsActiveAnimationComplete())
+		{
 			Destroy(this);
+		}
+			
 	}
 
 	void GreenKnight::Falling()

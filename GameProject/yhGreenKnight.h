@@ -49,6 +49,8 @@ namespace yh
 		class Animator* anim;
 		class Collider* col;
 		class Transform* tr;
+		class Sound* death_sound;
+
 		MonsterState state;
 		Directions direction;
 
@@ -56,7 +58,7 @@ namespace yh
 		float moving_time;
 		bool is_Wall;
 		bool is_chasing;
-	
+		
 		int hp;
 	};
 }

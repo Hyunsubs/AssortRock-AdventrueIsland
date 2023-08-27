@@ -23,6 +23,7 @@ namespace yh
 
 		vector<class Grass*> grass_manager;
 		bool heart_found;
+		bool sound_played;
 	};
 }
 

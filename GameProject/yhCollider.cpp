@@ -54,9 +54,9 @@ namespace yh
 
 		HPEN oldPen = (HPEN)SelectObject(hdc, pen);
 
-		Rectangle(hdc
-			, pos.x, pos.y
-			, pos.x + mSize.x, pos.y + mSize.y);
+		//Rectangle(hdc
+		//	, pos.x, pos.y
+		//	, pos.x + mSize.x, pos.y + mSize.y);
 
 		SelectObject(hdc, oldBrush);
 		DeleteObject(transparentBrush);
